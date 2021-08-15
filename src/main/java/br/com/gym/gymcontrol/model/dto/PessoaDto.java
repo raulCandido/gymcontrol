@@ -1,6 +1,6 @@
 package br.com.gym.gymcontrol.model.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.TipoPessoa;
@@ -10,7 +10,7 @@ public class PessoaDto {
     private String nome;
     private String alcunha;
     private TipoPessoa tipoPessoa;
-    private Date dataNascimento; 
+    private LocalDate dataNascimento; 
 
     public PessoaDto() {
     }
@@ -30,11 +30,11 @@ public class PessoaDto {
 	this.nome = nome;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

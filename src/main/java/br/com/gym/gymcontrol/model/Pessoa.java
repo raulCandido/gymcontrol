@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -10,9 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -25,20 +24,21 @@ public class Pessoa implements Serializable {
 
     @NotEmpty(message = "Campo obrigatório")
     private String nome;
-    
+
     @NotEmpty(message = "Campo obrigatório")
     private String alcunha;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataNascimento;
+    @NotNull(message = "Campo obrigatório")
+    private LocalDate dataNascimento;
 
+    @NotNull(message = "Campo obrigatório")
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
-    
+
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String alcunha, Date dataNascimento, TipoPessoa tipoPessoa) {
+    public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
 	super();
 	this.nome = nome;
 	this.alcunha = alcunha;
@@ -74,7 +74,7 @@ public class Pessoa implements Serializable {
 	this.nome = nome;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
 	return dataNascimento;
     }
 
@@ -82,7 +82,7 @@ public class Pessoa implements Serializable {
 	this.tipoPessoa = tipoPessoa;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
 	this.dataNascimento = dataNascimento;
     }
 
