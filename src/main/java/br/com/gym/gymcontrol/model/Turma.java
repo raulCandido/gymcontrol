@@ -4,9 +4,20 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
+@Entity
 public class Turma implements Serializable {
 
     /**
@@ -14,12 +25,24 @@ public class Turma implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotEmpty(message = "Nome obrigatório")
     private String nome;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private Professor professor;
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "turma_aluno", joinColumns = {@JoinColumn(name = "turma_id") }, inverseJoinColumns = { @JoinColumn(name = "aluno_id") })
     private List<Aluno> alunos;
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
 
     public Long getId() {

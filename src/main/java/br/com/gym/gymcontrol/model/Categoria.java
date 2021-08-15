@@ -4,15 +4,37 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+@Entity
 public class Categoria implements Serializable {
 
     /**
      * @author raul
      */
     private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotEmpty(message = "Nome da categoria obrigatório")
     private String nomeCategoria;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "categoria")
     private List<Turma> turmas;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "professor_categoria", joinColumns = {@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
     private List<Professor> professores;
 
     public List<Professor> getProfessores() {

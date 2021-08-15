@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -23,12 +24,14 @@ public class Professor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @NotEmpty(message = "Nome Obrigátorio")
     private String nome;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor")
     private List<Turma> turmas;
-    
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "professores")
     private List<Categoria> categorias;
 
     public Long getId() {
