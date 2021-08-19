@@ -28,7 +28,6 @@ public class ErrorValidationHandler {
 	for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
 	    error.addError(fieldError.getField(), fieldError.getDefaultMessage());
 	}
-
 	return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     }
     

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.dto.PessoaDto;
+import br.com.gym.gymcontrol.model.form.PessoaForm;
 import br.com.gym.gymcontrol.service.PessoaService;
 
 @RestController()
@@ -41,9 +41,9 @@ public class PessoaResource {
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaDto pessoaDto, UriComponentsBuilder builder) {
-	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaDto.getNome(), pessoaDto.getAlcunha(),
-		pessoaDto.getDataNascimento(), pessoaDto.getTipoPessoa()));
+    public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaForm pessoaForm, UriComponentsBuilder builder) {
+	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm.getNome(), pessoaForm.getAlcunha(),
+		pessoaForm.getDataNascimento(), pessoaForm.getTipoPessoa()));
 	URI uri = builder.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
 	return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
     }

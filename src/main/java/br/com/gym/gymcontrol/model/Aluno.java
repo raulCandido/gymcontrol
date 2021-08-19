@@ -14,9 +14,6 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Aluno implements Serializable {
 
-    /**
-     * @author raul
-     */
     private static final long serialVersionUID = 1L;
 
     @Id
