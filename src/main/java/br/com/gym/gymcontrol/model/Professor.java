@@ -24,7 +24,7 @@ public class Professor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotEmpty(message = "Nome Obrigátorio")
     private String nome;
 

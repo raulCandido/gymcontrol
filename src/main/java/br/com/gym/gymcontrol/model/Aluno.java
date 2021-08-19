@@ -1,8 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Aluno implements Serializable {
