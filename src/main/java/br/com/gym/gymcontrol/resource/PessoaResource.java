@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,11 +33,9 @@ public class PessoaResource {
 
     //paginando
     @GetMapping
-    public ResponseEntity<Page<PessoaDto>> getPessoas(@RequestParam int pagina, @RequestParam int quantidade) {
+    public ResponseEntity<Page<PessoaDto>> getPessoas(@PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
 	
-	Pageable page = PageRequest.of(pagina, quantidade);
-	
-	Page<Pessoa> pessoas = pessoaService.getPessoas(page);
+	Page<Pessoa> pessoas = pessoaService.getPessoas(paginacao);
 	Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
 	return ResponseEntity.ok(pessoasDto);
     }
