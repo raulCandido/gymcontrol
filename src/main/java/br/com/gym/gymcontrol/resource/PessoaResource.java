@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +30,14 @@ public class PessoaResource {
     @Autowired
     private PessoaService pessoaService;
 
+    //paginando
     @GetMapping
-    public ResponseEntity<List<PessoaDto>> getPessoas() {
-	List<Pessoa> pessoas = pessoaService.getPessoas();
-	List<PessoaDto> pessoasDto = pessoaService.converterPessoasEmPessoasDto(pessoas);
+    public ResponseEntity<Page<PessoaDto>> getPessoas(@RequestParam int pagina, @RequestParam int quantidade) {
+	
+	Pageable page = PageRequest.of(pagina, quantidade);
+	
+	Page<Pessoa> pessoas = pessoaService.getPessoas(page);
+	Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
 	return ResponseEntity.ok(pessoasDto);
     }
 
@@ -51,8 +58,8 @@ public class PessoaResource {
 
     @GetMapping(params = "nome")
     public ResponseEntity<List<PessoaDto>> buscarPessoaPorNome(@RequestParam(name = "nome") String nome) {
-	List<Pessoa> pessoa = pessoaService.buscarPessoaPorNome(nome);
-	List<PessoaDto> pessoasDto = pessoaService.converterPessoasEmPessoasDto(pessoa);
+	List<Pessoa> pessoas = pessoaService.buscarPessoaPorNome(nome);
+	List<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
 	return ResponseEntity.ok(pessoasDto);
     }
 }

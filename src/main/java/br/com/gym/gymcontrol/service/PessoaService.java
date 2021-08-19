@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +20,12 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public List<Pessoa> getPessoas() {
-	return pessoaRepository.findAll();
+    public Page<Pessoa> getPessoas(Pageable page) {
+	return pessoaRepository.findAll(page);
     }
 
     public Pessoa inserirPessoa(Pessoa pessoa) {
 	return pessoaRepository.save(pessoa);
-    }
-
-    public List<PessoaDto> converterPessoasEmPessoasDto(List<Pessoa> pessoas) {
-	return pessoas.stream().map(pessoa -> new PessoaDto(pessoa)).collect(Collectors.toList());
     }
 
     public Pessoa buscarPessoaPorId(Long id) {

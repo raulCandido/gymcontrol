@@ -25,15 +25,9 @@ public class Aluno implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "alunos")
     private List<Turma> turmas;
-    
-    @NotNull(message = "Data obrigatória")
-    private LocalDate data;
-    
-    @NotNull(message = "Data obrigatória")
-    private Time horario;
 
     public Long getId() {
 	return id;
@@ -49,22 +43,6 @@ public class Aluno implements Serializable {
 
     public void setTurmas(List<Turma> turmas) {
 	this.turmas = turmas;
-    }
-
-    public LocalDate getData() {
-	return data;
-    }
-
-    public void setData(LocalDate data) {
-	this.data = data;
-    }
-
-    public Time getHorario() {
-	return horario;
-    }
-
-    public void setHorario(Time horario) {
-	this.horario = horario;
     }
 
     @Override

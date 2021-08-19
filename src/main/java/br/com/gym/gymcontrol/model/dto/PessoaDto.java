@@ -1,6 +1,10 @@
 package br.com.gym.gymcontrol.model.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.TipoPessoa;
@@ -22,6 +26,14 @@ public class PessoaDto {
 	this.dataNascimento = pessoa.getDataNascimento();
     }
 
+    public static Page<PessoaDto> converterPessoasEmPessoasDto(Page<Pessoa> pessoas) {
+	return pessoas.map(PessoaDto::new);
+    }
+    
+    public static List<PessoaDto> converterPessoasEmPessoasDto(List<Pessoa> pessoas) {
+  	return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
+      }
+    
     public String getNome() {
 	return nome;
     }
