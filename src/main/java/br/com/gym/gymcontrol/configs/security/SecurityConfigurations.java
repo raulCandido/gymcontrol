@@ -17,11 +17,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	// TODO Auto-generated method stub
     }
 
-    //configurar autorizacao
+    //configurar autorizacao --por padrao qualquer recurso nao explicitado na config fica bloqueado
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	//config de endpoints e metodos que podem ser liberados
-	http.authorizeRequests().antMatchers("/pessoas").permitAll();
+	http.authorizeRequests().antMatchers("pessoas").permitAll();
     }
 
     //configuracao de recursos estaticos como css/js/imagens

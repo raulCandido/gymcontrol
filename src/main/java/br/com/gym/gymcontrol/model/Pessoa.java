@@ -22,16 +22,16 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Campo obrigatório")
+    @NotEmpty()
     private String nome;
 
-    @NotEmpty(message = "Campo obrigatório")
+    @NotEmpty()
     private String alcunha;
 
-    @NotNull(message = "Campo obrigatório")
+    @NotNull()
     private LocalDate dataNascimento;
 
-    @NotNull(message = "Campo obrigatório")
+    @NotNull()
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
 

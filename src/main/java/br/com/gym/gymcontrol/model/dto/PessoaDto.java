@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.domain.Page;
 
 import br.com.gym.gymcontrol.model.Pessoa;
@@ -11,9 +14,14 @@ import br.com.gym.gymcontrol.model.TipoPessoa;
 
 public class PessoaDto {
 
+    @NotEmpty(message = "Nome obrigatório")
     private String nome;
+    @NotEmpty(message = "Alcunha obrigatório")
     private String alcunha;
+    @NotNull(message = "Tipo obrigatório")
     private TipoPessoa tipoPessoa;
+    
+    @NotNull(message = "Data de nascimento obrigatório")
     private LocalDate dataNascimento; 
 
     public PessoaDto() {
