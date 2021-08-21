@@ -34,8 +34,7 @@ public class PessoaController {
 
     // paginando
     @GetMapping
-    public ResponseEntity<Page<PessoaDto>> getPessoas(
-	    @PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
+    public ResponseEntity<Page<PessoaDto>> getPessoas(@PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
 
 	Page<Pessoa> pessoas = pessoaService.getPessoas(paginacao);
 	Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
@@ -45,8 +44,7 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaForm pessoaForm,
 	    UriComponentsBuilder builder) {
-	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm.getNome(), pessoaForm.getAlcunha(),
-		pessoaForm.getDataNascimento(), pessoaForm.getTipoPessoa()));
+	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm));
 	URI uri = builder.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
 	return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
     }

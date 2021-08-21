@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -30,24 +27,12 @@ public class Categoria implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "categoria")
     private List<Turma> turmas;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "professor_categoria", joinColumns = {@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
-    private List<Professor> professores;
     
     public Categoria(String nomeCategoria) {
 	this.nomeCategoria = nomeCategoria;
     }
     
     public Categoria() {
-    }
-
-    public List<Professor> getProfessores() {
-	return professores;
-    }
-
-    public void setProfessores(List<Professor> professores) {
-	this.professores = professores;
     }
 
     public long getId() {

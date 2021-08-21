@@ -24,13 +24,13 @@ public class Aula implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Turma turma;
-    
+
     @NotNull(message = "Data da aula obrigatória")
     private LocalDate data;
-    
+
     @NotNull(message = "Horario da aula obrigatório")
     private Time horario;
 
