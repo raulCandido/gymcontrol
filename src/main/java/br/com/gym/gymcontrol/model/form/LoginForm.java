@@ -10,7 +10,7 @@ public class LoginForm {
     private String email;
     @NotEmpty(message = "E-mail obrigatório")
     private String senha;
-    
+
     public String getEmail() {
 	return email;
     }

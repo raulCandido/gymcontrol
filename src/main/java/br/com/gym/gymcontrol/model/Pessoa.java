@@ -10,8 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -20,20 +19,19 @@ public class Pessoa implements Serializable {
 
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
-    @NotEmpty()
-    private String nome;
+    protected String nome;
 
-    @NotEmpty()
-    private String alcunha;
+    protected String alcunha;
 
-    @NotNull()
-    private LocalDate dataNascimento;
+    protected LocalDate dataNascimento;
 
-    @NotNull()
     @Enumerated(EnumType.STRING)
-    private TipoPessoa tipoPessoa;
+    protected TipoPessoa tipoPessoa;
+    
+    @OneToOne(mappedBy = "pessoa")
+    private Usuario usuario;
 
     public Pessoa() {
     }
@@ -101,6 +99,14 @@ public class Pessoa implements Serializable {
 	    return false;
 	Pessoa other = (Pessoa) obj;
 	return Objects.equals(id, other.id);
+    }
+
+    public Usuario getUsuario() {
+	return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+	this.usuario = usuario;
     }
 
 }

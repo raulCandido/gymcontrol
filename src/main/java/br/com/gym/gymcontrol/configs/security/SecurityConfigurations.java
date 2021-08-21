@@ -19,11 +19,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthService authService;
-    
+
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
+	return super.authenticationManager();
     }
 
     // configurar autenticacao
@@ -41,6 +41,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/pessoas").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.antMatchers(HttpMethod.GET, "/pessoas/*").permitAll()
+		.antMatchers(HttpMethod.POST, "/pessoas").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/pessoas/*").permitAll()
+		.antMatchers(HttpMethod.POST, "/alunos").permitAll()
 		.anyRequest().authenticated().and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa disso.
 		.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

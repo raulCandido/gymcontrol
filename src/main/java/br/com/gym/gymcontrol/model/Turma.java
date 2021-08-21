@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Turma implements Serializable {
 
@@ -24,24 +26,26 @@ public class Turma implements Serializable {
      * @author raul
      */
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotEmpty(message = "Nome obrigatório")
     private String nome;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Professor professor;
-    
+
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "turma_aluno", joinColumns = {@JoinColumn(name = "turma_id") }, inverseJoinColumns = { @JoinColumn(name = "aluno_id") })
+    @JoinTable(name = "turma_aluno", joinColumns = { @JoinColumn(name = "turma_id") }, inverseJoinColumns = {
+	    @JoinColumn(name = "aluno_id") })
     private List<Aluno> alunos;
-    
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
 

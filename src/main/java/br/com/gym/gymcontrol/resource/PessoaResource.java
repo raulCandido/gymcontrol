@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,17 +32,19 @@ public class PessoaResource {
     @Autowired
     private PessoaService pessoaService;
 
-    //paginando
+    // paginando
     @GetMapping
-    public ResponseEntity<Page<PessoaDto>> getPessoas(@PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
-	
+    public ResponseEntity<Page<PessoaDto>> getPessoas(
+	    @PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
+
 	Page<Pessoa> pessoas = pessoaService.getPessoas(paginacao);
 	Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
 	return ResponseEntity.ok(pessoasDto);
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaForm pessoaForm, UriComponentsBuilder builder) {
+    public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaForm pessoaForm,
+	    UriComponentsBuilder builder) {
 	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm.getNome(), pessoaForm.getAlcunha(),
 		pessoaForm.getDataNascimento(), pessoaForm.getTipoPessoa()));
 	URI uri = builder.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
@@ -61,4 +64,12 @@ public class PessoaResource {
 	List<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
 	return ResponseEntity.ok(pessoasDto);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
+	Pessoa pessoa = pessoaService.buscarPessoaPorId(id);
+	pessoaService.deletarPessoa(pessoa);
+	return ResponseEntity.ok().build();
+    }
+
 }

@@ -35,52 +35,52 @@ public class Professor implements Serializable {
     private List<Categoria> categorias;
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public List<Categoria> getCategorias() {
-	return categorias;
+        return categorias;
     }
 
     public void setCategorias(List<Categoria> categorias) {
-	this.categorias = categorias;
+        this.categorias = categorias;
     }
 
     public List<Turma> getTurmas() {
-	return turmas;
+        return turmas;
     }
 
     public void setTurmas(List<Turma> turmas) {
-	this.turmas = turmas;
+        this.turmas = turmas;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Professor other = (Professor) obj;
-	return Objects.equals(id, other.id);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Professor other = (Professor) obj;
+        return Objects.equals(id, other.id);
     }
 
 }

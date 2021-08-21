@@ -12,21 +12,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class TokenService {
-    
+
     @Value("${origens.jwt.expiration}")
     private String tempoExpiracao;
-    
+
     @Value("${origens.jwt.secret}")
     private String secret;
 
     public String gerarToken(Authentication authenticate) {
 	Usuario usuario = (Usuario) authenticate.getPrincipal();
-	
+
 	Date dataCriacaoToken = new Date();
 	Date dataExpiracaoToken = new Date(dataCriacaoToken.getTime() + Long.parseLong(tempoExpiracao));
-	
-	return Jwts.builder()
-		.setIssuer("API Origens BJJ") // Noem da app quando o cliente for gerar token
+
+	return Jwts.builder().setIssuer("API Origens BJJ") // Noem da app quando o cliente for gerar token
 		.setSubject(usuario.getId().toString()) // passando identificador unico de usuario do token gerado
 		.setIssuedAt(dataCriacaoToken) // data de criacao do token
 		.setExpiration(dataExpiracaoToken) // data de expiracao do token

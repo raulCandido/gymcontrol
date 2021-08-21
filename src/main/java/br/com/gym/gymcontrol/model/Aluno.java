@@ -1,36 +1,28 @@
 package br.com.gym.gymcontrol.model;
 
-import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Aluno implements Serializable {
+public class Aluno extends Pessoa {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "alunos")
     private List<Turma> turmas;
-
-    public Long getId() {
-	return id;
+    
+    public Aluno(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
+	this.nome = nome;
+	this.alcunha = alcunha;
+	this.dataNascimento = dataNascimento;
+	this.tipoPessoa = tipoPessoa;
     }
-
-    public void setId(Long id) {
-	this.id = id;
-    }
-
+    
     public List<Turma> getTurmas() {
 	return turmas;
     }

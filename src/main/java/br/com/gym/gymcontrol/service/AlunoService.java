@@ -18,6 +18,10 @@ public class AlunoService {
 	return alunoRepository.findAll();
     }
 
+    public Aluno inserirAluno(Aluno aluno) {
+	return alunoRepository.save(aluno);
+    }
+
 
 
 }

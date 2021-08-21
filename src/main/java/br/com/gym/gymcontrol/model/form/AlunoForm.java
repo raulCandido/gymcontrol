@@ -1,23 +1,31 @@
-package br.com.gym.gymcontrol.model.dto;
+package br.com.gym.gymcontrol.model.form;
 
 import java.time.LocalDate;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.TipoPessoa;
 
-public class AlunoDto {
+public class AlunoForm {
 
+    @NotEmpty(message = "Nome obrigatório")
     private String nome;
+
+    @NotEmpty(message = "Alcunha obrigatório")
     private String alcunha;
+
+    @NotNull(message = "Data de nascimento obrigatória")
     private LocalDate dataNascimento;
+
+    @NotNull(message = "Tipo obrigatório")
+    @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
 
-    public AlunoDto(Aluno aluno) {
-	super();
-	this.nome = aluno.getNome();
-	this.alcunha = aluno.getAlcunha();
-	this.dataNascimento = aluno.getDataNascimento();
-	this.tipoPessoa = aluno.getTipoPessoa();
+    public AlunoForm() {
     }
 
     public String getNome() {
@@ -50,6 +58,10 @@ public class AlunoDto {
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
 	this.tipoPessoa = tipoPessoa;
+    }
+
+    public Aluno converterParaPessoa() {
+	return new Aluno(this.nome, this.alcunha, this.dataNascimento, this.tipoPessoa);
     }
 
 }
