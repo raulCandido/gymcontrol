@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Categoria implements Serializable {
@@ -27,7 +26,6 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty(message = "Nome da categoria obrigatório")
     private String nomeCategoria;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "categoria")
@@ -36,6 +34,13 @@ public class Categoria implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "professor_categoria", joinColumns = {@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
     private List<Professor> professores;
+    
+    public Categoria(String nomeCategoria) {
+	this.nomeCategoria = nomeCategoria;
+    }
+    
+    public Categoria() {
+    }
 
     public List<Professor> getProfessores() {
 	return professores;

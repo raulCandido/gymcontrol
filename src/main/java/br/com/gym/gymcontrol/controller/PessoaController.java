@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.resource;
+package br.com.gym.gymcontrol.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -27,7 +27,7 @@ import br.com.gym.gymcontrol.service.PessoaService;
 
 @RestController()
 @RequestMapping("/pessoas")
-public class PessoaResource {
+public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;

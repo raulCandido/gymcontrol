@@ -7,6 +7,7 @@ import br.com.gym.gymcontrol.model.TipoPessoa;
 
 public class AlunoDto {
 
+    private Long id;
     private String nome;
     private String alcunha;
     private LocalDate dataNascimento;
@@ -14,6 +15,7 @@ public class AlunoDto {
 
     public AlunoDto(Aluno aluno) {
 	super();
+	this.id = aluno.getId();
 	this.nome = aluno.getNome();
 	this.alcunha = aluno.getAlcunha();
 	this.dataNascimento = aluno.getDataNascimento();
@@ -50,6 +52,14 @@ public class AlunoDto {
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
 	this.tipoPessoa = tipoPessoa;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
     }
 
 }

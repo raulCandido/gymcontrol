@@ -31,7 +31,7 @@ public class Pessoa implements Serializable {
     protected TipoPessoa tipoPessoa;
     
     @OneToOne(mappedBy = "pessoa")
-    private Usuario usuario;
+    protected Usuario usuario;
 
     public Pessoa() {
     }

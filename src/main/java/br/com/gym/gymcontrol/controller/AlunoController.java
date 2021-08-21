@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.resource;
+package br.com.gym.gymcontrol.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -23,31 +23,31 @@ import br.com.gym.gymcontrol.service.AlunoService;
 
 @RestController
 @RequestMapping("/alunos")
-public class AlunoResource {
+public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
 
     @GetMapping
     public ResponseEntity<List<Aluno>> getAlunos() {
-	List<Aluno> alunos = alunoService.buscarAlunos();
-	return ResponseEntity.ok(alunos);
+        List<Aluno> alunos = alunoService.buscarAlunos();
+        return ResponseEntity.ok(alunos);
     }
 
     @PostMapping
     public ResponseEntity<AlunoDto> setAlunos(@RequestBody @Valid AlunoForm alunoForm, UriComponentsBuilder builder) {
-	Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa()); 
-	URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
-	return ResponseEntity.created(uri).body(new AlunoDto(aluno));
+        Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa());
+        URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
+        return ResponseEntity.created(uri).body(new AlunoDto(aluno));
     }
 
     @PutMapping
     public ResponseEntity<Aluno> editAlunos() {
-	return null;
+        return null;
     }
 
     @DeleteMapping
     public ResponseEntity<Aluno> deletAlunos() {
-	return null;
+        return null;
     }
 }

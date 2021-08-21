@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.resource;
+package br.com.gym.gymcontrol.controller;
 
 import javax.validation.Valid;
 
@@ -19,29 +19,29 @@ import br.com.gym.gymcontrol.service.TokenService;
 
 @RequestMapping("/login")
 @RestController
-public class LoginResource {
+public class LoginController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private TokenService tokenService;
 
     @PostMapping
     public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm loginForm) {
-	UsernamePasswordAuthenticationToken login = loginForm.converter();
+        UsernamePasswordAuthenticationToken login = loginForm.converter();
 
-	try {
-	    Authentication authenticate = authenticationManager.authenticate(login);
-	    
-	    String token = tokenService.gerarToken(authenticate);
-	    
-	    return ResponseEntity.ok(new TokenDto(token, "Bearer"));
-	} catch (AuthenticationException e) {
-	    e.printStackTrace();
-	    return ResponseEntity.badRequest().build();
+        try {
+            Authentication authenticate = authenticationManager.authenticate(login);
 
-	}
+            String token = tokenService.gerarToken(authenticate);
+
+            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+
+        }
 
     }
 }

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
+import br.com.gym.gymcontrol.model.Turma;
 
 public class TurmaForm {
 
@@ -22,6 +23,10 @@ public class TurmaForm {
 	this.nome = nome;
 	this.categoria = categoria;
 	this.professor = professor;
+    }
+
+    public Turma converterEmTurma() {
+	return new Turma(nome, categoria, professor);
     }
 
 }

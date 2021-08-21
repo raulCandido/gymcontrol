@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.repository.TurmaRepository;
 
+import java.util.List;
+
 @Service
 public class TurmaService {
 
@@ -14,5 +16,8 @@ public class TurmaService {
     
     public Turma cadastrarTurma(Turma turma) {
 	return turmaRepository.save(turma);
+    }
+    public List<Turma> getTurmas(){
+        return turmaRepository.findAll();
     }
 }

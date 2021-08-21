@@ -32,13 +32,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	auth.userDetailsService(authService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    // configurar autorizacao --por padrao qualquer recurso nao explicitado na
-    // config fica bloqueado
+    // configurar autorizacao --por padrao qualquer recurso nao explicitado na config fica bloqueado
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	// config de endpoints e metodos que podem ser liberados
 	http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/pessoas").permitAll()
+		.antMatchers("/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.antMatchers(HttpMethod.GET, "/pessoas/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/pessoas").permitAll()

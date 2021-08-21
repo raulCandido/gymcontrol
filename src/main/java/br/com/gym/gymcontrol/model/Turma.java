@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,7 +30,6 @@ public class Turma implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Nome obrigatório")
     private String nome;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,6 +46,13 @@ public class Turma implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
+
+    public Turma(String nome, Categoria categoria, Professor professor) {
+	super();
+	this.nome = nome;
+	this.categoria = categoria;
+	this.professor = professor;
+    }
 
     public Long getId() {
 	return id;
