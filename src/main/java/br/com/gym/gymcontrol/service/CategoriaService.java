@@ -16,7 +16,8 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     public List<Categoria> buscarCategorias() {
-	return categoriaRepository.findAll();
+	List<Categoria> categorias = categoriaRepository.findAll();
+	return verificarCategoriasVazia(categorias);
     }
 
     public Categoria inserirCategoria(Categoria categoria) {
@@ -25,10 +26,13 @@ public class CategoriaService {
 
     public List<Categoria> buscarCategoriaPorIds(List<Long> ids) {
 	List<Categoria> categorias = categoriaRepository.findAllById(ids);
+	return verificarCategoriasVazia(categorias);
+    }
+
+    private List<Categoria> verificarCategoriasVazia(List<Categoria> categorias) {
 	if (categorias.isEmpty()) {
-	    throw new ResourceNotFoundException("Categorias não encontradas");
+	    throw new ResourceNotFoundException("Nenhuma categoria encontrada");
 	}
 	return categorias;
     }
-
 }

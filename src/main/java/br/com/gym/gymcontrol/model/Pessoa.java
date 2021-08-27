@@ -7,15 +7,11 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.gym.gymcontrol.model.form.PessoaForm;
 
@@ -37,10 +33,6 @@ public class Pessoa implements Serializable {
 
     @Enumerated(EnumType.STRING)
     protected TipoPessoa tipoPessoa;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "pessoa", fetch = FetchType.LAZY)
-    protected Usuario usuario;
 
     public Pessoa() {
     }
@@ -116,14 +108,6 @@ public class Pessoa implements Serializable {
 	    return false;
 	Pessoa other = (Pessoa) obj;
 	return Objects.equals(id, other.id);
-    }
-
-    public Usuario getUsuario() {
-	return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-	this.usuario = usuario;
     }
 
 }

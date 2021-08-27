@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -16,16 +17,21 @@ public class ProfessorService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public List<Professor> bucarProfessores() throws ResourceAccessException{
+    public List<Professor> bucarProfessores() throws ResourceAccessException {
 	List<Professor> profs = professorRepository.findAll();
-	if(profs.isEmpty()) {
-	   throw new ResourceNotFoundException("Recurso não encontrado");
+	if (profs.isEmpty()) {
+	    throw new ResourceNotFoundException("Recurso não encontrado");
 	}
 	return professorRepository.findAll();
     }
 
     public Professor inserirProfessor(Professor professor) {
 	return professorRepository.save(professor);
+    }
+
+    public Professor buscarProfessorPorId(Long idProfessor) {
+	Optional<Professor> opt = professorRepository.findById(idProfessor);
+	return opt.orElseThrow(() -> new ResourceNotFoundException("Professor não encontrado"));
     }
 
 }

@@ -44,6 +44,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/pessoas").permitAll()
 		.antMatchers(HttpMethod.DELETE, "/pessoas/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/alunos").permitAll()
+		.antMatchers(HttpMethod.PUT, "/professores/*").permitAll()
 		.anyRequest().authenticated().and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa disso.
 		.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

@@ -1,16 +1,16 @@
 package br.com.gym.gymcontrol.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gym.gymcontrol.model.Aluno;
+import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.dto.ProfessorDto;
 import br.com.gym.gymcontrol.model.form.ProfessorForm;
@@ -31,14 +31,15 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
-    
+
     @Autowired
     private CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<Professor>> getProfessores() {
+    public ResponseEntity<List<ProfessorDto>> getProfessores() {
 	List<Professor> profs = professorService.bucarProfessores();
-	return ResponseEntity.ok(profs);
+	List<ProfessorDto> professorDto = profs.stream().map(p -> new ProfessorDto(p)).collect(Collectors.toList());
+	return ResponseEntity.ok(professorDto);
     }
 
     @PostMapping
@@ -49,13 +50,25 @@ public class ProfessorController {
 	return ResponseEntity.created(uri).body(new ProfessorDto(professor));
     }
 
-    @PutMapping
-    public ResponseEntity<Aluno> editProfessores() {
-	return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfessorDto> editProfessores(@Valid @RequestBody ProfessorForm professorForm, @PathVariable Long id) {
+	Professor professor = professorService.buscarProfessorPorId(id);
+
+	List<Categoria> idCategoriaList = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
+
+	professor.setNome(professorForm.getNome());
+	professor.setAlcunha(professorForm.getAlcunha());
+	professor.setTipoPessoa(professorForm.getTipoPessoa());
+	professor.setCategorias(idCategoriaList);
+
+	Professor professorEditado = professorService.inserirProfessor(professor);
+
+	return ResponseEntity.ok(new ProfessorDto(professorEditado));
+
     }
 
     @DeleteMapping
-    public ResponseEntity<Aluno> deletProfessores() {
+    public ResponseEntity<Void> deletProfessores() {
 	return null;
     }
 }
