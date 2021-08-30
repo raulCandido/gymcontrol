@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import br.com.gym.gymcontrol.model.Professor;
 
 @Repository
-public interface ProfessorRepository extends JpaRepository<Professor, Long> {
+public interface ProfessorRepository extends JpaRepository<Professor, Long>, ProfessorRepositoryCustom {
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import br.com.gym.gymcontrol.model.Professor;
+import br.com.gym.gymcontrol.model.dto.ProfessorDto;
 import br.com.gym.gymcontrol.repository.ProfessorRepository;
 
 @Service
@@ -19,9 +20,7 @@ public class ProfessorService {
 
     public List<Professor> bucarProfessores() throws ResourceAccessException {
 	List<Professor> profs = professorRepository.findAll();
-	if (profs.isEmpty()) {
-	    throw new ResourceNotFoundException("Recurso não encontrado");
-	}
+	verificarListaVazia(profs);
 	return professorRepository.findAll();
     }
 
@@ -32,6 +31,21 @@ public class ProfessorService {
     public Professor buscarProfessorPorId(Long idProfessor) {
 	Optional<Professor> opt = professorRepository.findById(idProfessor);
 	return opt.orElseThrow(() -> new ResourceNotFoundException("Professor não encontrado"));
+    }
+
+    public List<ProfessorDto> buscarProfessoresPorCategoria(Long id) {
+
+	List<ProfessorDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
+	verificarListaVazia(professoresPorCategorias);
+	return professoresPorCategorias;
+
+    }
+
+    private void verificarListaVazia(List<?> object) {
+	if (object.isEmpty()) {
+	    throw new ResourceNotFoundException("Recurso não encontrado");
+	}
+
     }
 
 }

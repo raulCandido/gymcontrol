@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Aula implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idaula")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

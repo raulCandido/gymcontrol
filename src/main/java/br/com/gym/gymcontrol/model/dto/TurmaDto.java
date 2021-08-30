@@ -1,7 +1,6 @@
 package br.com.gym.gymcontrol.model.dto;
 
 import br.com.gym.gymcontrol.model.Categoria;
-import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
 
 public class TurmaDto {
@@ -10,13 +9,16 @@ public class TurmaDto {
 
     private Categoria categoria;
 
-    private Professor professor;
+    private ProfessorDto professorDto;
+    
+    public TurmaDto() {
+    }
 
     public TurmaDto(Turma turma) {
 	super();
 	this.nome = turma.getNome();
 	this.categoria = turma.getCategoria();
-	this.professor = turma.getProfessor();
+	this.professorDto = new ProfessorDto(turma.getProfessor());
     }
 
     public String getNome() {
@@ -35,12 +37,12 @@ public class TurmaDto {
 	this.categoria = categoria;
     }
 
-    public Professor getProfessor() {
-	return professor;
+    public ProfessorDto getProfessorDto() {
+	return professorDto;
     }
 
-    public void setProfessor(Professor professor) {
-	this.professor = professor;
+    public void setProfessorDto(ProfessorDto professorDto) {
+	this.professorDto = professorDto;
     }
 
 }

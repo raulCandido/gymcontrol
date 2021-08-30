@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.expection;
+package br.com.gym.gymcontrol.exception;
 
 import java.io.Serializable;
 

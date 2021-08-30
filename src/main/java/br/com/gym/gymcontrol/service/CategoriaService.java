@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -34,5 +35,10 @@ public class CategoriaService {
 	    throw new ResourceNotFoundException("Nenhuma categoria encontrada");
 	}
 	return categorias;
+    }
+
+    public Categoria buscarCategoriaPorid(Long id) {
+	Optional<Categoria> opt = categoriaRepository.findById(id);
+	return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
     }
 }

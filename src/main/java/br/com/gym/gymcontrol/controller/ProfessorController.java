@@ -51,7 +51,8 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfessorDto> editProfessores(@Valid @RequestBody ProfessorForm professorForm, @PathVariable Long id) {
+    public ResponseEntity<Void> editProfessores(@Valid @RequestBody ProfessorForm professorForm,
+	    @PathVariable Long id) {
 	Professor professor = professorService.buscarProfessorPorId(id);
 
 	List<Categoria> idCategoriaList = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
@@ -61,14 +62,14 @@ public class ProfessorController {
 	professor.setTipoPessoa(professorForm.getTipoPessoa());
 	professor.setCategorias(idCategoriaList);
 
-	Professor professorEditado = professorService.inserirProfessor(professor);
+	professorService.inserirProfessor(professor);
 
-	return ResponseEntity.ok(new ProfessorDto(professorEditado));
+	return ResponseEntity.noContent().build();
 
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deletProfessores() {
+    public ResponseEntity<Void> deleteProfessores() {
 	return null;
     }
 }

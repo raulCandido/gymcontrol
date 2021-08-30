@@ -11,12 +11,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Professor extends Pessoa {
 
     private static final long serialVersionUID = 1L;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Turma> turmas;
 
     @ManyToMany()

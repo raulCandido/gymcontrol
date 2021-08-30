@@ -14,11 +14,28 @@ public class ProfessorDto {
 
     private List<Categoria> categorias;
 
+    public ProfessorDto() {
+	super();
+    }
+
     public ProfessorDto(Professor professor) {
 	this.id = professor.getId();
 	this.nome = professor.getNome();
 	this.alcunha = professor.getAlcunha();
 	this.categorias = professor.getCategorias();
+    }
+
+    public ProfessorDto(Long id, String nome, String alcunha) {
+	super();
+	this.id = id;
+	this.nome = nome;
+	this.alcunha = alcunha;
+
+    }
+    
+    @Override
+    public String toString() {
+	return "ID: "+ this.id + ", NOME: "+this.nome+", ALCUNHA: "+ this.alcunha;
     }
 
     public Long getId() {

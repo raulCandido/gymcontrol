@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Turma implements Serializable {
@@ -28,14 +30,17 @@ public class Turma implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idturma")
     private Long id;
 
     private String nome;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Categoria categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Professor professor;
 
     @JsonIgnore
@@ -44,8 +49,12 @@ public class Turma implements Serializable {
 	    @JoinColumn(name = "aluno_id") })
     private List<Aluno> alunos;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
+    
+    public Turma() {
+    }
 
     public Turma(String nome, Categoria categoria, Professor professor) {
 	super();

@@ -23,6 +23,9 @@ public class Aluno extends Pessoa {
 	this.tipoPessoa = tipoPessoa;
     }
     
+    public Aluno() {
+    }
+    
     public List<Turma> getTurmas() {
 	return turmas;
     }
