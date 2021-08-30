@@ -7,4 +7,3 @@ Projeto para atender necessidade de controle geral da academia Vida Ativa, com m
 - Java
 - SpringBoot
 - PostgreSQL
-- 
