@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.controller;
+package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
@@ -22,7 +22,7 @@ import br.com.gym.gymcontrol.service.TurmaService;
 
 @RestController()
 @RequestMapping("/turmas")
-public class TurmaController {
+public class TurmaResource {
 
     @Autowired
     private TurmaService turmaService;

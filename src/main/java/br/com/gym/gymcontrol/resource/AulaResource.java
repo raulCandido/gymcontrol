@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.controller;
+package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
@@ -23,7 +23,7 @@ import br.com.gym.gymcontrol.service.AlunoService;
 
 @RestController
 @RequestMapping("/aulas")
-public class AulaController {
+public class AulaResource {
 
     @Autowired
     private AlunoService alunoService;
