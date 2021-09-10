@@ -13,15 +13,15 @@ import br.com.gym.gymcontrol.model.Usuario;
 import br.com.gym.gymcontrol.repository.UsuariorRepository;
 
 @Service
-public class AuthService implements UserDetailsService{
-    
+public class AuthService implements UserDetailsService {
+
     @Autowired
     private UsuariorRepository usuariorRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	Optional<Usuario> usuario = usuariorRepository.findByEmail(username);
-	return usuario.orElseThrow(() -> new ResourceNotFoundException("E-mail não encontrado."));
+        Optional<Usuario> usuario = usuariorRepository.findByEmail(username);
+        return usuario.orElseThrow(() -> new ResourceNotFoundException("E-mail não encontrado."));
     }
 
 }

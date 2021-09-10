@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.gym.gymcontrol.model.Usuario;
 
-public interface UsuariorRepository  extends JpaRepository<Usuario, Long>{
+public interface UsuariorRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);
 }

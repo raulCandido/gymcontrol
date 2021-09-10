@@ -42,86 +42,86 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	return null;
+        return null;
     }
 
     @Override
     public String getPassword() {
-	return this.senha;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-	return this.email;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-	return true;
+        return true;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Pessoa getPessoa() {
-	return pessoa;
+        return pessoa;
     }
 
     public void setPessoa(Pessoa pessoa) {
-	this.pessoa = pessoa;
+        this.pessoa = pessoa;
     }
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public String getSenha() {
-	return senha;
+        return senha;
     }
 
     public void setSenha(String senha) {
-	this.senha = senha;
+        this.senha = senha;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Usuario other = (Usuario) obj;
-	return Objects.equals(id, other.id);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        return Objects.equals(id, other.id);
     }
 
 }

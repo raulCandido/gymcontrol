@@ -20,34 +20,34 @@ public class PessoaDto {
     private String alcunha;
     @NotNull(message = "Tipo obrigatório")
     private TipoPessoa tipoPessoa;
-    
+
     @NotNull(message = "Data de nascimento obrigatório")
-    private LocalDate dataNascimento; 
+    private LocalDate dataNascimento;
 
     public PessoaDto() {
     }
-    
+
     public PessoaDto(Pessoa pessoa) {
-	this.nome = pessoa.getNome();
-	this.alcunha = pessoa.getAlcunha();
-	this.tipoPessoa = pessoa.getTipoPessoa();
-	this.dataNascimento = pessoa.getDataNascimento();
+        this.nome = pessoa.getNome();
+        this.alcunha = pessoa.getAlcunha();
+        this.tipoPessoa = pessoa.getTipoPessoa();
+        this.dataNascimento = pessoa.getDataNascimento();
     }
 
     public static Page<PessoaDto> converterPessoasEmPessoasDto(Page<Pessoa> pessoas) {
-	return pessoas.map(PessoaDto::new);
+        return pessoas.map(PessoaDto::new);
     }
-    
+
     public static List<PessoaDto> converterPessoasEmPessoasDto(List<Pessoa> pessoas) {
-  	return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
-      }
-    
+        return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
+    }
+
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public LocalDate getDataNascimento() {
@@ -59,19 +59,19 @@ public class PessoaDto {
     }
 
     public String getAlcunha() {
-	return alcunha;
+        return alcunha;
     }
 
     public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
+        this.alcunha = alcunha;
     }
 
     public TipoPessoa getTipoPessoa() {
-	return tipoPessoa;
+        return tipoPessoa;
     }
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
-	this.tipoPessoa = tipoPessoa;
+        this.tipoPessoa = tipoPessoa;
     }
 
 }

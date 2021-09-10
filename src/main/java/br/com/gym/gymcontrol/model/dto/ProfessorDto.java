@@ -15,59 +15,59 @@ public class ProfessorDto {
     private List<Categoria> categorias;
 
     public ProfessorDto() {
-	super();
+        super();
     }
 
     public ProfessorDto(Professor professor) {
-	this.id = professor.getId();
-	this.nome = professor.getNome();
-	this.alcunha = professor.getAlcunha();
-	this.categorias = professor.getCategorias();
+        this.id = professor.getId();
+        this.nome = professor.getNome();
+        this.alcunha = professor.getAlcunha();
+        this.categorias = professor.getCategorias();
     }
 
     public ProfessorDto(Long id, String nome, String alcunha) {
-	super();
-	this.id = id;
-	this.nome = nome;
-	this.alcunha = alcunha;
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.alcunha = alcunha;
 
     }
-    
+
     @Override
     public String toString() {
-	return "ID: "+ this.id + ", NOME: "+this.nome+", ALCUNHA: "+ this.alcunha;
+        return "ID: " + this.id + ", NOME: " + this.nome + ", ALCUNHA: " + this.alcunha;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public String getAlcunha() {
-	return alcunha;
+        return alcunha;
     }
 
     public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
+        this.alcunha = alcunha;
     }
 
     public List<Categoria> getCategorias() {
-	return categorias;
+        return categorias;
     }
 
     public void setCategorias(List<Categoria> categorias) {
-	this.categorias = categorias;
+        this.categorias = categorias;
     }
 
 }

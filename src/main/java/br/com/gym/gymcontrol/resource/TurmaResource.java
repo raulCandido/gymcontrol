@@ -2,6 +2,7 @@ package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -26,26 +27,26 @@ public class TurmaResource {
 
     @Autowired
     private TurmaService turmaService;
-    
+
     @Autowired
     private ProfessorService professorService;
-    
+
     @Autowired
     private CategoriaService categoriaService;
 
     @PostMapping
     public ResponseEntity<TurmaDto> setTurmaService(@RequestBody @Valid TurmaForm turmaForm,
-	    UriComponentsBuilder builder) {
-	Turma turma = turmaService.cadastrarTurma(turmaForm.converterEmTurma(professorService, categoriaService));
-	URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
-	return ResponseEntity.created(uri).body(new TurmaDto(turma));
+            UriComponentsBuilder builder) {
+        Turma turma = turmaService.cadastrarTurma(turmaForm.converterEmTurma(professorService, categoriaService));
+        URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
+        return ResponseEntity.created(uri).body(new TurmaDto(turma));
 
     }
 
     public ResponseEntity<List<TurmaDto>> pegarTurmas() {
-	List<Turma> turmas = turmaService.getTurmas();
-	List<TurmaDto> turmasDto = turmas.stream().map(t -> new TurmaDto(t)).toList();
-	return ResponseEntity.ok(turmasDto);
+        List<Turma> turmas = turmaService.getTurmas();
+        List<TurmaDto> turmasDto = turmas.stream().map(t -> new TurmaDto(t)).collect(Collectors.toList());
+        return ResponseEntity.ok(turmasDto);
     }
 
 }

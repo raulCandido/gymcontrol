@@ -23,40 +23,40 @@ public class ProfessorForm {
     private List<Long> idCategorias;
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public String getAlcunha() {
-	return alcunha;
+        return alcunha;
     }
 
     public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
+        this.alcunha = alcunha;
     }
 
     public TipoPessoa getTipoPessoa() {
-	return tipoPessoa;
+        return tipoPessoa;
     }
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
-	this.tipoPessoa = tipoPessoa;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public List<Long> getIdCategorias() {
-	return idCategorias;
+        return idCategorias;
     }
 
     public void setIdCategorias(List<Long> categorias) {
-	this.idCategorias = categorias;
+        this.idCategorias = categorias;
     }
 
     public Professor converterEmProfessor(CategoriaService categoriaService) {
-	List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(idCategorias);
-	return new Professor(nome, alcunha, tipoPessoa, categorias);
+        List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(idCategorias);
+        return new Professor(nome, alcunha, tipoPessoa, categorias);
     }
 
 }

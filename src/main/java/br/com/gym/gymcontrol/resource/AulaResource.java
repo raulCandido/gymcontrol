@@ -19,14 +19,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.dto.AlunoDto;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
-import br.com.gym.gymcontrol.service.AlunoService;
+import br.com.gym.gymcontrol.service.AlunoServiceImpl;
 
 @RestController
 @RequestMapping("/aulas")
 public class AulaResource {
 
     @Autowired
-    private AlunoService alunoService;
+    private AlunoServiceImpl alunoService;
 
     @GetMapping
     public ResponseEntity<List<Aluno>> getAlunos() {

@@ -7,5 +7,5 @@ import br.com.gym.gymcontrol.model.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
-    
+
 }

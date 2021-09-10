@@ -15,9 +15,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SpringFoxConfig {
     @Bean
     public Docket api() {
-	return new Docket(DocumentationType.SWAGGER_2).select()
-		.apis(RequestHandlerSelectors.basePackage("br.com.gym.gymcontrol.resource")).paths(PathSelectors.any())
-		.build().ignoredParameterTypes(Usuario.class);
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("br.com.gym.gymcontrol.resource")).paths(PathSelectors.any())
+                .build().ignoredParameterTypes(Usuario.class);
 
     }
 }

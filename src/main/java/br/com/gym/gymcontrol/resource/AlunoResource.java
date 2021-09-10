@@ -2,6 +2,7 @@ package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,45 +22,45 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.dto.AlunoDto;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
-import br.com.gym.gymcontrol.service.AlunoService;
+import br.com.gym.gymcontrol.service.AlunoServiceImpl;
 
 @RestController
 @RequestMapping("/alunos")
 public class AlunoResource {
 
-    @Autowired
-    private AlunoService alunoService;
+	@Autowired
+	private AlunoServiceImpl alunoService;
 
-    @GetMapping
-    public ResponseEntity<List<AlunoDto>> pegarAlunos() {
-	List<Aluno> alunos = alunoService.buscarAlunos();
-	List<AlunoDto> alunosDto = alunos.stream().map(a -> new AlunoDto(a)).toList();
-	return ResponseEntity.ok(alunosDto);
-    }
+	@GetMapping
+	public ResponseEntity<List<AlunoDto>> pegarAlunos() {
+		List<Aluno> alunos = alunoService.buscarAlunos();
+		List<AlunoDto> alunosDto = alunos.stream().map(a -> new AlunoDto(a)).collect(Collectors.toList());
+		return ResponseEntity.ok(alunosDto);
+	}
 
-    @PostMapping
-    public ResponseEntity<AlunoDto> cadastrarAlunos(@RequestBody @Valid AlunoForm alunoForm,
-	    UriComponentsBuilder builder) {
-	Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa());
-	URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
-	return ResponseEntity.created(uri).body(new AlunoDto(aluno));
-    }
+	@PostMapping
+	public ResponseEntity<AlunoDto> cadastrarAlunos(@RequestBody @Valid AlunoForm alunoForm,
+			UriComponentsBuilder builder) {
+		Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa());
+		URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
+		return ResponseEntity.created(uri).body(new AlunoDto(aluno));
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> editarAlunos(@RequestParam @Valid AlunoForm alunoForm, @PathVariable Long id) {
-	Aluno aluno = alunoService.buscarAlunoPorId(id);
-	aluno.setNome(alunoForm.getNome());
-	aluno.setAlcunha(alunoForm.getAlcunha());
-	aluno.setDataNascimento(alunoForm.getDataNascimento());
-	aluno.setTipoPessoa(alunoForm.getTipoPessoa());
-	
-	return ResponseEntity.noContent().build();
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> editarAlunos(@RequestParam @Valid AlunoForm alunoForm, @PathVariable Long id) {
+		Aluno aluno = alunoService.buscarAlunoPorId(id);
+		aluno.setNome(alunoForm.getNome());
+		aluno.setAlcunha(alunoForm.getAlcunha());
+		aluno.setDataNascimento(alunoForm.getDataNascimento());
+		aluno.setTipoPessoa(alunoForm.getTipoPessoa());
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarAlunos(@PathVariable Long id) {
-	Aluno aluno = alunoService.buscarAlunoPorId(id);
-	alunoService.deletarAlunoPorId(aluno);
-	return ResponseEntity.noContent().build();
-    }
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletarAlunos(@PathVariable Long id) {
+		Aluno aluno = alunoService.buscarAlunoPorId(id);
+		alunoService.deletarAlunoPorId(aluno);
+		return ResponseEntity.noContent().build();
+	}
 }

@@ -1,44 +1,17 @@
 package br.com.gym.gymcontrol.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.stereotype.Service;
 
 import br.com.gym.gymcontrol.model.Categoria;
-import br.com.gym.gymcontrol.repository.CategoriaRepository;
 
-@Service
-public class CategoriaService {
+public interface CategoriaService {
+    
+    List<Categoria> buscarCategorias();
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    Categoria inserirCategoria(Categoria categoria);
 
-    public List<Categoria> buscarCategorias() {
-	List<Categoria> categorias = categoriaRepository.findAll();
-	return verificarCategoriasVazia(categorias);
-    }
+    List<Categoria> buscarCategoriaPorIds(List<Long> ids);
 
-    public Categoria inserirCategoria(Categoria categoria) {
-	return categoriaRepository.save(categoria);
-    }
+    Categoria buscarCategoriaPorid(Long id);
 
-    public List<Categoria> buscarCategoriaPorIds(List<Long> ids) {
-	List<Categoria> categorias = categoriaRepository.findAllById(ids);
-	return verificarCategoriasVazia(categorias);
-    }
-
-    private List<Categoria> verificarCategoriasVazia(List<Categoria> categorias) {
-	if (categorias.isEmpty()) {
-	    throw new ResourceNotFoundException("Nenhuma categoria encontrada");
-	}
-	return categorias;
-    }
-
-    public Categoria buscarCategoriaPorid(Long id) {
-	Optional<Categoria> opt = categoriaRepository.findById(id);
-	return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
-    }
 }

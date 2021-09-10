@@ -8,25 +8,25 @@ public class CategoriaDto {
     private String nomeCategoria;
 
     public CategoriaDto(Categoria categoria) {
-	super();
-	this.id = categoria.getId();
-	this.nomeCategoria = categoria.getNomeCategoria();
+        super();
+        this.id = categoria.getId();
+        this.nomeCategoria = categoria.getNomeCategoria();
     }
 
     public long getId() {
-	return id;
+        return id;
     }
 
     public void setId(long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNomeCategoria() {
-	return nomeCategoria;
+        return nomeCategoria;
     }
 
     public void setNomeCategoria(String nomeCategoria) {
-	this.nomeCategoria = nomeCategoria;
+        this.nomeCategoria = nomeCategoria;
     }
 
 }

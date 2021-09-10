@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class GymcontrolApplication {
 
     public static void main(String[] args) {
-	SpringApplication.run(GymcontrolApplication.class, args);
+        SpringApplication.run(GymcontrolApplication.class, args);
     }
 
 }

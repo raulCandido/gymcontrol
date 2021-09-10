@@ -29,39 +29,39 @@ public class AlunoForm {
     }
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public String getAlcunha() {
-	return alcunha;
+        return alcunha;
     }
 
     public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
+        this.alcunha = alcunha;
     }
 
     public LocalDate getDataNascimento() {
-	return dataNascimento;
+        return dataNascimento;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
-	this.dataNascimento = dataNascimento;
+        this.dataNascimento = dataNascimento;
     }
 
     public TipoPessoa getTipoPessoa() {
-	return tipoPessoa;
+        return tipoPessoa;
     }
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
-	this.tipoPessoa = tipoPessoa;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public Aluno converterParaPessoa() {
-	return new Aluno(this.nome, this.alcunha, this.dataNascimento, this.tipoPessoa);
+        return new Aluno(this.nome, this.alcunha, this.dataNascimento, this.tipoPessoa);
     }
 
 }

@@ -40,76 +40,76 @@ public class Pessoa implements Serializable {
     }
 
     public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
-	super();
-	this.nome = nome;
-	this.alcunha = alcunha;
-	this.dataNascimento = dataNascimento;
-	this.tipoPessoa = tipoPessoa;
+        super();
+        this.nome = nome;
+        this.alcunha = alcunha;
+        this.dataNascimento = dataNascimento;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public Pessoa(PessoaForm pessoaForm) {
-	super();
-	this.nome = pessoaForm.getNome();
-	this.alcunha = pessoaForm.getAlcunha();
-	this.dataNascimento = pessoaForm.getDataNascimento();
-	this.tipoPessoa = pessoaForm.getTipoPessoa();
+        super();
+        this.nome = pessoaForm.getNome();
+        this.alcunha = pessoaForm.getAlcunha();
+        this.dataNascimento = pessoaForm.getDataNascimento();
+        this.tipoPessoa = pessoaForm.getTipoPessoa();
     }
 
     public String getAlcunha() {
-	return alcunha;
+        return alcunha;
     }
 
     public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
+        this.alcunha = alcunha;
     }
 
     public TipoPessoa getTipoPessoa() {
-	return tipoPessoa;
+        return tipoPessoa;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public LocalDate getDataNascimento() {
-	return dataNascimento;
+        return dataNascimento;
     }
 
     public void setTipoPessoa(TipoPessoa tipoPessoa) {
-	this.tipoPessoa = tipoPessoa;
+        this.tipoPessoa = tipoPessoa;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
-	this.dataNascimento = dataNascimento;
+        this.dataNascimento = dataNascimento;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Pessoa other = (Pessoa) obj;
-	return Objects.equals(id, other.id);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pessoa other = (Pessoa) obj;
+        return Objects.equals(id, other.id);
     }
 
 }

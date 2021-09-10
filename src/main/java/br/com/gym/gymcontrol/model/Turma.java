@@ -46,86 +46,86 @@ public class Turma implements Serializable {
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "turma_aluno", joinColumns = { @JoinColumn(name = "turma_id") }, inverseJoinColumns = {
-	    @JoinColumn(name = "aluno_id") })
+            @JoinColumn(name = "aluno_id") })
     private List<Aluno> alunos;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
-    
+
     public Turma() {
     }
 
     public Turma(String nome, Categoria categoria, Professor professor) {
-	super();
-	this.nome = nome;
-	this.categoria = categoria;
-	this.professor = professor;
+        super();
+        this.nome = nome;
+        this.categoria = categoria;
+        this.professor = professor;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNome() {
-	return nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-	this.nome = nome;
+        this.nome = nome;
     }
 
     public Categoria getCategoria() {
-	return categoria;
+        return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
-	this.categoria = categoria;
+        this.categoria = categoria;
     }
 
     public Professor getProfessor() {
-	return professor;
+        return professor;
     }
 
     public void setProfessor(Professor professor) {
-	this.professor = professor;
+        this.professor = professor;
     }
 
     public List<Aluno> getAlunos() {
-	return alunos;
+        return alunos;
     }
 
     public void setAlunos(List<Aluno> alunos) {
-	this.alunos = alunos;
+        this.alunos = alunos;
     }
 
     public List<Aula> getAulas() {
-	return aulas;
+        return aulas;
     }
 
     public void setAulas(List<Aula> aulas) {
-	this.aulas = aulas;
+        this.aulas = aulas;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Turma other = (Turma) obj;
-	return Objects.equals(id, other.id);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Turma other = (Turma) obj;
+        return Objects.equals(id, other.id);
     }
 
 }

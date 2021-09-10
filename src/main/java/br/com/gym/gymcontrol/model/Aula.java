@@ -37,52 +37,52 @@ public class Aula implements Serializable {
     private Time horario;
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Turma getTurma() {
-	return turma;
+        return turma;
     }
 
     public void setTurma(Turma turma) {
-	this.turma = turma;
+        this.turma = turma;
     }
 
     public LocalDate getData() {
-	return data;
+        return data;
     }
 
     public void setData(LocalDate data) {
-	this.data = data;
+        this.data = data;
     }
 
     public Time getHorario() {
-	return horario;
+        return horario;
     }
 
     public void setHorario(Time horario) {
-	this.horario = horario;
+        this.horario = horario;
     }
 
     @Override
     public int hashCode() {
-	return Objects.hash(id);
+        return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Aula other = (Aula) obj;
-	return Objects.equals(id, other.id);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Aula other = (Aula) obj;
+        return Objects.equals(id, other.id);
     }
 
 }

@@ -20,27 +20,27 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
 
     public Page<Pessoa> getPessoas(Pageable page) {
-	return pessoaRepository.findAll(page);
+        return pessoaRepository.findAll(page);
     }
 
     public Pessoa inserirPessoa(Pessoa pessoa) {
-	return pessoaRepository.save(pessoa);
+        return pessoaRepository.save(pessoa);
     }
 
     public Pessoa buscarPessoaPorId(Long id) {
-	Optional<Pessoa> optional = pessoaRepository.findById(id);
-	return optional.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+        Optional<Pessoa> optional = pessoaRepository.findById(id);
+        return optional.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
     }
 
     public PessoaDto pessoaParaPessoaDto(Pessoa pessoa) {
-	return new PessoaDto(pessoa);
+        return new PessoaDto(pessoa);
     }
 
     public List<Pessoa> buscarPessoaPorNome(String nome) {
-	return pessoaRepository.findByNomeContainingIgnoreCase(nome);
+        return pessoaRepository.findByNomeContainingIgnoreCase(nome);
     }
 
     public void deletarPessoa(Pessoa pessoa) {
-	pessoaRepository.delete(pessoa);
+        pessoaRepository.delete(pessoa);
     }
 }

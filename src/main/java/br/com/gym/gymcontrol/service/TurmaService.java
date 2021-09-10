@@ -16,22 +16,22 @@ public class TurmaService {
     private TurmaRepository turmaRepository;
 
     public Turma cadastrarTurma(Turma turma) {
-	return turmaRepository.save(turma);
+        return turmaRepository.save(turma);
     }
 
     public List<Turma> getTurmas() {
-	List<Turma> turmas = turmaRepository.findAll();
-	verificarListaVazia(turmas);
-	return turmas;
+        List<Turma> turmas = turmaRepository.findAll();
+        verificarListaVazia(turmas);
+        return turmas;
     }
 
     private void verificarListaVazia(List<Turma> turmas) {
-	if (turmas.isEmpty()) {
-	    throw new ResourceNotFoundException("Nenhuma turma encontrada");
-	}
+        if (turmas.isEmpty()) {
+            throw new ResourceNotFoundException("Nenhuma turma encontrada");
+        }
     }
 
     public void inserir(Turma turma) {
-	turmaRepository.save(turma);
+        turmaRepository.save(turma);
     }
 }
