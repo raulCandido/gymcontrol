@@ -9,7 +9,13 @@ import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TurmaForm {
 
 	@NotEmpty(message = "Nome obrigatório")
@@ -21,13 +27,6 @@ public class TurmaForm {
 	@NotNull(message = "Categoria obrigatória")
 	private Long idProfessor;
 
-	public TurmaForm(String nome, Long idCategoria, Long idProfessor) {
-		super();
-		this.nome = nome;
-		this.idCategoria = idCategoria;
-		this.idProfessor = idProfessor;
-	}
-
 	public Turma converterEmTurma(ProfessorService professorService, CategoriaService categoriaService) {
 		Categoria categoria = categoriaService.buscarCategoriaPorid(idCategoria);
 		Professor professor = professorService.buscarProfessorPorId(idProfessor);
@@ -37,30 +36,6 @@ public class TurmaForm {
 			throw new BadRequestException("Professor deve ser vinculado a categoria da aula.");
 		}
 		return new Turma(nome, categoria, professor);
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Long getIdCategoria() {
-		return idCategoria;
-	}
-
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
-	public Long getIdProfessor() {
-		return idProfessor;
-	}
-
-	public void setIdProfessor(Long idProfessor) {
-		this.idProfessor = idProfessor;
 	}
 
 }

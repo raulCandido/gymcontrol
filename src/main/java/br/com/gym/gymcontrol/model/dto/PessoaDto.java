@@ -11,7 +11,13 @@ import org.springframework.data.domain.Page;
 
 import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.TipoPessoa;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PessoaDto {
 
     @NotEmpty(message = "Nome obrigatório")
@@ -23,9 +29,6 @@ public class PessoaDto {
 
     @NotNull(message = "Data de nascimento obrigatório")
     private LocalDate dataNascimento;
-
-    public PessoaDto() {
-    }
 
     public PessoaDto(Pessoa pessoa) {
         this.nome = pessoa.getNome();
@@ -40,38 +43,6 @@ public class PessoaDto {
 
     public static List<PessoaDto> converterPessoasEmPessoasDto(List<Pessoa> pessoas) {
         return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getAlcunha() {
-        return alcunha;
-    }
-
-    public void setAlcunha(String alcunha) {
-        this.alcunha = alcunha;
-    }
-
-    public TipoPessoa getTipoPessoa() {
-        return tipoPessoa;
-    }
-
-    public void setTipoPessoa(TipoPessoa tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
     }
 
 }

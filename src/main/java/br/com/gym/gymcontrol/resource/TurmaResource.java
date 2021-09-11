@@ -25,28 +25,28 @@ import br.com.gym.gymcontrol.service.TurmaService;
 @RequestMapping("/turmas")
 public class TurmaResource {
 
-    @Autowired
-    private TurmaService turmaService;
+	@Autowired
+	private TurmaService turmaService;
 
-    @Autowired
-    private ProfessorService professorService;
+	@Autowired
+	private ProfessorService professorService;
 
-    @Autowired
-    private CategoriaService categoriaService;
+	@Autowired
+	private CategoriaService categoriaService;
 
-    @PostMapping
-    public ResponseEntity<TurmaDto> setTurmaService(@RequestBody @Valid TurmaForm turmaForm,
-            UriComponentsBuilder builder) {
-        Turma turma = turmaService.cadastrarTurma(turmaForm.converterEmTurma(professorService, categoriaService));
-        URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
-        return ResponseEntity.created(uri).body(new TurmaDto(turma));
+	@PostMapping
+	public ResponseEntity<TurmaDto> persistirTurmaService(@RequestBody @Valid TurmaForm turmaForm,
+			UriComponentsBuilder builder) {
+		Turma turma = turmaService.cadastrarTurma(turmaForm.converterEmTurma(professorService, categoriaService));
+		URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
+		return ResponseEntity.created(uri).body(new TurmaDto(turma));
 
-    }
+	}
 
-    public ResponseEntity<List<TurmaDto>> pegarTurmas() {
-        List<Turma> turmas = turmaService.getTurmas();
-        List<TurmaDto> turmasDto = turmas.stream().map(t -> new TurmaDto(t)).collect(Collectors.toList());
-        return ResponseEntity.ok(turmasDto);
-    }
+	public ResponseEntity<List<TurmaDto>> pegarTurmas() {
+		List<Turma> turmas = turmaService.getTurmas();
+		List<TurmaDto> turmasDto = turmas.stream().map(t -> new TurmaDto(t)).collect(Collectors.toList());
+		return ResponseEntity.ok(turmasDto);
+	}
 
 }

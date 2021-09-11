@@ -5,9 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.TipoPessoa;
-import br.com.gym.gymcontrol.model.dto.ProfessorDto;
-import br.com.gym.gymcontrol.repository.ProfessorRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -30,9 +26,6 @@ class GymcontrolApplicationTests {
 
 	@Autowired
 	private ObjectMapper objectMapper;
-	
-	@Autowired
-	private ProfessorRepository professorRepository;
 
 	private static final String URL = "/pessoas";
 
@@ -48,14 +41,6 @@ class GymcontrolApplicationTests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Test
-	void deveriaBuscarProfessorPorCategoria() {
-	    List<ProfessorDto> findProfessoresPorCategorias = professorRepository.findProfessoresPorCategorias(2L);
-	    for (ProfessorDto professorDto : findProfessoresPorCategorias) {
-		System.out.println(professorDto.toString());
-	    }
 	}
 
 	//@Test

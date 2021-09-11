@@ -4,7 +4,13 @@ import java.time.LocalDate;
 
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.TipoPessoa;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlunoDto {
 
     private Long id;
@@ -20,46 +26,6 @@ public class AlunoDto {
         this.alcunha = aluno.getAlcunha();
         this.dataNascimento = aluno.getDataNascimento();
         this.tipoPessoa = aluno.getTipoPessoa();
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getAlcunha() {
-        return alcunha;
-    }
-
-    public void setAlcunha(String alcunha) {
-        this.alcunha = alcunha;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public TipoPessoa getTipoPessoa() {
-        return tipoPessoa;
-    }
-
-    public void setTipoPessoa(TipoPessoa tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 }
