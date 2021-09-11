@@ -1,14 +1,17 @@
-package br.com.gym.gymcontrol.service;
+package br.com.gym.gymcontrol.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.repository.AlunoRepository;
+import br.com.gym.gymcontrol.service.AlunoService;
 
-
+@Service
 public class AlunoServiceImpl implements AlunoService {
 
     @Autowired

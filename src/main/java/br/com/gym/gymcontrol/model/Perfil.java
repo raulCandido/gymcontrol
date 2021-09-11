@@ -8,7 +8,16 @@ import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Data
 public class Perfil implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
@@ -22,21 +31,4 @@ public class Perfil implements GrantedAuthority {
     public String getAuthority() {
         return this.nome;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
 }

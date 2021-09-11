@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.service;
+package br.com.gym.gymcontrol.service.impl;
 
 import org.springframework.stereotype.Service;
 

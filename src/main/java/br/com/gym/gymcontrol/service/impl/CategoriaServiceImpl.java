@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.service;
+package br.com.gym.gymcontrol.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.repository.CategoriaRepository;
+import br.com.gym.gymcontrol.service.CategoriaService;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
