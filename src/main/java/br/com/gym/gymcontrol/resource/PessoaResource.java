@@ -34,40 +34,40 @@ public class PessoaResource {
 
     // paginando
     @GetMapping
-    public ResponseEntity<Page<PessoaDto>> getPessoas(@PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
-
-	Page<Pessoa> pessoas = pessoaService.getPessoas(paginacao);
-	Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
-	return ResponseEntity.ok(pessoasDto);
+    public ResponseEntity<Page<PessoaDto>> getPessoas(
+            @PageableDefault(sort = "id", page = 0, size = 10) Pageable paginacao) {
+        Page<Pessoa> pessoas = pessoaService.getPessoas(paginacao);
+        Page<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
+        return ResponseEntity.ok(pessoasDto);
     }
 
     @PostMapping
     public ResponseEntity<PessoaDto> setPessoas(@Valid @RequestBody PessoaForm pessoaForm,
-	    UriComponentsBuilder builder) {
-	Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm));
-	URI uri = builder.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
-	return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
+            UriComponentsBuilder builder) {
+        Pessoa pessoa = pessoaService.inserirPessoa(new Pessoa(pessoaForm));
+        URI uri = builder.path("/{id}").buildAndExpand(pessoa.getId()).toUri();
+        return ResponseEntity.created(uri).body(new PessoaDto(pessoa));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PessoaDto> buscarPessoaPorId(@PathVariable Long id) {
-	Pessoa pessoa = pessoaService.buscarPessoaPorId(id);
-	PessoaDto pessoaDto = pessoaService.pessoaParaPessoaDto(pessoa);
-	return ResponseEntity.ok(pessoaDto);
+        Pessoa pessoa = pessoaService.buscarPessoaPorId(id);
+        PessoaDto pessoaDto = pessoaService.pessoaParaPessoaDto(pessoa);
+        return ResponseEntity.ok(pessoaDto);
     }
 
     @GetMapping(params = "nome")
     public ResponseEntity<List<PessoaDto>> buscarPessoaPorNome(@RequestParam(name = "nome") String nome) {
-	List<Pessoa> pessoas = pessoaService.buscarPessoaPorNome(nome);
-	List<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
-	return ResponseEntity.ok(pessoasDto);
+        List<Pessoa> pessoas = pessoaService.buscarPessoaPorNome(nome);
+        List<PessoaDto> pessoasDto = PessoaDto.converterPessoasEmPessoasDto(pessoas);
+        return ResponseEntity.ok(pessoasDto);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletarPessoa(@PathVariable Long id) {
-	Pessoa pessoa = pessoaService.buscarPessoaPorId(id);
-	pessoaService.deletarPessoa(pessoa);
-	return ResponseEntity.ok().build();
+        Pessoa pessoa = pessoaService.buscarPessoaPorId(id);
+        pessoaService.deletarPessoa(pessoa);
+        return ResponseEntity.ok().build();
     }
 
 }

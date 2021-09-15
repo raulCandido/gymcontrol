@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +30,7 @@ class GymcontrolApplicationTests {
 
 	private static final String URL = "/pessoas";
 
-	//@Test
+	@Test
 	void deveriaCadastrarPessoa() {
 	    Pessoa pessoa = new Pessoa("Fulano Souza Matias", "Fulano", LocalDate.of(1974, 10, 05),
 		    TipoPessoa.PROFESSOR);
@@ -43,7 +44,7 @@ class GymcontrolApplicationTests {
 		}
 	}
 
-	//@Test
+	@Test
 	void deveriaBuscarPessoa() {
 		try {
 			mockMvc.perform(get(URL).contentType("application/json")).andExpect(status().isOk());
