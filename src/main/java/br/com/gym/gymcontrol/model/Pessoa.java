@@ -2,111 +2,61 @@ package br.com.gym.gymcontrol.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+import br.com.gym.gymcontrol.model.form.PessoaForm;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Data
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+	@Id()
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idpessoa")
+	protected Long id;
 
-    protected String nome;
+	protected String nome;
 
-    protected String alcunha;
+	protected String alcunha;
 
-    protected LocalDate dataNascimento;
+	protected LocalDate dataNascimento;
 
-    @Enumerated(EnumType.STRING)
-    protected TipoPessoa tipoPessoa;
-    
-    @OneToOne(mappedBy = "pessoa")
-    protected Usuario usuario;
+	@Enumerated(EnumType.STRING)
+	protected TipoPessoa tipoPessoa;
 
-    public Pessoa() {
-    }
+	public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
+		super();
+		this.nome = nome;
+		this.alcunha = alcunha;
+		this.dataNascimento = dataNascimento;
+		this.tipoPessoa = tipoPessoa;
+	}
 
-    public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
-	super();
-	this.nome = nome;
-	this.alcunha = alcunha;
-	this.dataNascimento = dataNascimento;
-	this.tipoPessoa = tipoPessoa;
-    }
-
-    public String getAlcunha() {
-	return alcunha;
-    }
-
-    public void setAlcunha(String alcunha) {
-	this.alcunha = alcunha;
-    }
-
-    public TipoPessoa getTipoPessoa() {
-	return tipoPessoa;
-    }
-
-    public Long getId() {
-	return id;
-    }
-
-    public void setId(Long id) {
-	this.id = id;
-    }
-
-    public String getNome() {
-	return nome;
-    }
-
-    public void setNome(String nome) {
-	this.nome = nome;
-    }
-
-    public LocalDate getDataNascimento() {
-	return dataNascimento;
-    }
-
-    public void setTipoPessoa(TipoPessoa tipoPessoa) {
-	this.tipoPessoa = tipoPessoa;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-	this.dataNascimento = dataNascimento;
-    }
-
-    @Override
-    public int hashCode() {
-	return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	Pessoa other = (Pessoa) obj;
-	return Objects.equals(id, other.id);
-    }
-
-    public Usuario getUsuario() {
-	return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-	this.usuario = usuario;
-    }
+	public Pessoa(PessoaForm pessoaForm) {
+		super();
+		this.nome = pessoaForm.getNome();
+		this.alcunha = pessoaForm.getAlcunha();
+		this.dataNascimento = pessoaForm.getDataNascimento();
+		this.tipoPessoa = pessoaForm.getTipoPessoa();
+	}
 
 }

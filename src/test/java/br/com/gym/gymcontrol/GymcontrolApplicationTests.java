@@ -44,7 +44,7 @@ class GymcontrolApplicationTests {
 		}
 	}
 
-	//@Test
+	@Test
 	void deveriaBuscarPessoa() {
 		try {
 			mockMvc.perform(get(URL).contentType("application/json")).andExpect(status().isOk());

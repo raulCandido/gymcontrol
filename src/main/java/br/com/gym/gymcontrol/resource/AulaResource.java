@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.controller;
+package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +23,8 @@ import br.com.gym.gymcontrol.model.form.AlunoForm;
 import br.com.gym.gymcontrol.service.AlunoService;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/aulas")
+public class AulaResource {
 
     @Autowired
     private AlunoService alunoService;
@@ -41,8 +42,8 @@ public class AlunoController {
         return ResponseEntity.created(uri).body(new AlunoDto(aluno));
     }
 
-    @PutMapping
-    public ResponseEntity<Aluno> editAlunos() {
+    @PutMapping({ "/{id}" })
+    public ResponseEntity<Void> editAula(@RequestBody @Valid AlunoForm alunoForm, @PathVariable Long id) {
         return null;
     }
 

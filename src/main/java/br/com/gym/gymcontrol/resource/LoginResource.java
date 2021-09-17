@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.controller;
+package br.com.gym.gymcontrol.resource;
 
 import javax.validation.Valid;
 
@@ -19,7 +19,7 @@ import br.com.gym.gymcontrol.service.TokenService;
 
 @RequestMapping("/login")
 @RestController
-public class LoginController {
+public class LoginResource {
 
     @Autowired
     private AuthenticationManager authenticationManager;

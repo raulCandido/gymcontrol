@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.controller;
+package br.com.gym.gymcontrol.resource;
 
 import java.net.URI;
 import java.util.List;
@@ -25,7 +25,7 @@ import br.com.gym.gymcontrol.service.CategoriaService;
 
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaController {
+public class CategoriaResource {
 
     @Autowired
     private CategoriaService categoriaService;

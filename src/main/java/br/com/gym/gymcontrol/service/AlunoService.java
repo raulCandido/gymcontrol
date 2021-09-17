@@ -2,26 +2,20 @@ package br.com.gym.gymcontrol.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.gym.gymcontrol.model.Aluno;
-import br.com.gym.gymcontrol.repository.AlunoRepository;
+import br.com.gym.gymcontrol.model.form.AlunoForm;
 
-@Service
-public class AlunoService {
-    
-    @Autowired
-    private AlunoRepository alunoRepository;
+public interface AlunoService {
+    List<Aluno> buscarAlunos();
 
-    public List<Aluno> buscarAlunos() {
-	return alunoRepository.findAll();
-    }
+    Aluno inserirAluno(Aluno aluno);
 
-    public Aluno inserirAluno(Aluno aluno) {
-	return alunoRepository.save(aluno);
-    }
+    Aluno buscarAlunoPorId(Long id);
 
+    void deletarAluno(Aluno aluno);
 
+    void buscarEditarAluno(Long id, AlunoForm alunoForm);
+
+    void buscarDeletarAluno(Long id);
 
 }

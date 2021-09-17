@@ -32,7 +32,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	auth.userDetailsService(authService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    // configurar autorizacao --por padrao qualquer recurso nao explicitado na config fica bloqueado
+    // configurar autorizacao --por padrao qualquer recurso nao explicitado na
+    // config fica bloqueado
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	// config de endpoints e metodos que podem ser liberados
@@ -44,13 +45,20 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/pessoas").permitAll()
 		.antMatchers(HttpMethod.DELETE, "/pessoas/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/alunos").permitAll()
-		.anyRequest().authenticated().and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa disso.
+		.antMatchers(HttpMethod.PUT, "/alunos/*").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/alunos/*")
+		.permitAll().antMatchers(HttpMethod.PUT, "/professores/*").permitAll().anyRequest().authenticated()
+		.and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa // disso.
 		.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     // configuracao de recursos estaticos como css/js/imagens
     @Override
     public void configure(WebSecurity web) throws Exception {
+
+	web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+		"/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**");
+
     }
 
 }

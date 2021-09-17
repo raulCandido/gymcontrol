@@ -7,7 +7,6 @@ Projeto para atender necessidade de controle geral da academia Vida Ativa, com m
 - Java
 - SpringBoot
 - PostgreSQL
-
 ### gerar imagem de desenvolvimento
     1° alterar o ip no application.properties, executa ipconfig e coloca o ipv4 
     2° apos fazer as alterações executar o mvn clean package
@@ -23,4 +22,4 @@ Projeto para atender necessidade de controle geral da academia Vida Ativa, com m
         clique em server, botão direito -> create 
         General -> name : Local, comments : qualquer coisa
         Connection : Host/name/Address : teste-postgres, port : 5432, maintenance/database, username : postgres, password : Postgres2018!
-        
+
