@@ -4,35 +4,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.gym.gymcontrol.model.Categoria;
+import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
+import br.com.gym.gymcontrol.model.form.TurmaForm;
 import br.com.gym.gymcontrol.repository.TurmaRepository;
+import br.com.gym.gymcontrol.service.CategoriaService;
+import br.com.gym.gymcontrol.service.ProfessorService;
 import br.com.gym.gymcontrol.service.TurmaService;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 @Service
-public class TurmaServiceImpl implements TurmaService{
+public class TurmaServiceImpl implements TurmaService {
 
-    @Autowired
-    private TurmaRepository turmaRepository;
+	@Autowired
+	private TurmaRepository turmaRepository;
 
-    public Turma cadastrarTurma(Turma turma) {
-        return turmaRepository.save(turma);
-    }
+	@Autowired
+	private CategoriaService categoriaService;
 
-    public List<Turma> getTurmas() {
-        List<Turma> turmas = turmaRepository.findAll();
-        verificarListaVazia(turmas);
-        return turmas;
-    }
+	@Autowired
+	private ProfessorService professorService;
 
-    private void verificarListaVazia(List<Turma> turmas) {
-        if (turmas.isEmpty()) {
-            throw new ResourceNotFoundException("Nenhuma turma encontrada");
-        }
-    }
+	public Turma cadastrarTurma(Turma turma) {
+		return turmaRepository.save(turma);
+	}
 
-    public void inserir(Turma turma) {
-        turmaRepository.save(turma);
-    }
+	public List<Turma> getTurmas() {
+		List<Turma> turmas = turmaRepository.findAll();
+		verificarListaVazia(turmas);
+		return turmas;
+	}
+
+	private void verificarListaVazia(List<Turma> turmas) {
+		if (turmas.isEmpty()) {
+			throw new ResourceNotFoundException("Nenhuma turma encontrada");
+		}
+	}
+
+	public void inserir(Turma turma) {
+		turmaRepository.save(turma);
+	}
+
+	@Override
+	public void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm) {
+		Turma turma = buscarTurmaPorId(id);
+
+		Categoria categoria = categoriaService.buscarCategoriaPorid(turmaForm.getIdCategoria());
+
+		Professor professor = professorService.buscarProfessorPorId(turmaForm.getIdProfessor());
+
+		turma.setNome(turmaForm.getNome());
+		turma.setCategoria(categoria);
+		turma.setProfessor(professor);
+
+		inserir(turma);
+
+	}
+
+	public Turma buscarTurmaPorId(Long id) {
+		Optional<Turma> opt = turmaRepository.findById(id);
+		return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma turma encontrada"));
+	}
 }

@@ -37,5 +37,11 @@ public class TurmaForm {
 		}
 		return new Turma(nome, categoria, professor);
 	}
+	
+	public Turma converterEmTurma(Turma turma) {
+		turma.setNome(nome);
+		turma.setCategoria(null);
+		return turma;
+	}
 
 }
