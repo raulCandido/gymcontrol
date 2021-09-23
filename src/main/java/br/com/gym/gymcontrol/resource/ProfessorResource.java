@@ -38,7 +38,7 @@ public class ProfessorResource {
     @GetMapping
     public ResponseEntity<List<ProfessorDto>> getProfessores() {
 	List<Professor> profs = professorService.bucarProfessores();
-	List<ProfessorDto> professorDto = profs.stream().map(p -> new ProfessorDto(p)).collect(Collectors.toList());
+	List<ProfessorDto> professorDto = profs.stream().map(ProfessorDto::new).collect(Collectors.toList());
 	return ResponseEntity.ok(professorDto);
     }
 

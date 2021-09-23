@@ -40,7 +40,7 @@ public class AulaResource {
     }
 
     @PutMapping({ "/{id}" })
-    public ResponseEntity<Void> editAula(@RequestBody @Valid AlunoForm alunoForm, @PathVariable Long id) {
+    public ResponseEntity<Void> editarAula(@RequestBody @Valid AlunoForm alunoForm, @PathVariable Long id) {
 	return null;
     }
 

@@ -19,6 +19,6 @@ public interface AlunoService {
 
     void buscarDeletarAluno(Long id);
 
-    Aluno verificarAlunoParaPersistir(AlunoForm alunoForm);
+    Aluno montarAlunoParaPersistir(AlunoForm alunoForm);
 
 }

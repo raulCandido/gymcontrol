@@ -1,6 +1,5 @@
 package br.com.gym.gymcontrol.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ public class AlunoServiceImpl implements AlunoService {
     }
     
     @Override
-    public Aluno verificarAlunoParaPersistir(AlunoForm alunoForm) {
+    public Aluno montarAlunoParaPersistir(AlunoForm alunoForm) {
 	List<Long> idTurmas = alunoForm.getIdTurmas();
 	List<Turma> turmas = turmaService.buscarTurmasPorIds(idTurmas);
 	Aluno aluno = alunoForm.converterParaAluno(turmas);

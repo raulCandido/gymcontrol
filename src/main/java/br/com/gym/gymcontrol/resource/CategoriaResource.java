@@ -34,7 +34,7 @@ public class CategoriaResource {
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> getCategorias() {
 	List<Categoria> categorias = categoriaService.buscarCategorias();
-	return ResponseEntity.ok(categorias.stream().map(c -> new CategoriaDto(c)).collect(Collectors.toList()));
+	return ResponseEntity.ok(categorias.stream().map(CategoriaDto::new).collect(Collectors.toList()));
     }
 
     @PostMapping

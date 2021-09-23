@@ -33,14 +33,14 @@ public class AlunoResource {
     @GetMapping
     public ResponseEntity<List<AlunoDto>> pegarAlunos() {
 	List<Aluno> alunos = alunoService.buscarAlunos();
-	List<AlunoDto> alunosDto = alunos.stream().map(a -> new AlunoDto(a)).collect(Collectors.toList());
+	List<AlunoDto> alunosDto = alunos.stream().map(AlunoDto::new).collect(Collectors.toList());
 	return ResponseEntity.ok(alunosDto);
     }
 
     @PostMapping
     public ResponseEntity<AlunoDto> cadastrarAlunos(@RequestBody @Valid AlunoForm alunoForm,
 	    UriComponentsBuilder builder) {
-	Aluno aluno = alunoService.verificarAlunoParaPersistir(alunoForm);
+	Aluno aluno = alunoService.montarAlunoParaPersistir(alunoForm);
 	URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
 	return ResponseEntity.created(uri).body(new AlunoDto(aluno));
     }

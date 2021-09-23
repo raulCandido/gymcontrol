@@ -1,6 +1,8 @@
 package br.com.gym.gymcontrol.model.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.gym.gymcontrol.model.Aluno;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ public class AlunoDto {
     private String nome;
     private String alcunha;
     private LocalDate dataNascimento;
+    private List<TurmaDto> turmasDto;
 
     public AlunoDto(Aluno aluno) {
 	super();
@@ -23,6 +26,7 @@ public class AlunoDto {
 	this.nome = aluno.getNome();
 	this.alcunha = aluno.getAlcunha();
 	this.dataNascimento = aluno.getDataNascimento();
+	this.turmasDto = aluno.getTurmas().stream().map(TurmaDto::new).collect(Collectors.toList());
     }
 
 }

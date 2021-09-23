@@ -56,7 +56,7 @@ public class TurmaResource {
     @GetMapping
     public ResponseEntity<List<TurmaDto>> pegarTurmas() {
 	List<Turma> turmas = turmaService.getTurmas();
-	List<TurmaDto> turmasDto = turmas.stream().map(t -> new TurmaDto(t)).collect(Collectors.toList());
+	List<TurmaDto> turmasDto = turmas.stream().map(TurmaDto::new).collect(Collectors.toList());
 	return ResponseEntity.ok(turmasDto);
     }
 
