@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
@@ -31,41 +30,37 @@ import lombok.NoArgsConstructor;
 @Data
 public class Turma implements Serializable {
 
-	/**
-	 * @author raul
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * @author raul
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idturma")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idturma")
+    private Long id;
 
-	private String nome;
+    private String nome;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonManagedReference
-	private Categoria categoria;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Categoria categoria;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonManagedReference
-	private Professor professor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Professor professor;
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "turma_aluno", joinColumns = { @JoinColumn(name = "turma_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "aluno_id") })
-	private List<Aluno> alunos;
+    @ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
+    private List<Aluno> alunos;
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
-	private List<Aula> aulas;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
+    private List<Aula> aulas;
 
-	public Turma(String nome, Categoria categoria, Professor professor) {
-		super();
-		this.nome = nome;
-		this.categoria = categoria;
-		this.professor = professor;
-	}
+    public Turma(String nome, Categoria categoria, Professor professor) {
+	super();
+	this.nome = nome;
+	this.categoria = categoria;
+	this.professor = professor;
+    }
 
 }

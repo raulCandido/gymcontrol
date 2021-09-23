@@ -21,53 +21,60 @@ import javax.validation.Valid;
 @Service
 public class TurmaServiceImpl implements TurmaService {
 
-	@Autowired
-	private TurmaRepository turmaRepository;
+    @Autowired
+    private TurmaRepository turmaRepository;
 
-	@Autowired
-	private CategoriaService categoriaService;
+    @Autowired
+    private CategoriaService categoriaService;
 
-	@Autowired
-	private ProfessorService professorService;
+    @Autowired
+    private ProfessorService professorService;
 
-	public Turma cadastrarTurma(Turma turma) {
-		return turmaRepository.save(turma);
+    public Turma cadastrarTurma(Turma turma) {
+	return turmaRepository.save(turma);
+    }
+
+    public List<Turma> getTurmas() {
+	List<Turma> turmas = turmaRepository.findAll();
+	verificarListaVazia(turmas);
+	return turmas;
+    }
+
+    private void verificarListaVazia(List<?> t) {
+	if (t.isEmpty()) {
+	    throw new ResourceNotFoundException("Nenhum item encontrada");
 	}
+    }
 
-	public List<Turma> getTurmas() {
-		List<Turma> turmas = turmaRepository.findAll();
-		verificarListaVazia(turmas);
-		return turmas;
-	}
+    public void inserir(Turma turma) {
+	turmaRepository.save(turma);
+    }
 
-	private void verificarListaVazia(List<Turma> turmas) {
-		if (turmas.isEmpty()) {
-			throw new ResourceNotFoundException("Nenhuma turma encontrada");
-		}
-	}
+    @Override
+    public void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm) {
+	Turma turma = buscarTurmaPorId(id);
 
-	public void inserir(Turma turma) {
-		turmaRepository.save(turma);
-	}
+	Categoria categoria = categoriaService.buscarCategoriaPorId(turmaForm.getIdCategoria());
 
-	@Override
-	public void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm) {
-		Turma turma = buscarTurmaPorId(id);
+	Professor professor = professorService.buscarProfessorPorId(turmaForm.getIdProfessor());
 
-		Categoria categoria = categoriaService.buscarCategoriaPorid(turmaForm.getIdCategoria());
+	turma.setNome(turmaForm.getNome());
+	turma.setCategoria(categoria);
+	turma.setProfessor(professor);
 
-		Professor professor = professorService.buscarProfessorPorId(turmaForm.getIdProfessor());
+	inserir(turma);
 
-		turma.setNome(turmaForm.getNome());
-		turma.setCategoria(categoria);
-		turma.setProfessor(professor);
+    }
 
-		inserir(turma);
+    public Turma buscarTurmaPorId(Long id) {
+	Optional<Turma> opt = turmaRepository.findById(id);
+	return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma turma encontrada"));
+    }
 
-	}
-
-	public Turma buscarTurmaPorId(Long id) {
-		Optional<Turma> opt = turmaRepository.findById(id);
-		return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma turma encontrada"));
-	}
+    @Override
+    public List<Turma> buscarTurmasPorIds(List<Long> ids) {
+	List<Turma> turmas = turmaRepository.findAllById(ids);
+	verificarListaVazia(turmas);
+	return turmas;
+    }
 }

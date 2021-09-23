@@ -22,38 +22,37 @@ import br.com.gym.gymcontrol.model.TipoPessoa;
 @AutoConfigureMockMvc
 class GymcontrolApplicationTests {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Autowired
-	private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-	private static final String URL = "/pessoas";
+    private static final String URL = "/pessoas";
 
-	@Test
-	void deveriaCadastrarPessoa() {
-	    Pessoa pessoa = new Pessoa("Fulano Souza Matias", "Fulano", LocalDate.of(1974, 10, 05),
-		    TipoPessoa.PROFESSOR);
-		try {
-			mockMvc.perform(post(URL).contentType("application/json").content(objectMapper.writeValueAsString(pessoa)))
-					.andExpect(status().isCreated());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    @Test
+    void deveriaCadastrarPessoa() {
+	Pessoa pessoa = new Pessoa("Fulano Souza Matias", "Fulano", LocalDate.of(1974, 10, 05), TipoPessoa.PROFESSOR);
+	try {
+	    mockMvc.perform(post(URL).contentType("application/json").content(objectMapper.writeValueAsString(pessoa)))
+		    .andExpect(status().isCreated());
+	} catch (JsonProcessingException e) {
+	    e.printStackTrace();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+    }
+
+    @Test
+    void deveriaBuscarPessoa() {
+	try {
+	    mockMvc.perform(get(URL).contentType("application/json")).andExpect(status().isOk());
+	} catch (JsonProcessingException e) {
+	    e.printStackTrace();
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
 
-	@Test
-	void deveriaBuscarPessoa() {
-		try {
-			mockMvc.perform(get(URL).contentType("application/json")).andExpect(status().isOk());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+    }
 
 }

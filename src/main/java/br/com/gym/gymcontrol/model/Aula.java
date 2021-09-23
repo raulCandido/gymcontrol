@@ -25,23 +25,23 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class Aula implements Serializable {
 
-	/**
-	 * @author raul
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * @author raul
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idaula")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idaula")
+    private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Turma turma;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Turma turma;
 
-	@NotNull(message = "Data da aula obrigatória")
-	private LocalDate data;
+    @NotNull(message = "Data da aula obrigatória")
+    private LocalDate data;
 
-	@NotNull(message = "Horario da aula obrigatório")
-	private Time horario;
+    @NotNull(message = "Horario da aula obrigatório")
+    private Time horario;
 
 }

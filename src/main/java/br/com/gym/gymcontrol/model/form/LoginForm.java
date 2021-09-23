@@ -12,23 +12,23 @@ public class LoginForm {
     private String senha;
 
     public String getEmail() {
-        return email;
+	return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+	this.email = email;
     }
 
     public String getSenha() {
-        return senha;
+	return senha;
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+	this.senha = senha;
     }
 
     public UsernamePasswordAuthenticationToken converter() {
-        return new UsernamePasswordAuthenticationToken(email, senha);
+	return new UsernamePasswordAuthenticationToken(email, senha);
     }
 
 }

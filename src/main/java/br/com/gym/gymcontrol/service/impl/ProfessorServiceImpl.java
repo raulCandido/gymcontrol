@@ -14,38 +14,38 @@ import br.com.gym.gymcontrol.repository.ProfessorRepository;
 import br.com.gym.gymcontrol.service.ProfessorService;
 
 @Service
-public class ProfessorServiceImpl implements ProfessorService{
+public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
 
     public List<Professor> bucarProfessores() throws ResourceAccessException {
-        List<Professor> profs = professorRepository.findAll();
-        verificarListaVazia(profs);
-        return professorRepository.findAll();
+	List<Professor> profs = professorRepository.findAll();
+	verificarListaVazia(profs);
+	return professorRepository.findAll();
     }
 
     public Professor inserirProfessor(Professor professor) {
-        return professorRepository.save(professor);
+	return professorRepository.save(professor);
     }
 
     public Professor buscarProfessorPorId(Long idProfessor) {
-        Optional<Professor> opt = professorRepository.findById(idProfessor);
-        return opt.orElseThrow(() -> new ResourceNotFoundException("Professor não encontrado"));
+	Optional<Professor> opt = professorRepository.findById(idProfessor);
+	return opt.orElseThrow(() -> new ResourceNotFoundException("Professor não encontrado"));
     }
 
     public List<ProfessorDto> buscarProfessoresPorCategoria(Long id) {
 
-        List<ProfessorDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
-        verificarListaVazia(professoresPorCategorias);
-        return professoresPorCategorias;
+	List<ProfessorDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
+	verificarListaVazia(professoresPorCategorias);
+	return professoresPorCategorias;
 
     }
 
     private void verificarListaVazia(List<?> object) {
-        if (object.isEmpty()) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
-        }
+	if (object.isEmpty()) {
+	    throw new ResourceNotFoundException("Recurso não encontrado");
+	}
 
     }
 

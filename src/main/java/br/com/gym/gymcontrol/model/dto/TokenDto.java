@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TokenDto {
 
-	private String token;
-	private String tipo;
+    private String token;
+    private String tipo;
 
 }

@@ -17,31 +17,31 @@ import br.com.gym.gymcontrol.service.PessoaService;
 @Service
 public class PessoaServiceImpl implements PessoaService {
 
-	@Autowired
-	private PessoaRepository pessoaRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
-	public Page<Pessoa> getPessoas(Pageable page) {
-		return pessoaRepository.findAll(page);
-	}
+    public Page<Pessoa> getPessoas(Pageable page) {
+	return pessoaRepository.findAll(page);
+    }
 
-	public Pessoa inserirPessoa(Pessoa pessoa) {
-		return pessoaRepository.save(pessoa);
-	}
+    public Pessoa inserirPessoa(Pessoa pessoa) {
+	return pessoaRepository.save(pessoa);
+    }
 
-	public Pessoa buscarPessoaPorId(Long id) {
-		Optional<Pessoa> optional = pessoaRepository.findById(id);
-		return optional.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
-	}
+    public Pessoa buscarPessoaPorId(Long id) {
+	Optional<Pessoa> optional = pessoaRepository.findById(id);
+	return optional.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+    }
 
-	public PessoaDto pessoaParaPessoaDto(Pessoa pessoa) {
-		return new PessoaDto(pessoa);
-	}
+    public PessoaDto pessoaParaPessoaDto(Pessoa pessoa) {
+	return new PessoaDto(pessoa);
+    }
 
-	public List<Pessoa> buscarPessoaPorNome(String nome) {
-		return pessoaRepository.findByNomeContainingIgnoreCase(nome);
-	}
+    public List<Pessoa> buscarPessoaPorNome(String nome) {
+	return pessoaRepository.findByNomeContainingIgnoreCase(nome);
+    }
 
-	public void deletarPessoa(Pessoa pessoa) {
-		pessoaRepository.delete(pessoa);
-	}
+    public void deletarPessoa(Pessoa pessoa) {
+	pessoaRepository.delete(pessoa);
+    }
 }

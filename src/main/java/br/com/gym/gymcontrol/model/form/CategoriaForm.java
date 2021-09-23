@@ -10,15 +10,15 @@ public class CategoriaForm {
     private String nomeCategoria;
 
     public String getNomeCategoria() {
-        return nomeCategoria;
+	return nomeCategoria;
     }
 
     public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
+	this.nomeCategoria = nomeCategoria;
     }
 
     public Categoria converterParaCategoria() {
-        return new Categoria(nomeCategoria);
+	return new Categoria(nomeCategoria);
     }
 
 }

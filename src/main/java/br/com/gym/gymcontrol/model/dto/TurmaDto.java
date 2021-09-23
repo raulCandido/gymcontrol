@@ -1,6 +1,5 @@
 package br.com.gym.gymcontrol.model.dto;
 
-import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Turma;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,19 +9,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TurmaDto {
+    
+    private Long id;
 
-    private String nome;
+    private String nomeTurma;
 
-    private Categoria categoria;
+    private String nomeCategoria;
 
-    private ProfessorDto professorDto;
+    private String nomeProfessor;
 
     public TurmaDto(Turma turma) {
-        super();
-        this.nome = turma.getNome();
-        this.categoria = turma.getCategoria();
-        this.professorDto = new ProfessorDto(turma.getProfessor());
+	super();
+	this.id = turma.getId();
+	this.nomeTurma = turma.getNome();
+	this.nomeCategoria = turma.getCategoria().getNomeCategoria();
+	this.nomeProfessor = turma.getProfessor().getNome();
     }
-
 
 }

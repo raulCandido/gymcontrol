@@ -18,30 +18,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TurmaForm {
 
-	@NotEmpty(message = "Nome obrigatório")
-	private String nome;
+    @NotEmpty(message = "Nome obrigatório")
+    private String nome;
 
-	@NotNull(message = "Categoria obrigatória")
-	private Long idCategoria;
+    @NotNull(message = "Categoria obrigatória")
+    private Long idCategoria;
 
-	@NotNull(message = "Categoria obrigatória")
-	private Long idProfessor;
+    @NotNull(message = "Categoria obrigatória")
+    private Long idProfessor;
 
-	public Turma converterEmTurma(ProfessorService professorService, CategoriaService categoriaService) {
-		Categoria categoria = categoriaService.buscarCategoriaPorid(idCategoria);
-		Professor professor = professorService.buscarProfessorPorId(idProfessor);
+    public Turma converterEmTurma(ProfessorService professorService, CategoriaService categoriaService) {
+	Categoria categoria = categoriaService.buscarCategoriaPorId(idCategoria);
+	Professor professor = professorService.buscarProfessorPorId(idProfessor);
 
-		boolean anyMatch = professor.getCategorias().stream().anyMatch(c -> c.getId() == categoria.getId());
-		if (!anyMatch) {
-			throw new BadRequestException("Professor deve ser vinculado a categoria da aula.");
-		}
-		return new Turma(nome, categoria, professor);
+	boolean anyMatch = professor.getCategorias().stream().anyMatch(c -> c.getId() == categoria.getId());
+	if (!anyMatch) {
+	    throw new BadRequestException("Professor deve ser vinculado a categoria da turma.");
 	}
-	
-	public Turma converterEmTurma(Turma turma) {
-		turma.setNome(nome);
-		turma.setCategoria(null);
-		return turma;
-	}
+	return new Turma(nome, categoria, professor);
+    }
 
 }

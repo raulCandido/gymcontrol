@@ -37,20 +37,20 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 	// config de endpoints e metodos que podem ser liberados
-	http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/pessoas").permitAll()
-		.antMatchers("/*").permitAll()
+	http.authorizeRequests().antMatchers(HttpMethod.GET, "/pessoas").permitAll().antMatchers("/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
 		.antMatchers(HttpMethod.GET, "/pessoas/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/pessoas").permitAll()
 		.antMatchers(HttpMethod.DELETE, "/pessoas/*").permitAll()
-		.antMatchers(HttpMethod.POST, "/alunos").permitAll()
-		.antMatchers(HttpMethod.PUT, "/alunos/*").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/categorias/*").permitAll()
+		.antMatchers(HttpMethod.POST, "/alunos")
+		.permitAll().antMatchers(HttpMethod.PUT, "/alunos/*").permitAll()
 		.antMatchers("/turmas/*").permitAll()
-		//.antMatchers(HttpMethod.POST, "/turmas/*").permitAll()
+		.antMatchers(HttpMethod.PUT, "/turmas/*").permitAll()
 		.antMatchers(HttpMethod.DELETE, "/alunos/*")
 		.permitAll().antMatchers(HttpMethod.PUT, "/professores/*").permitAll().anyRequest().authenticated()
-		.and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa // disso.
+		.and().csrf() // desabilitando csrf(Cross-site Request Forgery) -- login stateless nao precisa
+			      // // disso.
 		.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

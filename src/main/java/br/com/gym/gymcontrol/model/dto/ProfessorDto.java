@@ -14,27 +14,27 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ProfessorDto {
-	private Long id;
+    private Long id;
 
-	private String nome;
+    private String nome;
 
-	private String alcunha;
+    private String alcunha;
 
-	private List<Categoria> categorias;
+    private List<Categoria> categorias;
 
-	public ProfessorDto(Professor professor) {
-		this.id = professor.getId();
-		this.nome = professor.getNome();
-		this.alcunha = professor.getAlcunha();
-		this.categorias = professor.getCategorias();
-	}
+    public ProfessorDto(Professor professor) {
+	this.id = professor.getId();
+	this.nome = professor.getNome();
+	this.alcunha = professor.getAlcunha();
+	this.categorias = professor.getCategorias();
+    }
 
-	public ProfessorDto(Long id, String nome, String alcunha) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.alcunha = alcunha;
+    public ProfessorDto(Long id, String nome, String alcunha) {
+	super();
+	this.id = id;
+	this.nome = nome;
+	this.alcunha = alcunha;
 
-	}
+    }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,24 +33,26 @@ public class CategoriaResource {
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> getCategorias() {
-        List<Categoria> categorias = categoriaService.buscarCategorias();
-        return ResponseEntity.ok(categorias.stream().map(c -> new CategoriaDto(c)).collect(Collectors.toList()));
+	List<Categoria> categorias = categoriaService.buscarCategorias();
+	return ResponseEntity.ok(categorias.stream().map(c -> new CategoriaDto(c)).collect(Collectors.toList()));
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> cadastrarCategoria(@RequestBody @Valid CategoriaForm categoriaForm, UriComponentsBuilder builder) {
-        Categoria categoria = categoriaService.inserirCategoria(categoriaForm.converterParaCategoria());
-        URI uri = builder.path("/{id}").buildAndExpand(categoria.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
+    public ResponseEntity<CategoriaDto> cadastrarCategoria(@RequestBody @Valid CategoriaForm categoriaForm,
+	    UriComponentsBuilder builder) {
+	Categoria categoria = categoriaService.inserirCategoria(categoriaForm.converterParaCategoria());
+	URI uri = builder.path("/{id}").buildAndExpand(categoria.getId()).toUri();
+	return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
     }
 
     @PutMapping
     public ResponseEntity<Aluno> editAlunos() {
-        return null;
+	return null;
     }
 
-    @DeleteMapping
-    public ResponseEntity<Aluno> deletAlunos() {
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarCategoria(@PathVariable Long id) {
+	categoriaService.deletarCategoriaPorId(id);
+	return ResponseEntity.noContent().build();
     }
 }

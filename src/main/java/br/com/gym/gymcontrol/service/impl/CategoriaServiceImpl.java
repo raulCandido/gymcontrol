@@ -19,31 +19,37 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public List<Categoria> buscarCategorias() {
-        List<Categoria> categorias = categoriaRepository.findAll();
-        return verificarCategoriasVazia(categorias);
+	List<Categoria> categorias = categoriaRepository.findAll();
+	return verificarCategoriasVazia(categorias);
     }
 
     @Override
     public Categoria inserirCategoria(Categoria categoria) {
-        return categoriaRepository.save(categoria);
+	return categoriaRepository.save(categoria);
     }
 
     @Override
     public List<Categoria> buscarCategoriaPorIds(List<Long> ids) {
-        List<Categoria> categorias = categoriaRepository.findAllById(ids);
-        return verificarCategoriasVazia(categorias);
+	List<Categoria> categorias = categoriaRepository.findAllById(ids);
+	return verificarCategoriasVazia(categorias);
     }
 
     private List<Categoria> verificarCategoriasVazia(List<Categoria> categorias) {
-        if (categorias.isEmpty()) {
-            throw new ResourceNotFoundException("Nenhuma categoria encontrada");
-        }
-        return categorias;
+	if (categorias.isEmpty()) {
+	    throw new ResourceNotFoundException("Nenhuma categoria encontrada");
+	}
+	return categorias;
     }
 
     @Override
-    public Categoria buscarCategoriaPorid(Long id) {
-        Optional<Categoria> opt = categoriaRepository.findById(id);
-        return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
+    public Categoria buscarCategoriaPorId(Long id) {
+	Optional<Categoria> opt = categoriaRepository.findById(id);
+	return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
+    }
+
+    @Override
+    public void deletarCategoriaPorId(Long id) {
+	Categoria categoria = buscarCategoriaPorId(id);
+	categoriaRepository.delete(categoria);
     }
 }

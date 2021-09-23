@@ -40,11 +40,11 @@ public class AlunoResource {
     @PostMapping
     public ResponseEntity<AlunoDto> cadastrarAlunos(@RequestBody @Valid AlunoForm alunoForm,
 	    UriComponentsBuilder builder) {
-	Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa());
+	Aluno aluno = alunoService.verificarAlunoParaPersistir(alunoForm);
 	URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
 	return ResponseEntity.created(uri).body(new AlunoDto(aluno));
     }
-
+    
     @PutMapping("/{id}")
     public ResponseEntity<Void> editarAlunos(@RequestBody @Valid AlunoForm alunoForm, @PathVariable Long id) {
 	alunoService.buscarEditarAluno(id, alunoForm);

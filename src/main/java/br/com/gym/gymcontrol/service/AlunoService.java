@@ -6,6 +6,7 @@ import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
 
 public interface AlunoService {
+    
     List<Aluno> buscarAlunos();
 
     Aluno inserirAluno(Aluno aluno);
@@ -17,5 +18,7 @@ public interface AlunoService {
     void buscarEditarAluno(Long id, AlunoForm alunoForm);
 
     void buscarDeletarAluno(Long id);
+
+    Aluno verificarAlunoParaPersistir(AlunoForm alunoForm);
 
 }

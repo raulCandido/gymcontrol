@@ -29,19 +29,19 @@ public class LoginResource {
 
     @PostMapping
     public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm loginForm) {
-        UsernamePasswordAuthenticationToken login = loginForm.converter();
+	UsernamePasswordAuthenticationToken login = loginForm.converter();
 
-        try {
-            Authentication authenticate = authenticationManager.authenticate(login);
+	try {
+	    Authentication authenticate = authenticationManager.authenticate(login);
 
-            String token = tokenService.gerarToken(authenticate);
+	    String token = tokenService.gerarToken(authenticate);
 
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+	    return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+	} catch (AuthenticationException e) {
+	    e.printStackTrace();
+	    return ResponseEntity.badRequest().build();
 
-        }
+	}
 
     }
 }

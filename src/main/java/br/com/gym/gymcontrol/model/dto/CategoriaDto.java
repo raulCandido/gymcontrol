@@ -14,9 +14,9 @@ public class CategoriaDto {
     private String nomeCategoria;
 
     public CategoriaDto(Categoria categoria) {
-        super();
-        this.id = categoria.getId();
-        this.nomeCategoria = categoria.getNomeCategoria();
+	super();
+	this.id = categoria.getId();
+	this.nomeCategoria = categoria.getNomeCategoria();
     }
 
 }

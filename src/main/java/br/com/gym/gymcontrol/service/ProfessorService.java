@@ -6,11 +6,12 @@ import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.dto.ProfessorDto;
 
 public interface ProfessorService {
-	List<Professor> bucarProfessores();
 
-	Professor inserirProfessor(Professor professor);
+    List<Professor> bucarProfessores();
 
-	Professor buscarProfessorPorId(Long idProfessor);
+    Professor inserirProfessor(Professor professor);
 
-	List<ProfessorDto> buscarProfessoresPorCategoria(Long id);
+    Professor buscarProfessorPorId(Long idProfessor);
+
+    List<ProfessorDto> buscarProfessoresPorCategoria(Long id);
 }

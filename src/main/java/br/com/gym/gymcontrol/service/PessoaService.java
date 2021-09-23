@@ -9,15 +9,16 @@ import br.com.gym.gymcontrol.model.Pessoa;
 import br.com.gym.gymcontrol.model.dto.PessoaDto;
 
 public interface PessoaService {
-	Page<Pessoa> getPessoas(Pageable page);
+    
+    Page<Pessoa> getPessoas(Pageable page);
 
-	Pessoa inserirPessoa(Pessoa pessoa);
+    Pessoa inserirPessoa(Pessoa pessoa);
 
-	Pessoa buscarPessoaPorId(Long id);
+    Pessoa buscarPessoaPorId(Long id);
 
-	PessoaDto pessoaParaPessoaDto(Pessoa pessoa);
+    PessoaDto pessoaParaPessoaDto(Pessoa pessoa);
 
-	List<Pessoa> buscarPessoaPorNome(String nome);
+    List<Pessoa> buscarPessoaPorNome(String nome);
 
-	void deletarPessoa(Pessoa pessoa);
+    void deletarPessoa(Pessoa pessoa);
 }

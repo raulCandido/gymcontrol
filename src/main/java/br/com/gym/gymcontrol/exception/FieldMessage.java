@@ -10,25 +10,25 @@ public class FieldMessage implements Serializable {
     private String mensagem;
 
     public FieldMessage(String campo, String mensagem) {
-        super();
-        this.campo = campo;
-        this.mensagem = mensagem;
+	super();
+	this.campo = campo;
+	this.mensagem = mensagem;
     }
 
     public String getCampo() {
-        return campo;
+	return campo;
     }
 
     public void setCampo(String campo) {
-        this.campo = campo;
+	this.campo = campo;
     }
 
     public String getMensagem() {
-        return mensagem;
+	return mensagem;
     }
 
     public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+	this.mensagem = mensagem;
     }
 
 }

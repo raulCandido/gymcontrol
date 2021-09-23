@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,15 +9,20 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.gym.gymcontrol.model.Aluno;
+import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
 import br.com.gym.gymcontrol.repository.AlunoRepository;
 import br.com.gym.gymcontrol.service.AlunoService;
+import br.com.gym.gymcontrol.service.TurmaService;
 
 @Service
 public class AlunoServiceImpl implements AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+    
+    @Autowired
+    private TurmaService turmaService;
 
     @Override
     public List<Aluno> buscarAlunos() {
@@ -29,6 +35,14 @@ public class AlunoServiceImpl implements AlunoService {
     @Override
     public Aluno inserirAluno(Aluno aluno) {
 	return alunoRepository.save(aluno);
+    }
+    
+    @Override
+    public Aluno verificarAlunoParaPersistir(AlunoForm alunoForm) {
+	List<Long> idTurmas = alunoForm.getIdTurmas();
+	List<Turma> turmas = turmaService.buscarTurmasPorIds(idTurmas);
+	Aluno aluno = alunoForm.converterParaAluno(turmas);
+	return inserirAluno(aluno);
     }
 
     private void verificarListAlunoVazia(List<Aluno> alunos) {
@@ -43,6 +57,7 @@ public class AlunoServiceImpl implements AlunoService {
 	return opt.orElseThrow(() -> new ResourceNotFoundException("Aluno não encontrado."));
     }
 
+    @Override
     public void deletarAluno(Aluno aluno) {
 	alunoRepository.delete(aluno);
     }
@@ -53,7 +68,6 @@ public class AlunoServiceImpl implements AlunoService {
 	aluno.setAlcunha(alunoForm.getAlcunha());
 	aluno.setNome(alunoForm.getNome());
 	aluno.setDataNascimento(alunoForm.getDataNascimento());
-	aluno.setTipoPessoa(alunoForm.getTipoPessoa());
 	inserirAluno(aluno);
     }
 

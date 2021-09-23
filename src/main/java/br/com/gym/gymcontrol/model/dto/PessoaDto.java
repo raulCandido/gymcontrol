@@ -31,18 +31,18 @@ public class PessoaDto {
     private LocalDate dataNascimento;
 
     public PessoaDto(Pessoa pessoa) {
-        this.nome = pessoa.getNome();
-        this.alcunha = pessoa.getAlcunha();
-        this.tipoPessoa = pessoa.getTipoPessoa();
-        this.dataNascimento = pessoa.getDataNascimento();
+	this.nome = pessoa.getNome();
+	this.alcunha = pessoa.getAlcunha();
+	this.tipoPessoa = pessoa.getTipoPessoa();
+	this.dataNascimento = pessoa.getDataNascimento();
     }
 
     public static Page<PessoaDto> converterPessoasEmPessoasDto(Page<Pessoa> pessoas) {
-        return pessoas.map(PessoaDto::new);
+	return pessoas.map(PessoaDto::new);
     }
 
     public static List<PessoaDto> converterPessoasEmPessoasDto(List<Pessoa> pessoas) {
-        return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
+	return pessoas.stream().map(PessoaDto::new).collect(Collectors.toList());
     }
 
 }

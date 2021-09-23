@@ -27,36 +27,36 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id()
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idpessoa")
-	protected Long id;
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idpessoa")
+    protected Long id;
 
-	protected String nome;
+    protected String nome;
 
-	protected String alcunha;
+    protected String alcunha;
 
-	protected LocalDate dataNascimento;
+    protected LocalDate dataNascimento;
 
-	@Enumerated(EnumType.STRING)
-	protected TipoPessoa tipoPessoa;
+    @Enumerated(EnumType.STRING)
+    protected TipoPessoa tipoPessoa;
 
-	public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
-		super();
-		this.nome = nome;
-		this.alcunha = alcunha;
-		this.dataNascimento = dataNascimento;
-		this.tipoPessoa = tipoPessoa;
-	}
+    public Pessoa(String nome, String alcunha, LocalDate dataNascimento, TipoPessoa tipoPessoa) {
+	super();
+	this.nome = nome;
+	this.alcunha = alcunha;
+	this.dataNascimento = dataNascimento;
+	this.tipoPessoa = tipoPessoa;
+    }
 
-	public Pessoa(PessoaForm pessoaForm) {
-		super();
-		this.nome = pessoaForm.getNome();
-		this.alcunha = pessoaForm.getAlcunha();
-		this.dataNascimento = pessoaForm.getDataNascimento();
-		this.tipoPessoa = pessoaForm.getTipoPessoa();
-	}
+    public Pessoa(PessoaForm pessoaForm) {
+	super();
+	this.nome = pessoaForm.getNome();
+	this.alcunha = pessoaForm.getAlcunha();
+	this.dataNascimento = pessoaForm.getDataNascimento();
+	this.tipoPessoa = pessoaForm.getTipoPessoa();
+    }
 
 }

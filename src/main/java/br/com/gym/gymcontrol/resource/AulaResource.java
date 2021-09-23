@@ -1,6 +1,5 @@
 package br.com.gym.gymcontrol.resource;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -31,24 +30,22 @@ public class AulaResource {
 
     @GetMapping
     public ResponseEntity<List<Aluno>> getAlunos() {
-        List<Aluno> alunos = alunoService.buscarAlunos();
-        return ResponseEntity.ok(alunos);
+	List<Aluno> alunos = alunoService.buscarAlunos();
+	return ResponseEntity.ok(alunos);
     }
 
     @PostMapping
     public ResponseEntity<AlunoDto> setAlunos(@RequestBody @Valid AlunoForm alunoForm, UriComponentsBuilder builder) {
-        Aluno aluno = alunoService.inserirAluno(alunoForm.converterParaPessoa());
-        URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AlunoDto(aluno));
+	return null;
     }
 
     @PutMapping({ "/{id}" })
     public ResponseEntity<Void> editAula(@RequestBody @Valid AlunoForm alunoForm, @PathVariable Long id) {
-        return null;
+	return null;
     }
 
     @DeleteMapping
     public ResponseEntity<Aluno> deletAlunos() {
-        return null;
+	return null;
     }
 }

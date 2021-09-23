@@ -8,12 +8,12 @@ public enum TipoPessoa {
     private String descricao;
 
     private TipoPessoa(String descricao) {
-        this.descricao = descricao;
+	this.descricao = descricao;
     }
 
     @JsonValue
     public String getDescricao() {
-        return descricao;
+	return descricao;
     }
 
 }

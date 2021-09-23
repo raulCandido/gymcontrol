@@ -24,22 +24,22 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Professor extends Pessoa {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<Turma> turmas;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Turma> turmas;
 
-	@ManyToMany()
-	@JoinTable(name = "professor_categoria", joinColumns = {
-			@JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
-	private List<Categoria> categorias;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "professor_categoria", joinColumns = {
+	    @JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
+    private List<Categoria> categorias;
 
-	public Professor(String nome, String alcunha, TipoPessoa tipoPessoa, List<Categoria> categorias) {
-		this.nome = nome;
-		this.alcunha = alcunha;
-		this.tipoPessoa = tipoPessoa;
-		this.categorias = categorias;
-	}
+    public Professor(String nome, String alcunha, TipoPessoa tipoPessoa, List<Categoria> categorias) {
+	this.nome = nome;
+	this.alcunha = alcunha;
+	this.tipoPessoa = tipoPessoa;
+	this.categorias = categorias;
+    }
 
 }

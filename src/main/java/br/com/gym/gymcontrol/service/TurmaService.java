@@ -9,13 +9,15 @@ import br.com.gym.gymcontrol.model.form.TurmaForm;
 
 public interface TurmaService {
 
-	Turma cadastrarTurma(Turma turma);
+    Turma cadastrarTurma(Turma turma);
 
-	List<Turma> getTurmas();
+    List<Turma> getTurmas();
 
-	void inserir(Turma turma);
+    void inserir(Turma turma);
 
-	void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm);
+    void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm);
 
-	Turma buscarTurmaPorId(Long id);
+    Turma buscarTurmaPorId(Long id);
+
+    List<Turma> buscarTurmasPorIds(List<Long> ids);
 }

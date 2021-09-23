@@ -10,6 +10,7 @@ import br.com.gym.gymcontrol.model.TipoPessoa;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
+    
     List<Pessoa> findByNome(String nome);
 
     List<Pessoa> findByNomeContainingIgnoreCase(String nome);
