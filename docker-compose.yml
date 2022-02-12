@@ -15,7 +15,7 @@ services:
       - 5432:5432
     volumes:
       - postgresdb:/var/lib/postgresql/data
-    networks :
+    networks:
       - postgres-network
     environment:
       - POSTGRES_PASSWORD=Postgres2018!
@@ -23,16 +23,16 @@ services:
     image: dpage/pgadmin4
     ports:
       - 15432:80
-    networks :
+    networks:
       - postgres-network
     environment:
       - PGADMIN_DEFAULT_EMAIL=yurialcantara03@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=PgAdmin2018!
     depends_on:
-    - teste-postgres
+      - teste-postgres
   spring:
     image: yurialcantara03/gymcontrol:SNAPSHOT-1.0
     ports:
       - 8080:8080
     depends_on:
-    - teste-postgres
+      - teste-postgres

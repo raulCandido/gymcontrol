@@ -1,7 +1,6 @@
 package br.com.gym.gymcontrol.model.dto;
 
 import br.com.gym.gymcontrol.model.Categoria;
-import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
 import lombok.AllArgsConstructor;
 import lombok.Data;

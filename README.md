@@ -1,13 +1,16 @@
 ## gymcontrol - Modulo de backend
 
-
-Projeto para atender necessidade de controle geral da academia Vida Ativa, com modulos de suporte e gameficacao para os *alunos* praticantes de **JJ** 
+Projeto para atender necessidade de controle geral da academia Vida Ativa, com modulos de suporte e gameficacao para
+os *alunos* praticantes de **JJ**
 
 ### Stack core da app
+
 - Java
 - SpringBoot
 - PostgreSQL
+
 ### gerar imagem de desenvolvimento
+
     1° alterar o ip no application.properties, executa ipconfig e coloca o ipv4 
     2° apos fazer as alterações executar o mvn clean package
     3° com o jar gerado vai executar o gerar_image.bat passando o nome da tag da imagem

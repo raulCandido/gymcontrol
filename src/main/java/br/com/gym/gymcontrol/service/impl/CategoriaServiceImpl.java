@@ -6,6 +6,7 @@ import br.com.gym.gymcontrol.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    @Transactional
     public List<Categoria> buscarCategoriaPorIds(List<Long> ids) {
         List<Categoria> categorias = categoriaRepository.findAllById(ids);
         return verificarCategoriasVazia(categorias);

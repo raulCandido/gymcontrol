@@ -7,6 +7,7 @@ import br.com.gym.gymcontrol.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public List<Professor> bucarProfessores() throws ResourceAccessException {
+    @Transactional
+    public List<Professor> bucarProfessores() {
         List<Professor> profs = professorRepository.findAll();
         verificarListaVazia(profs);
         return professorRepository.findAll();
