@@ -1,12 +1,12 @@
 package br.com.gym.gymcontrol.service;
 
-import java.util.List;
-
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
 
+import java.util.List;
+
 public interface AlunoService {
-    
+
     List<Aluno> buscarAlunos();
 
     Aluno inserirAluno(Aluno aluno);

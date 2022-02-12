@@ -1,17 +1,15 @@
 package br.com.gym.gymcontrol.model.form;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import br.com.gym.gymcontrol.model.Aluno;
-import br.com.gym.gymcontrol.model.TipoPessoa;
 import br.com.gym.gymcontrol.model.Turma;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,7 +29,8 @@ public class AlunoForm {
     private List<Long> idTurmas;
 
     public Aluno converterParaAluno(List<Turma> turmas) {
-	return new Aluno(this.nome, this.alcunha, this.dataNascimento, TipoPessoa.ALUNO, turmas);
+        return new Aluno(this.nome, this.alcunha, this.dataNascimento, turmas);
     }
+
 
 }

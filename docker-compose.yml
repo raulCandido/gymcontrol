@@ -11,19 +11,19 @@ volumes:
 services:
   teste-postgres:
     image: postgres
-    ports: 
+    ports:
       - 5432:5432
     volumes:
       - postgresdb:/var/lib/postgresql/data
-    networks : 
+    networks :
       - postgres-network
     environment:
       - POSTGRES_PASSWORD=Postgres2018!
-  teste-pgadmin: 
+  teste-pgadmin:
     image: dpage/pgadmin4
-    ports: 
+    ports:
       - 15432:80
-    networks : 
+    networks :
       - postgres-network
     environment:
       - PGADMIN_DEFAULT_EMAIL=yurialcantara03@gmail.com
@@ -32,7 +32,7 @@ services:
     - teste-postgres
   spring:
     image: yurialcantara03/gymcontrol:SNAPSHOT-1.0
-    ports: 
+    ports:
       - 8080:8080
     depends_on:
     - teste-postgres

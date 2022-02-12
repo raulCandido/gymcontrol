@@ -1,26 +1,16 @@
 package br.com.gym.gymcontrol.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -37,8 +27,8 @@ public class Usuario implements UserDetails {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    @JoinColumn(name = "professor_id")
+    private Professor professor;
 
     @Column(unique = true)
     private String email;
@@ -50,37 +40,37 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	return null;
+        return new ArrayList<>();
     }
 
     @Override
     public String getPassword() {
-	return this.senha;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-	return this.email;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-	return true;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-	return true;
+        return true;
     }
 
 }

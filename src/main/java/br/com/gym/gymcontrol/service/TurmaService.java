@@ -1,11 +1,10 @@
 package br.com.gym.gymcontrol.service;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.model.form.TurmaForm;
+
+import javax.validation.Valid;
+import java.util.List;
 
 public interface TurmaService {
 

@@ -1,13 +1,13 @@
 package br.com.gym.gymcontrol.model.dto;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import br.com.gym.gymcontrol.model.Aluno;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -21,12 +21,12 @@ public class AlunoDto {
     private List<TurmaDto> turmasDto;
 
     public AlunoDto(Aluno aluno) {
-	super();
-	this.id = aluno.getId();
-	this.nome = aluno.getNome();
-	this.alcunha = aluno.getAlcunha();
-	this.dataNascimento = aluno.getDataNascimento();
-	this.turmasDto = aluno.getTurmas().stream().map(TurmaDto::new).collect(Collectors.toList());
+        super();
+        this.id = aluno.getId();
+        this.nome = aluno.getNome();
+        this.alcunha = aluno.getAlcunha();
+        this.dataNascimento = aluno.getDataNascimento();
+        this.turmasDto = aluno.getTurmas().stream().map(TurmaDto::new).collect(Collectors.toList());
     }
 
 }

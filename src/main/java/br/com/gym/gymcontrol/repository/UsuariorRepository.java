@@ -1,10 +1,9 @@
 package br.com.gym.gymcontrol.repository;
 
-import java.util.Optional;
-
+import br.com.gym.gymcontrol.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.gym.gymcontrol.model.Usuario;
+import java.util.Optional;
 
 public interface UsuariorRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);

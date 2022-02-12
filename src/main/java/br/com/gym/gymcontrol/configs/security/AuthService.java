@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.configs.security;
 
-import java.util.Optional;
-
+import br.com.gym.gymcontrol.model.Usuario;
+import br.com.gym.gymcontrol.repository.UsuariorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.gym.gymcontrol.model.Usuario;
-import br.com.gym.gymcontrol.repository.UsuariorRepository;
+import java.util.Optional;
 
 @Service
 public class AuthService implements UserDetailsService {

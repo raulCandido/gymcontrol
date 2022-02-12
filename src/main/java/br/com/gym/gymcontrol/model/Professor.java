@@ -1,30 +1,35 @@
 package br.com.gym.gymcontrol.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Professor extends Pessoa {
+public class Professor implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idpessoa")
+    protected Long id;
+
+    protected String nome;
+
+    protected String alcunha;
+
+    protected LocalDate dataNascimento;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
     @JsonBackReference
@@ -32,14 +37,13 @@ public class Professor extends Pessoa {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "professor_categoria", joinColumns = {
-	    @JoinColumn(name = "professor_id") }, inverseJoinColumns = { @JoinColumn(name = "categoria_id") })
+            @JoinColumn(name = "professor_id")}, inverseJoinColumns = {@JoinColumn(name = "categoria_id")})
     private List<Categoria> categorias;
 
-    public Professor(String nome, String alcunha, TipoPessoa tipoPessoa, List<Categoria> categorias) {
-	this.nome = nome;
-	this.alcunha = alcunha;
-	this.tipoPessoa = tipoPessoa;
-	this.categorias = categorias;
+    public Professor(String nome, String alcunha, List<Categoria> categorias) {
+        this.nome = nome;
+        this.alcunha = alcunha;
+        this.categorias = categorias;
     }
 
 }

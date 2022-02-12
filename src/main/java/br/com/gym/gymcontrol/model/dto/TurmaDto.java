@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TurmaDto {
-    
+
     private Long id;
 
     private String nomeTurma;
@@ -19,11 +19,11 @@ public class TurmaDto {
     private String nomeProfessor;
 
     public TurmaDto(Turma turma) {
-	super();
-	this.id = turma.getId();
-	this.nomeTurma = turma.getNome();
-	this.nomeCategoria = turma.getCategoria().getNomeCategoria();
-	this.nomeProfessor = turma.getProfessor().getNome();
+        super();
+        this.id = turma.getId();
+        this.nomeTurma = turma.getNome();
+        this.nomeCategoria = turma.getCategoria().getNomeCategoria();
+        this.nomeProfessor = turma.getProfessor().getNome();
     }
 
 }

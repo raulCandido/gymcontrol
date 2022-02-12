@@ -1,9 +1,9 @@
 package br.com.gym.gymcontrol.service;
 
-import java.util.List;
-
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.dto.ProfessorDto;
+
+import java.util.List;
 
 public interface ProfessorService {
 
