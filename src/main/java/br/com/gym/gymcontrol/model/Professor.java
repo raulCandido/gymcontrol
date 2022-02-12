@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class Professor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,13 +22,13 @@ public class Professor implements Serializable {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idpessoa")
-    protected Long id;
+    private Long id;
 
-    protected String nome;
+    private String nome;
 
-    protected String alcunha;
+    private String alcunha;
 
-    protected LocalDate dataNascimento;
+    private LocalDate dataNascimento;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
     @JsonBackReference

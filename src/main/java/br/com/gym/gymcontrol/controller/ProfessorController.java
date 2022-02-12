@@ -4,6 +4,7 @@ import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.dto.ProfessorDto;
 import br.com.gym.gymcontrol.model.form.ProfessorForm;
+import br.com.gym.gymcontrol.model.mapper.ProfessorMapper;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/professores")
 public class ProfessorController {
 
-    @Autowired
     private ProfessorService professorService;
 
-    @Autowired
     private CategoriaService categoriaService;
+
+    private ProfessorMapper professorMapper;
+
+    @Autowired
+    public ProfessorController(ProfessorService professorService, CategoriaService categoriaService, ProfessorMapper professorMapper) {
+        this.professorService = professorService;
+        this.categoriaService = categoriaService;
+        this.professorMapper = professorMapper;
+    }
 
     @GetMapping
     public ResponseEntity<List<ProfessorDto>> getProfessores() {
         List<Professor> profs = professorService.bucarProfessores();
-        List<ProfessorDto> professorDto = profs.stream().map(ProfessorDto::new).collect(Collectors.toList());
+        List<ProfessorDto> professorDto = profs.stream().map(professorMapper::toDTO).collect(Collectors.toList());
         return ResponseEntity.ok(professorDto);
     }
 
@@ -38,7 +46,7 @@ public class ProfessorController {
                                                        UriComponentsBuilder builder) {
         Professor professor = professorService.inserirProfessor(professorForm.converterEmProfessor(categoriaService));
         URI uri = builder.path("/{id}").buildAndExpand(professor.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ProfessorDto(professor));
+        return ResponseEntity.created(uri).body(professorMapper.toDTO(professor));
     }
 
     @PutMapping("/{id}")
