@@ -18,8 +18,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/alunos")
 public class AlunoController {
 
+    private final AlunoService alunoService;
+
     @Autowired
-    private AlunoService alunoService;
+    public AlunoController(AlunoService alunoService) {
+        this.alunoService = alunoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<AlunoDto>> pegarAlunos() {

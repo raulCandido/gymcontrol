@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +39,10 @@ public class ProfessorServiceImpl implements ProfessorService {
         List<ProfessorDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
         verificarListaVazia(professoresPorCategorias);
         return professoresPorCategorias;
+    }
 
+    public Professor buscarReferencia(Long id) {
+        return professorRepository.getById(id);
     }
 
     private void verificarListaVazia(List<?> object) {

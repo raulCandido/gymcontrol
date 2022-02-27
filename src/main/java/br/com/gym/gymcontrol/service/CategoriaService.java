@@ -14,6 +14,8 @@ public interface CategoriaService {
 
     Categoria buscarCategoriaPorId(Long id);
 
+    Categoria buscarReferencia(Long id);
+
     void deletarCategoriaPorId(Long id);
 
 }

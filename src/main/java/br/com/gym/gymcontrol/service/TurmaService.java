@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TurmaService {
 
-    Turma cadastrarTurma(Turma turma);
+    Turma cadastrarTurma(TurmaForm turmaForm);
 
     List<Turma> getTurmas();
 

@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum TipoPessoa {
     PROFESSOR("Professor"), ALUNO("Aluno");
 
-    private String descricao;
+    private final String descricao;
 
-    private TipoPessoa(String descricao) {
+    TipoPessoa(String descricao) {
         this.descricao = descricao;
     }
 

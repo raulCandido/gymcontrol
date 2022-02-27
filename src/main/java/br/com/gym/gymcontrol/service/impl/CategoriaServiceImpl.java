@@ -1,5 +1,7 @@
 package br.com.gym.gymcontrol.service.impl;
 
+import br.com.gym.gymcontrol.error.BusinessError;
+import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.repository.CategoriaRepository;
 import br.com.gym.gymcontrol.service.CategoriaService;
@@ -46,6 +48,17 @@ public class CategoriaServiceImpl implements CategoriaService {
     public Categoria buscarCategoriaPorId(Long id) {
         Optional<Categoria> opt = categoriaRepository.findById(id);
         return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
+    }
+
+    public Categoria buscarReferencia(Long id) {
+        Categoria categoria = categoriaRepository.getById(id);
+
+        if (categoria == null) {
+            throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
+        }
+
+        return categoria;
+
     }
 
     @Override

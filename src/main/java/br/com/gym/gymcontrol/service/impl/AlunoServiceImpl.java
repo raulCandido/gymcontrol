@@ -1,5 +1,7 @@
 package br.com.gym.gymcontrol.service.impl;
 
+import br.com.gym.gymcontrol.error.BusinessError;
+import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.model.form.AlunoForm;
@@ -24,9 +26,10 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public List<Aluno> buscarAlunos() {
-
         List<Aluno> alunos = alunoRepository.findAll();
-        verificarListAlunoVazia(alunos);
+        if (alunos.isEmpty()) {
+            throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
+        }
         return alunos;
     }
 
@@ -41,12 +44,6 @@ public class AlunoServiceImpl implements AlunoService {
         List<Turma> turmas = turmaService.buscarTurmasPorIds(idTurmas);
         Aluno aluno = alunoForm.converterParaAluno(turmas);
         return inserirAluno(aluno);
-    }
-
-    private void verificarListAlunoVazia(List<Aluno> alunos) {
-        if (alunos.isEmpty()) {
-            throw new ResourceNotFoundException("Nenhum aluno encontrado.");
-        }
     }
 
     @Override

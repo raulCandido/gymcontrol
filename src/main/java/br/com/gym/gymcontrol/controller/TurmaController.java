@@ -20,19 +20,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/turmas")
 public class TurmaController {
 
-    @Autowired
-    private TurmaService turmaService;
+    private final TurmaService turmaService;
+
+    private final ProfessorService professorService;
+
+    private final CategoriaService categoriaService;
 
     @Autowired
-    private ProfessorService professorService;
-
-    @Autowired
-    private CategoriaService categoriaService;
+    public TurmaController(TurmaService turmaService, ProfessorService professorService, CategoriaService categoriaService) {
+        this.turmaService = turmaService;
+        this.professorService = professorService;
+        this.categoriaService = categoriaService;
+    }
 
     @PostMapping
     public ResponseEntity<TurmaDto> persistirTurma(@RequestBody @Valid TurmaForm turmaForm,
                                                    UriComponentsBuilder builder) {
-        Turma turma = turmaService.cadastrarTurma(turmaForm.converterEmTurma(professorService, categoriaService));
+        Turma turma = turmaService.cadastrarTurma(turmaForm);
         URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
         return ResponseEntity.created(uri).body(new TurmaDto(turma));
 

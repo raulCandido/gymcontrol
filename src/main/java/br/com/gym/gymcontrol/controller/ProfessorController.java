@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/professores")
 public class ProfessorController {
 
-    private ProfessorService professorService;
+    private final ProfessorService professorService;
 
-    private CategoriaService categoriaService;
+    private final CategoriaService categoriaService;
 
-    private ProfessorMapper professorMapper;
+    private final ProfessorMapper professorMapper;
 
     @Autowired
     public ProfessorController(ProfessorService professorService, CategoriaService categoriaService, ProfessorMapper professorMapper) {
@@ -42,12 +42,12 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfessorDto> setProfessores(@RequestBody @Valid ProfessorForm professorForm, UriComponentsBuilder builder) {
+    public ResponseEntity<ProfessorDto> cadastrarProfessor(@RequestBody @Valid ProfessorForm professorForm, UriComponentsBuilder builder) {
 
         List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
-        Professor professor = Professor.builder().nome(professorForm.getNome()).alcunha(professorForm.getAlcunha()).categorias(categorias).build();
-
+        Professor professor = Professor.builder().nome(professorForm.getNome()).alcunha(professorForm.getAlcunha()).categorias(categorias).dataNascimento(professorForm.getDataNascimento()).build();
         Professor persistProfessor = professorService.inserirProfessor(professor);
+
         URI uri = builder.path("/{id}").buildAndExpand(professor.getId()).toUri();
         return ResponseEntity.created(uri).body(professorMapper.modelToDTO(professor));
     }

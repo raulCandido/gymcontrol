@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -29,7 +29,7 @@ public class Professor implements Serializable {
 
     private String alcunha;
 
-    private LocalDate dataNascimento;
+    private LocalDateTime dataNascimento;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
     @JsonBackReference

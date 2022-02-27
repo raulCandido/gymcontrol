@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.configs.validation;
 
 import br.com.gym.gymcontrol.exception.BadRequestException;
+import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.exception.StandardError;
 import br.com.gym.gymcontrol.exception.ValidationError;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
-public class ErrorValidationHandler {
+public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> objectNotFoundException(ResourceNotFoundException e,
@@ -49,6 +50,13 @@ public class ErrorValidationHandler {
         StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.name(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<StandardError> businessException(BusinessException e, HttpServletRequest request) {
+        StandardError error = new StandardError(System.currentTimeMillis(), e.getBusinessError().getHttpStatus().value(),
+                e.getBusinessError().getHttpStatus().name(), e.getBusinessError().getDescription(), request.getRequestURI());
+        return ResponseEntity.status(e.getBusinessError().getHttpStatus()).body(error);
     }
 
 }
