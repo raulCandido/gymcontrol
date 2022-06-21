@@ -11,6 +11,7 @@ import br.com.gym.gymcontrol.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +19,15 @@ import java.util.Optional;
 @Service
 public class AlunoServiceImpl implements AlunoService {
 
-    @Autowired
     private AlunoRepository alunoRepository;
 
-    @Autowired
     private TurmaService turmaService;
+
+    @Autowired
+    public AlunoServiceImpl(AlunoRepository alunoRepository, TurmaService turmaService) {
+        this.alunoRepository = alunoRepository;
+        this.turmaService = turmaService;
+    }
 
     @Override
     public List<Aluno> buscarAlunos() {
@@ -38,10 +43,10 @@ public class AlunoServiceImpl implements AlunoService {
         return alunoRepository.save(aluno);
     }
 
+    @Transactional
     @Override
     public Aluno montarAlunoParaPersistir(AlunoForm alunoForm) {
-        List<Long> idTurmas = alunoForm.getIdTurmas();
-        List<Turma> turmas = turmaService.buscarTurmasPorIds(idTurmas);
+        List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoForm.getIdTurmas());
         Aluno aluno = alunoForm.converterParaAluno(turmas);
         return inserirAluno(aluno);
     }

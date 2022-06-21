@@ -5,11 +5,13 @@ import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
+import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoRecord;
 import br.com.gym.gymcontrol.model.form.TurmaForm;
 import br.com.gym.gymcontrol.repository.TurmaRepository;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import br.com.gym.gymcontrol.service.TurmaService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class TurmaServiceImpl implements TurmaService {
 
     private final TurmaRepository turmaRepository;
@@ -39,9 +42,10 @@ public class TurmaServiceImpl implements TurmaService {
     public Turma cadastrarTurma(TurmaForm turmaForm) {
 
         Categoria categoria = categoriaService.buscarReferencia(turmaForm.getIdCategoria());
-        Professor professor = professorService.buscarProfessorPorId(turmaForm.getIdProfessor());
 
-        Turma turma = Turma.builder().nome(turmaForm.getNome()).categoria(categoria).professor(professor).build();
+        Turma turma = Turma.builder().nome(turmaForm.getNome())
+                .categoria(categoria)
+                .build();
         return turmaRepository.save(turma);
     }
 
@@ -70,12 +74,8 @@ public class TurmaServiceImpl implements TurmaService {
 
         Categoria categoria = categoriaService.buscarReferencia(turmaForm.getIdCategoria());
 
-        Professor professor = professorService.buscarProfessorPorId(turmaForm.getIdProfessor());
-
         turma.setNome(turmaForm.getNome());
         turma.setCategoria(categoria);
-        turma.setProfessor(professor);
-
         inserir(turma);
 
     }
@@ -93,6 +93,36 @@ public class TurmaServiceImpl implements TurmaService {
         if (turmas.isEmpty()) {
             throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
         }
+
         return turmas;
     }
+
+    @Override
+    @Transactional()
+    public TurmaComProfessorVinculadoRecord findAndJoinTheacherWithClass(Long idTurma, Long idProfessor) {
+        Turma turma = buscarTurmaPorId(idTurma);
+        Professor professor = professorService.buscarProfessorPorId(idProfessor);
+
+        if (turma.getProfessor() != null) {
+            if (turma.getProfessor().equals(professor)) {
+                log.info("Professor já é vinculado a essa turma");
+                throw new BusinessException(BusinessError.TEACHER_LINKED_WITH_CLASS);
+            }
+        }
+
+        if (!verifyTeacherCategory(professor, turma)) {
+            throw new BusinessException(BusinessError.TEACHER_NOT_WITH_CATEGORY);
+        }
+        turma.setProfessor(professor);
+        professor.getTurmas().add(turma);
+
+        turmaRepository.save(turma);
+        professorService.inserirProfessor(professor);
+
+        return new TurmaComProfessorVinculadoRecord(turma.getId(), turma.getNome(), professor.getNome());
+    }
+    private boolean verifyTeacherCategory(Professor professor, Turma turma) {
+        return professor.getCategorias().contains(turma.getCategoria());
+    }
+
 }

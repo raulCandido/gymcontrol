@@ -19,12 +19,10 @@ public class ProfessorDto {
 
     private String nome;
 
-    private String alcunha;
+    private String apelido;
 
-    private LocalDate dataNascimento;
+    private List<TurmaDto> turmas;
 
-    private List<Turma> turmas;
-
-    private List<Categoria> categorias;
+    private List<CategoriaDto> categorias;
 
 }

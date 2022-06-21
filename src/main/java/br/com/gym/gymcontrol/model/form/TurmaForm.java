@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.model.form;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,7 @@ public class TurmaForm {
     private String nome;
 
     @NotNull(message = "Categoria obrigatória")
+    @JsonProperty("id_categoria")
     private Long idCategoria;
-
-    @NotNull(message = "Categoria obrigatória")
-    private Long idProfessor;
 
 }

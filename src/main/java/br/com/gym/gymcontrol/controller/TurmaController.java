@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Turma;
+import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoRecord;
 import br.com.gym.gymcontrol.model.dto.TurmaDto;
 import br.com.gym.gymcontrol.model.form.TurmaForm;
 import br.com.gym.gymcontrol.service.CategoriaService;
@@ -34,8 +35,7 @@ public class TurmaController {
     }
 
     @PostMapping
-    public ResponseEntity<TurmaDto> persistirTurma(@RequestBody @Valid TurmaForm turmaForm,
-                                                   UriComponentsBuilder builder) {
+    public ResponseEntity<TurmaDto> persistirTurma(@RequestBody @Valid TurmaForm turmaForm, UriComponentsBuilder builder) {
         Turma turma = turmaService.cadastrarTurma(turmaForm);
         URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
         return ResponseEntity.created(uri).body(new TurmaDto(turma));
@@ -43,8 +43,7 @@ public class TurmaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editarTurma(@PathVariable Long id, @RequestBody @Valid TurmaForm turmaForm,
-                                            UriComponentsBuilder builder) {
+    public ResponseEntity<Void> editarTurma(@PathVariable Long id, @RequestBody @Valid TurmaForm turmaForm, UriComponentsBuilder builder) {
         turmaService.buscarEditarTurma(id, turmaForm);
         return ResponseEntity.noContent().build();
     }
@@ -54,6 +53,12 @@ public class TurmaController {
         List<Turma> turmas = turmaService.getTurmas();
         List<TurmaDto> turmasDto = turmas.stream().map(TurmaDto::new).collect(Collectors.toList());
         return ResponseEntity.ok(turmasDto);
+    }
+
+    @PatchMapping("/vincular_professor")
+    public ResponseEntity<TurmaComProfessorVinculadoRecord> vincularProfessor(@RequestParam(name = "id_professor") Long idProfessor, @RequestParam(name = "id_turma") Long idTurma) {
+        var turmaComProfessorVinculadoRecord = turmaService.findAndJoinTheacherWithClass(idTurma, idProfessor);
+        return ResponseEntity.ok(turmaComProfessorVinculadoRecord);
     }
 
 }

@@ -12,7 +12,6 @@ public class CategoriaDto {
 
     private long id;
     private String nomeCategoria;
-
     public CategoriaDto(Categoria categoria) {
         super();
         this.id = categoria.getId();

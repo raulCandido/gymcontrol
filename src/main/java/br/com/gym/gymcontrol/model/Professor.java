@@ -1,21 +1,21 @@
 package br.com.gym.gymcontrol.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Professor implements Serializable {
 
@@ -28,9 +28,7 @@ public class Professor implements Serializable {
 
     private String nome;
 
-    private String alcunha;
-
-    private LocalDate dataNascimento;
+    private String apelido;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "professor", fetch = FetchType.LAZY)
     @JsonBackReference
@@ -41,9 +39,13 @@ public class Professor implements Serializable {
             @JoinColumn(name = "professor_id")}, inverseJoinColumns = {@JoinColumn(name = "categoria_id")})
     private List<Categoria> categorias;
 
-    public Professor(String nome, String alcunha, List<Categoria> categorias) {
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Date createdAt;
+
+    public Professor(String nome, String apelido, List<Categoria> categorias) {
         this.nome = nome;
-        this.alcunha = alcunha;
+        this.apelido = apelido;
         this.categorias = categorias;
     }
 

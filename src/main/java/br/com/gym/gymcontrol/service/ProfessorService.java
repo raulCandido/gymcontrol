@@ -14,4 +14,6 @@ public interface ProfessorService {
     Professor buscarProfessorPorId(Long idProfessor);
 
     List<ProfessorDto> buscarProfessoresPorCategoria(Long id);
+
+    void excluirProfessor(Long idProfessor);
 }

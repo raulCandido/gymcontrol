@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
+import br.com.gym.gymcontrol.model.dto.CategoriaDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,4 +38,7 @@ public class Categoria implements Serializable {
         this.nomeCategoria = nomeCategoria;
     }
 
+    public CategoriaDto toDto() {
+        return new CategoriaDto(this);
+    }
 }

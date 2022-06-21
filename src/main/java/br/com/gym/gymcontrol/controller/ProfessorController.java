@@ -37,6 +37,7 @@ public class ProfessorController {
     @GetMapping
     public ResponseEntity<List<ProfessorDto>> getProfessores() {
         List<Professor> profs = professorService.bucarProfessores();
+
         List<ProfessorDto> professorDto = profs.stream().map(professorMapper::modelToDTO).collect(Collectors.toList());
         return ResponseEntity.ok(professorDto);
     }
@@ -45,7 +46,11 @@ public class ProfessorController {
     public ResponseEntity<ProfessorDto> cadastrarProfessor(@RequestBody @Valid ProfessorForm professorForm, UriComponentsBuilder builder) {
 
         List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
-        Professor professor = Professor.builder().nome(professorForm.getNome()).alcunha(professorForm.getAlcunha()).categorias(categorias).dataNascimento(professorForm.getDataNascimento()).build();
+        Professor professor = Professor.builder()
+                .nome(professorForm.getNome())
+                .apelido(professorForm.getApelido())
+                .categorias(categorias).build();
+
         Professor persistProfessor = professorService.inserirProfessor(professor);
 
         URI uri = builder.path("/{id}").buildAndExpand(professor.getId()).toUri();
@@ -59,7 +64,7 @@ public class ProfessorController {
         List<Categoria> idCategoriaList = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
 
         professor.setNome(professorForm.getNome());
-        professor.setAlcunha(professorForm.getAlcunha());
+        professor.setApelido(professorForm.getApelido());
         professor.setCategorias(idCategoriaList);
 
         professorService.inserirProfessor(professor);
@@ -68,8 +73,11 @@ public class ProfessorController {
 
     }
 
+
+
     @DeleteMapping
-    public ResponseEntity<Void> deleteProfessores() {
-        return null;
+    public ResponseEntity<Void> deleteProfessores(@PathVariable Long idProfessor) {
+        professorService.excluirProfessor(idProfessor);
+        return ResponseEntity.noContent().build();
     }
 }

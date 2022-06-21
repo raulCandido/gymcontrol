@@ -41,6 +41,13 @@ public class ProfessorServiceImpl implements ProfessorService {
         return professoresPorCategorias;
     }
 
+    @Override
+    @Transactional
+    public void excluirProfessor(Long idProfessor) {
+        Professor professor = buscarReferencia(idProfessor);
+        professorRepository.delete(professor);
+    }
+
     public Professor buscarReferencia(Long id) {
         return professorRepository.getById(id);
     }

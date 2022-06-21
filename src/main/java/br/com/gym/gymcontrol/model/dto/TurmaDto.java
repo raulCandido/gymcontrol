@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.model.dto;
 
 import br.com.gym.gymcontrol.model.Turma;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,18 +13,17 @@ public class TurmaDto {
 
     private Long id;
 
-    private String nomeTurma;
+    @JsonProperty("nome_turma")
+    private String nome;
 
-    private String nomeCategoria;
-
-    private String nomeProfessor;
+    @JsonProperty("categoria")
+    private CategoriaDto categoria;
 
     public TurmaDto(Turma turma) {
-        super();
         this.id = turma.getId();
-        this.nomeTurma = turma.getNome();
-        this.nomeCategoria = turma.getCategoria().getNomeCategoria();
-        this.nomeProfessor = turma.getProfessor().getNome();
+        this.nome = turma.getNome();
+        this.categoria = turma.getCategoria().toDto();
     }
+
 
 }

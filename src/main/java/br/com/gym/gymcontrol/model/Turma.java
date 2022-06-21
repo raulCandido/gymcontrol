@@ -11,7 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Data
+@Getter
+@Setter
 @Builder
 public class Turma implements Serializable {
 
@@ -48,4 +49,9 @@ public class Turma implements Serializable {
         this.professor = professor;
     }
 
+    public Turma(Long id, String nome, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.categoria = categoria;
+    }
 }

@@ -17,12 +17,9 @@ public class ProfessorForm {
     protected String nome;
 
     @NotEmpty(message = "Alcunha obrigatório")
-    protected String alcunha;
+    protected String apelido;
 
     @NotNull(message = "Lista de categorias é obrigatório")
     private List<Long> idCategorias;
-
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    private LocalDate dataNascimento;
 
 }
