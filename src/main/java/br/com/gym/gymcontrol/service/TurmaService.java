@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.service;
 
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoRecord;
+import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoDto;
 import br.com.gym.gymcontrol.model.form.TurmaForm;
 
 import javax.validation.Valid;
@@ -21,5 +21,5 @@ public interface TurmaService {
 
     List<Turma> buscarTurmasPorIds(List<Long> ids);
 
-    TurmaComProfessorVinculadoRecord findAndJoinTheacherWithClass(Long idTurma, Long idProfessor);
+    TurmaComProfessorVinculadoDto findAndJoinTheacherWithClass(Long idTurma, Long idProfessor);
 }

@@ -4,7 +4,8 @@ import br.com.gym.gymcontrol.error.BusinessError;
 import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.form.AlunoForm;
+import br.com.gym.gymcontrol.model.form.AlunoNewDto;
+import br.com.gym.gymcontrol.model.mapper.AlunoMapper;
 import br.com.gym.gymcontrol.repository.AlunoRepository;
 import br.com.gym.gymcontrol.service.AlunoService;
 import br.com.gym.gymcontrol.service.TurmaService;
@@ -23,10 +24,13 @@ public class AlunoServiceImpl implements AlunoService {
 
     private TurmaService turmaService;
 
+    private AlunoMapper alunoMapper;
+
     @Autowired
-    public AlunoServiceImpl(AlunoRepository alunoRepository, TurmaService turmaService) {
+    public AlunoServiceImpl(AlunoRepository alunoRepository, TurmaService turmaService, AlunoMapper alunoMapper) {
         this.alunoRepository = alunoRepository;
         this.turmaService = turmaService;
+        this.alunoMapper = alunoMapper;
     }
 
     @Override
@@ -45,11 +49,19 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Transactional
     @Override
-    public Aluno montarAlunoParaPersistir(AlunoForm alunoForm) {
-        List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoForm.getIdTurmas());
-        Aluno aluno = alunoForm.converterParaAluno(turmas);
+    public Aluno montarAlunoParaPersistir(AlunoNewDto alunoNewDto) {
+        List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoNewDto.idTurmas());
+
+        if(turmas.size() != alunoNewDto.idTurmas().size()){
+            throw new BusinessException(BusinessError.GENERAL_ERROR);
+        }
+
+        Aluno aluno = alunoMapper.newDtoToModel(alunoNewDto);
+        aluno.setTurmas(turmas);
         return inserirAluno(aluno);
     }
+    
+    
 
     @Override
     public Aluno buscarAlunoPorId(Long id) {
@@ -63,11 +75,11 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public void buscarEditarAluno(Long id, AlunoForm alunoForm) {
+    public void buscarEditarAluno(Long id, AlunoNewDto alunoNewDto) {
         Aluno aluno = buscarAlunoPorId(id);
-        aluno.setAlcunha(alunoForm.getAlcunha());
-        aluno.setNome(alunoForm.getNome());
-        aluno.setDataNascimento(alunoForm.getDataNascimento());
+        aluno.setApelido(alunoNewDto.apelido());
+        aluno.setNome(alunoNewDto.nome());
+        aluno.setDataNascimento(alunoNewDto.dataNascimento());
         inserirAluno(aluno);
     }
 

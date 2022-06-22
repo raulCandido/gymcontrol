@@ -1,8 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Aluno implements Serializable {
@@ -24,7 +23,7 @@ public class Aluno implements Serializable {
 
     protected String nome;
 
-    protected String alcunha;
+    protected String apelido;
 
     protected LocalDate dataNascimento;
 
@@ -33,9 +32,9 @@ public class Aluno implements Serializable {
             @JoinColumn(name = "turma_id")})
     private List<Turma> turmas;
 
-    public Aluno(String nome, String alcunha, LocalDate dataNascimento, List<Turma> turmas) {
+    public Aluno(String nome, String apelido, LocalDate dataNascimento, List<Turma> turmas) {
         this.nome = nome;
-        this.alcunha = alcunha;
+        this.apelido = apelido;
         this.dataNascimento = dataNascimento;
         this.turmas = turmas;
     }

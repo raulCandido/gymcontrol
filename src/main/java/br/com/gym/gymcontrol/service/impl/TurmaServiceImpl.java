@@ -5,7 +5,7 @@ import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoRecord;
+import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoDto;
 import br.com.gym.gymcontrol.model.form.TurmaForm;
 import br.com.gym.gymcontrol.repository.TurmaRepository;
 import br.com.gym.gymcontrol.service.CategoriaService;
@@ -99,7 +99,7 @@ public class TurmaServiceImpl implements TurmaService {
 
     @Override
     @Transactional()
-    public TurmaComProfessorVinculadoRecord findAndJoinTheacherWithClass(Long idTurma, Long idProfessor) {
+    public TurmaComProfessorVinculadoDto findAndJoinTheacherWithClass(Long idTurma, Long idProfessor) {
         Turma turma = buscarTurmaPorId(idTurma);
         Professor professor = professorService.buscarProfessorPorId(idProfessor);
 
@@ -119,7 +119,7 @@ public class TurmaServiceImpl implements TurmaService {
         turmaRepository.save(turma);
         professorService.inserirProfessor(professor);
 
-        return new TurmaComProfessorVinculadoRecord(turma.getId(), turma.getNome(), professor.getNome());
+        return new TurmaComProfessorVinculadoDto(turma.getId(), turma.getNome(), professor.getNome());
     }
     private boolean verifyTeacherCategory(Professor professor, Turma turma) {
         return professor.getCategorias().contains(turma.getCategoria());
