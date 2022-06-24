@@ -4,8 +4,7 @@ import br.com.gym.gymcontrol.error.BusinessError;
 import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.dto.AulaDto;
-import br.com.gym.gymcontrol.model.form.AlunoNewDto;
+import br.com.gym.gymcontrol.model.dto.request.AlunoRequestDto;
 import br.com.gym.gymcontrol.model.mapper.AlunoMapper;
 import br.com.gym.gymcontrol.repository.AlunoRepository;
 import br.com.gym.gymcontrol.service.AlunoService;
@@ -50,14 +49,14 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Transactional
     @Override
-    public Aluno montarAlunoParaPersistir(AlunoNewDto alunoNewDto) {
-        List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoNewDto.idTurmas());
+    public Aluno montarAlunoParaPersistir(AlunoRequestDto alunoRequestDto) {
+        List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoRequestDto.idTurmas());
 
-        if (turmas.size() != alunoNewDto.idTurmas().size()) {
+        if (turmas.size() != alunoRequestDto.idTurmas().size()) {
             throw new BusinessException(BusinessError.GENERAL_ERROR);
         }
 
-        Aluno aluno = alunoMapper.newDtoToModel(alunoNewDto);
+        Aluno aluno = alunoMapper.newDtoToModel(alunoRequestDto);
         aluno.setTurmas(turmas);
         return inserirAluno(aluno);
     }
@@ -83,11 +82,11 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public void buscarEditarAluno(Long id, AlunoNewDto alunoNewDto) {
+    public void buscarEditarAluno(Long id, AlunoRequestDto alunoRequestDto) {
         Aluno aluno = buscarAlunoPorId(id);
-        aluno.setApelido(alunoNewDto.apelido());
-        aluno.setNome(alunoNewDto.nome());
-        aluno.setDataNascimento(alunoNewDto.dataNascimento());
+        aluno.setApelido(alunoRequestDto.apelido());
+        aluno.setNome(alunoRequestDto.nome());
+        aluno.setDataNascimento(alunoRequestDto.dataNascimento());
         inserirAluno(aluno);
     }
 

@@ -1,6 +1,6 @@
 package br.com.gym.gymcontrol.controller;
 
-import br.com.gym.gymcontrol.model.dto.UserRecord;
+import br.com.gym.gymcontrol.model.dto.response.UserRequestDto;
 import br.com.gym.gymcontrol.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserRecord> createUser(@RequestHeader Map<String, String> headers, @RequestBody UserRecord user){
+    public ResponseEntity<UserRequestDto> createUser(@RequestHeader Map<String, String> headers, @RequestBody UserRequestDto user){
 
         userService.findAndCreateUserWithTeacher(user);
 

@@ -2,7 +2,7 @@ package br.com.gym.gymcontrol.service.impl;
 
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Usuario;
-import br.com.gym.gymcontrol.model.dto.UserRecord;
+import br.com.gym.gymcontrol.model.dto.response.UserRequestDto;
 import br.com.gym.gymcontrol.repository.UsuariorRepository;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import br.com.gym.gymcontrol.service.UserService;
@@ -25,13 +25,13 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void findAndCreateUserWithTeacher(UserRecord user) {
+    public void findAndCreateUserWithTeacher(UserRequestDto user) {
         Professor professor = professorService.buscarProfessorPorId(user.idProfessor());
         Usuario usuario = createUserByteacher(user, professor);
         insertUser(usuario);
     }
 
-    private Usuario createUserByteacher(UserRecord user, Professor professor){
+    private Usuario createUserByteacher(UserRequestDto user, Professor professor){
         return Usuario.builder().email(user.email()).senha(user.senha()).professor(professor).build();
     }
 

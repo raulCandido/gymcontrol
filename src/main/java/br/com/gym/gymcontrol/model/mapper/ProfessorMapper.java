@@ -1,15 +1,15 @@
 package br.com.gym.gymcontrol.model.mapper;
 
 import br.com.gym.gymcontrol.model.Professor;
-import br.com.gym.gymcontrol.model.dto.ProfessorDto;
-import br.com.gym.gymcontrol.model.form.ProfessorForm;
+import br.com.gym.gymcontrol.model.dto.response.ProfessorReponseDto;
+import br.com.gym.gymcontrol.model.dto.request.ProfessorRequestDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ProfessorMapper {
-    ProfessorDto modelToDTO(Professor professor);
+    ProfessorReponseDto modelToDTO(Professor professor);
 
-    Professor dtoToModel(ProfessorDto professorDto);
+    Professor dtoToModel(ProfessorReponseDto professorReponseDto);
 
-    Professor formToModel(ProfessorForm professorForm);
+    Professor formToModel(ProfessorRequestDto professorRequestDto);
 }

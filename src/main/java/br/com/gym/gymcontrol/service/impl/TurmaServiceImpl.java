@@ -5,8 +5,8 @@ import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoDto;
-import br.com.gym.gymcontrol.model.form.TurmaForm;
+import br.com.gym.gymcontrol.model.dto.request.TurmaComProfessorVinculadoDto;
+import br.com.gym.gymcontrol.model.dto.request.TurmaRequestDto;
 import br.com.gym.gymcontrol.repository.TurmaRepository;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
@@ -39,13 +39,13 @@ public class TurmaServiceImpl implements TurmaService {
     }
 
     @Transactional
-    public Turma cadastrarTurma(TurmaForm turmaForm) {
+    public Turma cadastrarTurma(TurmaRequestDto turmaRequestDto) {
 
-        Categoria categoria = categoriaService.buscarReferencia(turmaForm.getIdCategoria());
+        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.getIdCategoria());
 
-        Turma turma = Turma.builder().nome(turmaForm.getNome())
+        Turma turma = Turma.builder().nome(turmaRequestDto.getNome())
                 .categoria(categoria)
-                .horarioTurma(turmaForm.getHorarioTurma())
+                .horarioTurma(turmaRequestDto.getHorarioTurma())
                 .build();
         return turmaRepository.save(turma);
     }
@@ -70,12 +70,12 @@ public class TurmaServiceImpl implements TurmaService {
 
     @Override
     @Transactional
-    public void buscarEditarTurma(Long id, @Valid TurmaForm turmaForm) {
+    public void buscarEditarTurma(Long id, @Valid TurmaRequestDto turmaRequestDto) {
         Turma turma = buscarTurmaPorId(id);
 
-        Categoria categoria = categoriaService.buscarReferencia(turmaForm.getIdCategoria());
+        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.getIdCategoria());
 
-        turma.setNome(turmaForm.getNome());
+        turma.setNome(turmaRequestDto.getNome());
         turma.setCategoria(categoria);
         inserir(turma);
 
@@ -119,7 +119,7 @@ public class TurmaServiceImpl implements TurmaService {
         turmaRepository.save(turma);
         professorService.inserirProfessor(professor);
 
-        return new TurmaComProfessorVinculadoDto(turma.getId(), turma.getNome(), professor.getNome());
+        return new TurmaComProfessorVinculadoDto(turma.getIdTurma(), turma.getNome(), professor.getNome());
     }
     private boolean verifyTeacherCategory(Professor professor, Turma turma) {
         return professor.getCategorias().contains(turma.getCategoria());

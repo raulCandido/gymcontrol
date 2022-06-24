@@ -3,7 +3,7 @@ package br.com.gym.gymcontrol.service.impl;
 import br.com.gym.gymcontrol.error.BusinessError;
 import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Aula;
-import br.com.gym.gymcontrol.model.dto.AulaDto;
+import br.com.gym.gymcontrol.model.dto.request.AulaRequestDto;
 import br.com.gym.gymcontrol.repository.AulaRepository;
 import br.com.gym.gymcontrol.service.AlunoService;
 import br.com.gym.gymcontrol.service.AulaService;
@@ -57,7 +57,7 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
-    public void buscarEditarAula(Long idAula, AulaDto aulaDto) {
+    public void buscarEditarAula(Long idAula, AulaRequestDto aulaRequestDto) {
 
     }
 
@@ -67,13 +67,13 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
-    public Aula montarAulaParaPersistir(AulaDto aulaDto) {
-        var alunos = alunoService.buscarAlunosPorTurma(aulaDto.idTurma());
-        var alunosPresentesMatriculados = alunos.stream().filter(a -> aulaDto.alunosPresentes().contains(a.getId())).collect(Collectors.toList());
+    public Aula montarAulaParaPersistir(AulaRequestDto aulaRequestDto) {
+        var alunos = alunoService.buscarAlunosPorTurma(aulaRequestDto.idTurma());
+        var alunosPresentesMatriculados = alunos.stream().filter(a -> aulaRequestDto.alunosPresentes().contains(a.getId())).collect(Collectors.toList());
         var aula = Aula.builder()
                 .alunosPresentes(alunosPresentesMatriculados)
-                .turma(turmaService.buscarTurmaPorId(aulaDto.idTurma()))
-                .data(aulaDto.dataAula()).build();
+                .turma(turmaService.buscarTurmaPorId(aulaRequestDto.idTurma()))
+                .data(aulaRequestDto.dataAula()).build();
         return aulaRepository.save(aula);
     }
 }

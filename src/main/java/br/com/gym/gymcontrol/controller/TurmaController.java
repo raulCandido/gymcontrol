@@ -1,9 +1,9 @@
 package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Turma;
-import br.com.gym.gymcontrol.model.dto.TurmaComProfessorVinculadoDto;
-import br.com.gym.gymcontrol.model.dto.TurmaDto;
-import br.com.gym.gymcontrol.model.form.TurmaForm;
+import br.com.gym.gymcontrol.model.dto.request.TurmaComProfessorVinculadoDto;
+import br.com.gym.gymcontrol.model.dto.response.TurmaResponseDto;
+import br.com.gym.gymcontrol.model.dto.request.TurmaRequestDto;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import br.com.gym.gymcontrol.service.TurmaService;
@@ -35,23 +35,23 @@ public class TurmaController {
     }
 
     @PostMapping
-    public ResponseEntity<TurmaDto> persistirTurma(@RequestBody @Valid TurmaForm turmaForm, UriComponentsBuilder builder) {
-        Turma turma = turmaService.cadastrarTurma(turmaForm);
-        URI uri = builder.path("/{id}").buildAndExpand(turma.getId()).toUri();
-        return ResponseEntity.created(uri).body(new TurmaDto(turma));
+    public ResponseEntity<TurmaResponseDto> persistirTurma(@RequestBody @Valid TurmaRequestDto turmaRequestDto, UriComponentsBuilder builder) {
+        Turma turma = turmaService.cadastrarTurma(turmaRequestDto);
+        URI uri = builder.path("/{id}").buildAndExpand(turma.getIdTurma()).toUri();
+        return ResponseEntity.created(uri).body(new TurmaResponseDto(turma));
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editarTurma(@PathVariable Long id, @RequestBody @Valid TurmaForm turmaForm, UriComponentsBuilder builder) {
-        turmaService.buscarEditarTurma(id, turmaForm);
+    public ResponseEntity<Void> editarTurma(@PathVariable Long id, @RequestBody @Valid TurmaRequestDto turmaRequestDto, UriComponentsBuilder builder) {
+        turmaService.buscarEditarTurma(id, turmaRequestDto);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<TurmaDto>> pegarTurmas() {
+    public ResponseEntity<List<TurmaResponseDto>> pegarTurmas() {
         List<Turma> turmas = turmaService.getTurmas();
-        List<TurmaDto> turmasDto = turmas.stream().map(TurmaDto::new).collect(Collectors.toList());
+        List<TurmaResponseDto> turmasDto = turmas.stream().map(TurmaResponseDto::new).collect(Collectors.toList());
         return ResponseEntity.ok(turmasDto);
     }
 

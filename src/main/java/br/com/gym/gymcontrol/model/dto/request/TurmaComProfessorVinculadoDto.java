@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.model.dto;
+package br.com.gym.gymcontrol.model.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

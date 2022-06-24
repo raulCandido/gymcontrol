@@ -1,8 +1,8 @@
 package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Aluno;
-import br.com.gym.gymcontrol.model.dto.AlunoDto;
-import br.com.gym.gymcontrol.model.form.AlunoNewDto;
+import br.com.gym.gymcontrol.model.dto.response.AlunoResponseDto;
+import br.com.gym.gymcontrol.model.dto.request.AlunoRequestDto;
 import br.com.gym.gymcontrol.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,22 +25,22 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AlunoDto>> pegarAlunos() {
+    public ResponseEntity<List<AlunoResponseDto>> pegarAlunos() {
         List<Aluno> alunos = alunoService.buscarAlunos();
-        List<AlunoDto> alunosDto = alunos.stream().map(AlunoDto::new).collect(Collectors.toList());
+        List<AlunoResponseDto> alunosDto = alunos.stream().map(AlunoResponseDto::new).collect(Collectors.toList());
         return ResponseEntity.ok(alunosDto);
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDto> cadastrarAlunos(@RequestBody @Valid AlunoNewDto alunoNewDto, UriComponentsBuilder builder) {
-        Aluno aluno = alunoService.montarAlunoParaPersistir(alunoNewDto);
+    public ResponseEntity<AlunoResponseDto> cadastrarAlunos(@RequestBody @Valid AlunoRequestDto alunoRequestDto, UriComponentsBuilder builder) {
+        Aluno aluno = alunoService.montarAlunoParaPersistir(alunoRequestDto);
         URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AlunoDto(aluno));
+        return ResponseEntity.created(uri).body(new AlunoResponseDto(aluno));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editarAlunos(@RequestBody @Valid AlunoNewDto alunoNewDto, @PathVariable Long id) {
-        alunoService.buscarEditarAluno(id, alunoNewDto);
+    public ResponseEntity<Void> editarAlunos(@RequestBody @Valid AlunoRequestDto alunoRequestDto, @PathVariable Long id) {
+        alunoService.buscarEditarAluno(id, alunoRequestDto);
         return ResponseEntity.noContent().build();
     }
 

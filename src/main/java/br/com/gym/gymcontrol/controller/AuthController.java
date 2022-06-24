@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.controller;
 
-import br.com.gym.gymcontrol.model.dto.TokenDto;
-import br.com.gym.gymcontrol.model.form.LoginForm;
+import br.com.gym.gymcontrol.model.dto.request.TokenRequestDto;
+import br.com.gym.gymcontrol.model.dto.request.LoginRequestDto;
 import br.com.gym.gymcontrol.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +27,15 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm loginForm) {
-        UsernamePasswordAuthenticationToken login = loginForm.converter();
+    public ResponseEntity<TokenRequestDto> autenticar(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginRequestDto.email(), loginRequestDto.senha());
 
         try {
-            Authentication authenticate = authenticationManager.authenticate(login);
+            Authentication authenticate = authenticationManager.authenticate(auth);
 
             String token = tokenService.gerarToken(authenticate);
 
-            return ResponseEntity.ok(new TokenDto(token, "Bearer"));
+            return ResponseEntity.ok(new TokenRequestDto(token, "Bearer"));
         } catch (AuthenticationException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

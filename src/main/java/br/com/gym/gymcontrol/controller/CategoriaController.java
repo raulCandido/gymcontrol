@@ -2,8 +2,8 @@ package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Categoria;
-import br.com.gym.gymcontrol.model.dto.CategoriaDto;
-import br.com.gym.gymcontrol.model.form.CategoriaForm;
+import br.com.gym.gymcontrol.model.dto.response.CategoriaResponseDto;
+import br.com.gym.gymcontrol.model.dto.request.CategoriaRequestDto;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +23,17 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDto>> getCategorias() {
+    public ResponseEntity<List<CategoriaResponseDto>> getCategorias() {
         List<Categoria> categorias = categoriaService.buscarCategorias();
-        return ResponseEntity.ok(categorias.stream().map(CategoriaDto::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(categorias.stream().map(CategoriaResponseDto::new).collect(Collectors.toList()));
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> cadastrarCategoria(@RequestBody @Valid CategoriaForm categoriaForm,
-                                                           UriComponentsBuilder builder) {
-        Categoria categoria = categoriaService.inserirCategoria(categoriaForm.converterParaCategoria());
+    public ResponseEntity<CategoriaResponseDto> cadastrarCategoria(@RequestBody @Valid CategoriaRequestDto categoriaRequestDto,
+                                                                   UriComponentsBuilder builder) {
+        Categoria categoria = categoriaService.inserirCategoria(categoriaRequestDto.converterParaCategoria());
         URI uri = builder.path("/{id}").buildAndExpand(categoria.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
+        return ResponseEntity.created(uri).body(new CategoriaResponseDto(categoria));
     }
 
     @PutMapping

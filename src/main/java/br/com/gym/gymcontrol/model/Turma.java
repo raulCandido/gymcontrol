@@ -26,8 +26,8 @@ public class Turma implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idturma")
-    private Long id;
+    @Column(name = "turma_id")
+    private Long idTurma;
 
     private String nome;
 
@@ -37,9 +37,6 @@ public class Turma implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Professor professor;
-
-    @ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
-    private List<Aluno> alunos;
 
     @NotNull
     private LocalTime horarioTurma;
@@ -54,8 +51,8 @@ public class Turma implements Serializable {
         this.professor = professor;
     }
 
-    public Turma(Long id, String nome, Categoria categoria) {
-        this.id = id;
+    public Turma(Long idTurma, String nome, Categoria categoria) {
+        this.idTurma = idTurma;
         this.nome = nome;
         this.categoria = categoria;
     }

@@ -1,4 +1,4 @@
-package br.com.gym.gymcontrol.model.dto;
+package br.com.gym.gymcontrol.model.dto.response;
 
 import br.com.gym.gymcontrol.model.Turma;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,13 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TurmaDto {
+public class TurmaResponseDto {
 
     @JsonProperty("id_turma")
     private Long idTurma;
@@ -24,10 +23,10 @@ public class TurmaDto {
     private LocalTime horarioTurma;
 
     @JsonProperty("turma_categoria")
-    private CategoriaDto categoria;
+    private CategoriaResponseDto categoria;
 
-    public TurmaDto(Turma turma) {
-        this.idTurma = turma.getId();
+    public TurmaResponseDto(Turma turma) {
+        this.idTurma = turma.getIdTurma();
         this.nome = turma.getNome();
         this.horarioTurma = turma.getHorarioTurma();
         this.categoria = turma.getCategoria().toDto();

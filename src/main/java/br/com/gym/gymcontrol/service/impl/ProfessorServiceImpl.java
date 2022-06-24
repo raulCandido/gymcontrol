@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.service.impl;
 
 import br.com.gym.gymcontrol.model.Professor;
-import br.com.gym.gymcontrol.model.dto.ProfessorDto;
+import br.com.gym.gymcontrol.model.dto.response.ProfessorReponseDto;
 import br.com.gym.gymcontrol.repository.ProfessorRepository;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +34,9 @@ public class ProfessorServiceImpl implements ProfessorService {
         return opt.orElseThrow(() -> new ResourceNotFoundException("Professor não encontrado"));
     }
 
-    public List<ProfessorDto> buscarProfessoresPorCategoria(Long id) {
+    public List<ProfessorReponseDto> buscarProfessoresPorCategoria(Long id) {
 
-        List<ProfessorDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
+        List<ProfessorReponseDto> professoresPorCategorias = professorRepository.findProfessoresPorCategorias(id);
         verificarListaVazia(professoresPorCategorias);
         return professoresPorCategorias;
     }

@@ -2,8 +2,8 @@ package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Categoria;
 import br.com.gym.gymcontrol.model.Professor;
-import br.com.gym.gymcontrol.model.dto.ProfessorDto;
-import br.com.gym.gymcontrol.model.form.ProfessorForm;
+import br.com.gym.gymcontrol.model.dto.response.ProfessorReponseDto;
+import br.com.gym.gymcontrol.model.dto.request.ProfessorRequestDto;
 import br.com.gym.gymcontrol.model.mapper.ProfessorMapper;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
@@ -35,20 +35,20 @@ public class ProfessorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProfessorDto>> getProfessores() {
+    public ResponseEntity<List<ProfessorReponseDto>> getProfessores() {
         List<Professor> profs = professorService.bucarProfessores();
 
-        List<ProfessorDto> professorDto = profs.stream().map(professorMapper::modelToDTO).collect(Collectors.toList());
-        return ResponseEntity.ok(professorDto);
+        List<ProfessorReponseDto> professorReponseDto = profs.stream().map(professorMapper::modelToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(professorReponseDto);
     }
 
     @PostMapping
-    public ResponseEntity<ProfessorDto> cadastrarProfessor(@RequestBody @Valid ProfessorForm professorForm, UriComponentsBuilder builder) {
+    public ResponseEntity<ProfessorReponseDto> cadastrarProfessor(@RequestBody @Valid ProfessorRequestDto professorRequestDto, UriComponentsBuilder builder) {
 
-        List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
+        List<Categoria> categorias = categoriaService.buscarCategoriaPorIds(professorRequestDto.getIdCategorias());
         Professor professor = Professor.builder()
-                .nome(professorForm.getNome())
-                .apelido(professorForm.getApelido())
+                .nome(professorRequestDto.getNome())
+                .apelido(professorRequestDto.getApelido())
                 .categorias(categorias).build();
 
         Professor persistProfessor = professorService.inserirProfessor(professor);
@@ -58,13 +58,13 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> editProfessores(@Valid @RequestBody ProfessorForm professorForm, @PathVariable Long id) {
+    public ResponseEntity<Void> editProfessores(@Valid @RequestBody ProfessorRequestDto professorRequestDto, @PathVariable Long id) {
         Professor professor = professorService.buscarProfessorPorId(id);
 
-        List<Categoria> idCategoriaList = categoriaService.buscarCategoriaPorIds(professorForm.getIdCategorias());
+        List<Categoria> idCategoriaList = categoriaService.buscarCategoriaPorIds(professorRequestDto.getIdCategorias());
 
-        professor.setNome(professorForm.getNome());
-        professor.setApelido(professorForm.getApelido());
+        professor.setNome(professorRequestDto.getNome());
+        professor.setApelido(professorRequestDto.getApelido());
         professor.setCategorias(idCategoriaList);
 
         professorService.inserirProfessor(professor);
