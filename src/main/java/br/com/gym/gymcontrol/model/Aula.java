@@ -1,6 +1,7 @@
 package br.com.gym.gymcontrol.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,8 +35,10 @@ public class Aula implements Serializable {
     @NotNull(message = "Data da aula obrigatória")
     private LocalDate data;
 
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "aula")
-    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "aula_aluno",
+            joinColumns = {@JoinColumn(name = "idaula")},
+            inverseJoinColumns = {@JoinColumn(name = "aluno_id")})
     private List<Aluno> alunosPresentes;
 
 }

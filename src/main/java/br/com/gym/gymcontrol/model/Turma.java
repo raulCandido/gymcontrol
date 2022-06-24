@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -35,7 +36,6 @@ public class Turma implements Serializable {
     private Categoria categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
     private Professor professor;
 
     @ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)

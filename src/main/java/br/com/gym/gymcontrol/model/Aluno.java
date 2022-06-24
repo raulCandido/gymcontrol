@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -25,12 +26,10 @@ public class Aluno implements Serializable {
     private String apelido;
     private LocalDate dataNascimento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Aula aula;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "aluno_turma", joinColumns = {@JoinColumn(name = "aluno_id")}, inverseJoinColumns = {
             @JoinColumn(name = "turma_id")})
+    @JsonBackReference
     private List<Turma> turmas;
 
     public Aluno(String nome, String apelido, LocalDate dataNascimento, List<Turma> turmas) {

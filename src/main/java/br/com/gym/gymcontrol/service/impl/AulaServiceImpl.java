@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class AulaServiceImpl implements AulaService {
 
-
     private final AulaRepository aulaRepository;
 
     private final AlunoService alunoService;
@@ -69,13 +68,12 @@ public class AulaServiceImpl implements AulaService {
 
     @Override
     public Aula montarAulaParaPersistir(AulaDto aulaDto) {
-
         var alunos = alunoService.buscarAlunosPorTurma(aulaDto.idTurma());
         var alunosPresentesMatriculados = alunos.stream().filter(a -> aulaDto.alunosPresentes().contains(a.getId())).collect(Collectors.toList());
-
-        var aula = Aula.builder().alunosPresentes(alunosPresentesMatriculados).turma(turmaService.buscarTurmaPorId(aulaDto.idTurma())).data(aulaDto.dataAula()).build();
-        aulaRepository.save(aula);
-
+        var aula = Aula.builder()
+                .alunosPresentes(alunosPresentesMatriculados)
+                .turma(turmaService.buscarTurmaPorId(aulaDto.idTurma()))
+                .data(aulaDto.dataAula()).build();
         return aulaRepository.save(aula);
     }
 }
