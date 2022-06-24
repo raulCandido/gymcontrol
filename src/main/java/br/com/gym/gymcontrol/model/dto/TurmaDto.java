@@ -6,22 +6,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class TurmaDto {
 
-    private Long id;
+    @JsonProperty("id_turma")
+    private Long idTurma;
 
     @JsonProperty("nome_turma")
     private String nome;
 
-    @JsonProperty("categoria")
+    @JsonProperty("horario_turma")
+    private LocalTime horarioTurma;
+
+    @JsonProperty("turma_categoria")
     private CategoriaDto categoria;
 
     public TurmaDto(Turma turma) {
-        this.id = turma.getId();
+        this.idTurma = turma.getId();
         this.nome = turma.getNome();
+        this.horarioTurma = turma.getHorarioTurma();
         this.categoria = turma.getCategoria().toDto();
     }
 

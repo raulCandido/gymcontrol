@@ -45,6 +45,7 @@ public class TurmaServiceImpl implements TurmaService {
 
         Turma turma = Turma.builder().nome(turmaForm.getNome())
                 .categoria(categoria)
+                .horarioTurma(turmaForm.getHorarioTurma())
                 .build();
         return turmaRepository.save(turma);
     }
@@ -93,7 +94,6 @@ public class TurmaServiceImpl implements TurmaService {
         if (turmas.isEmpty()) {
             throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
         }
-
         return turmas;
     }
 

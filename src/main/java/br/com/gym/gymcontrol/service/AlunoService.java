@@ -14,4 +14,6 @@ public interface AlunoService {
     void buscarDeletarAluno(Long id);
     Aluno montarAlunoParaPersistir(AlunoNewDto alunoNewDto);
 
+    List<Aluno> buscarAlunosPorTurma(Long idTurma);
+
 }

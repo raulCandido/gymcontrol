@@ -1,5 +1,6 @@
 package br.com.gym.gymcontrol.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,15 +19,15 @@ public class Aluno implements Serializable {
 
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idpessoa")
-    protected Long id;
+    @Column(name = "aluno_id")
+    private Long id;
+    private String nome;
+    private String apelido;
+    private LocalDate dataNascimento;
 
-    protected String nome;
-
-    protected String apelido;
-
-    protected LocalDate dataNascimento;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Aula aula;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "aluno_turma", joinColumns = {@JoinColumn(name = "aluno_id")}, inverseJoinColumns = {
             @JoinColumn(name = "turma_id")})

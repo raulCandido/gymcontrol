@@ -1,21 +1,21 @@
 package br.com.gym.gymcontrol.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class Aula implements Serializable {
 
     /**
@@ -34,7 +34,8 @@ public class Aula implements Serializable {
     @NotNull(message = "Data da aula obrigatória")
     private LocalDate data;
 
-    @NotNull(message = "Horario da aula obrigatório")
-    private Time horario;
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, mappedBy = "aula")
+    @JsonBackReference
+    private List<Aluno> alunosPresentes;
 
 }

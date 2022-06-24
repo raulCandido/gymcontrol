@@ -50,7 +50,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         return opt.orElseThrow(() -> new ResourceNotFoundException("Nenhuma categoria encontrada"));
     }
 
-    public Categoria buscarReferencia(Long id) {
+    public Categoria buscarReferencia(Long id) throws BusinessException {
         Categoria categoria = categoriaRepository.getById(id);
 
         if (categoria == null) {

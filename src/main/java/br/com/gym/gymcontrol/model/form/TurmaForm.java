@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -19,5 +20,9 @@ public class TurmaForm {
     @NotNull(message = "Categoria obrigatória")
     @JsonProperty("id_categoria")
     private Long idCategoria;
+
+    @NotNull(message = "Horario da turma é obrigatório")
+    @JsonProperty("horario_turma")
+    private LocalTime horarioTurma;
 
 }

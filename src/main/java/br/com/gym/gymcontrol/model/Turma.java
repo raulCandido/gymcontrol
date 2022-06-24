@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -38,6 +40,9 @@ public class Turma implements Serializable {
 
     @ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
     private List<Aluno> alunos;
+
+    @NotNull
+    private LocalTime horarioTurma;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;

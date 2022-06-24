@@ -4,6 +4,7 @@ import br.com.gym.gymcontrol.error.BusinessError;
 import br.com.gym.gymcontrol.exception.BusinessException;
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Turma;
+import br.com.gym.gymcontrol.model.dto.AulaDto;
 import br.com.gym.gymcontrol.model.form.AlunoNewDto;
 import br.com.gym.gymcontrol.model.mapper.AlunoMapper;
 import br.com.gym.gymcontrol.repository.AlunoRepository;
@@ -52,7 +53,7 @@ public class AlunoServiceImpl implements AlunoService {
     public Aluno montarAlunoParaPersistir(AlunoNewDto alunoNewDto) {
         List<Turma> turmas = turmaService.buscarTurmasPorIds(alunoNewDto.idTurmas());
 
-        if(turmas.size() != alunoNewDto.idTurmas().size()){
+        if (turmas.size() != alunoNewDto.idTurmas().size()) {
             throw new BusinessException(BusinessError.GENERAL_ERROR);
         }
 
@@ -60,8 +61,15 @@ public class AlunoServiceImpl implements AlunoService {
         aluno.setTurmas(turmas);
         return inserirAluno(aluno);
     }
-    
-    
+
+    @Override
+    public List<Aluno> buscarAlunosPorTurma(Long idTurma) {
+        List<Aluno> alunos = alunoRepository.buscarAlunosPorTurma(idTurma);
+        if(alunos.isEmpty()){
+            throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
+        }
+        return alunos;
+    }
 
     @Override
     public Aluno buscarAlunoPorId(Long id) {
@@ -88,5 +96,6 @@ public class AlunoServiceImpl implements AlunoService {
         Aluno aluno = buscarAlunoPorId(id);
         deletarAluno(aluno);
     }
+
 
 }
