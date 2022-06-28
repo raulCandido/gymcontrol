@@ -1,8 +1,9 @@
 package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Aluno;
-import br.com.gym.gymcontrol.model.dto.response.AlunoResponseDto;
 import br.com.gym.gymcontrol.model.dto.request.AlunoRequestDto;
+import br.com.gym.gymcontrol.model.dto.response.AlunoResponseDto;
+import br.com.gym.gymcontrol.model.mapper.AlunoMapper;
 import br.com.gym.gymcontrol.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +20,18 @@ import java.util.stream.Collectors;
 public class AlunoController {
     private final AlunoService alunoService;
 
+    private final AlunoMapper alunoMapper;
+
     @Autowired
-    public AlunoController(AlunoService alunoService) {
+    public AlunoController(AlunoService alunoService, AlunoMapper alunoMapper) {
         this.alunoService = alunoService;
+        this.alunoMapper = alunoMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<AlunoResponseDto>> pegarAlunos() {
         List<Aluno> alunos = alunoService.buscarAlunos();
-        List<AlunoResponseDto> alunosDto = alunos.stream().map(AlunoResponseDto::new).collect(Collectors.toList());
+        List<AlunoResponseDto> alunosDto = alunos.stream().map(alunoMapper::modelToResponseDto).collect(Collectors.toList());
         return ResponseEntity.ok(alunosDto);
     }
 
@@ -35,7 +39,7 @@ public class AlunoController {
     public ResponseEntity<AlunoResponseDto> cadastrarAlunos(@RequestBody @Valid AlunoRequestDto alunoRequestDto, UriComponentsBuilder builder) {
         Aluno aluno = alunoService.montarAlunoParaPersistir(alunoRequestDto);
         URI uri = builder.path("/{id}").buildAndExpand(aluno.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AlunoResponseDto(aluno));
+        return ResponseEntity.created(uri).body(alunoMapper.modelToResponseDto(aluno));
     }
 
     @PutMapping("/{id}")

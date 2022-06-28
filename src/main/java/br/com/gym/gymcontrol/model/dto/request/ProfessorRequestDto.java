@@ -1,7 +1,5 @@
 package br.com.gym.gymcontrol.model.dto.request;
 
-import lombok.Data;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;

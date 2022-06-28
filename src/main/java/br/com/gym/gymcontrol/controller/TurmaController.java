@@ -2,8 +2,9 @@ package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Turma;
 import br.com.gym.gymcontrol.model.dto.request.TurmaComProfessorVinculadoDto;
-import br.com.gym.gymcontrol.model.dto.response.TurmaResponseDto;
 import br.com.gym.gymcontrol.model.dto.request.TurmaRequestDto;
+import br.com.gym.gymcontrol.model.dto.response.TurmaResponseDto;
+import br.com.gym.gymcontrol.model.mapper.TurmaMapper;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import br.com.gym.gymcontrol.service.ProfessorService;
 import br.com.gym.gymcontrol.service.TurmaService;
@@ -27,18 +28,21 @@ public class TurmaController {
 
     private final CategoriaService categoriaService;
 
+    private final TurmaMapper turmaMapper;
+
     @Autowired
-    public TurmaController(TurmaService turmaService, ProfessorService professorService, CategoriaService categoriaService) {
+    public TurmaController(TurmaService turmaService, ProfessorService professorService, CategoriaService categoriaService, TurmaMapper turmaMapper) {
         this.turmaService = turmaService;
         this.professorService = professorService;
         this.categoriaService = categoriaService;
+        this.turmaMapper = turmaMapper;
     }
 
     @PostMapping
     public ResponseEntity<TurmaResponseDto> persistirTurma(@RequestBody @Valid TurmaRequestDto turmaRequestDto, UriComponentsBuilder builder) {
         Turma turma = turmaService.cadastrarTurma(turmaRequestDto);
         URI uri = builder.path("/{id}").buildAndExpand(turma.getIdTurma()).toUri();
-        return ResponseEntity.created(uri).body(new TurmaResponseDto(turma));
+        return ResponseEntity.created(uri).body(turmaMapper.modelToResponseDto(turma));
 
     }
 
@@ -51,7 +55,7 @@ public class TurmaController {
     @GetMapping
     public ResponseEntity<List<TurmaResponseDto>> pegarTurmas() {
         List<Turma> turmas = turmaService.getTurmas();
-        List<TurmaResponseDto> turmasDto = turmas.stream().map(TurmaResponseDto::new).collect(Collectors.toList());
+        List<TurmaResponseDto> turmasDto = turmas.stream().map(turmaMapper::modelToResponseDto).collect(Collectors.toList());
         return ResponseEntity.ok(turmasDto);
     }
 

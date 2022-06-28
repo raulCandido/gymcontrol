@@ -4,4 +4,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record TurmaComProfessorVinculadoDto(@JsonProperty("id_turma") Long idturma,
                                             @JsonProperty("nome_turma") String nomeTurma,
-                                            @JsonProperty("nome_professor") String nomeProfessor) {}
+                                            @JsonProperty("nome_professor") String nomeProfessor) {
+}

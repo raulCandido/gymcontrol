@@ -1,8 +1,5 @@
 package br.com.gym.gymcontrol.model;
 
-import br.com.gym.gymcontrol.model.dto.response.AlunoResponseDto;
-import br.com.gym.gymcontrol.model.dto.response.AulaResponseDto;
-import br.com.gym.gymcontrol.model.dto.response.TurmaResponseDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -43,7 +39,4 @@ public class Aula implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "aluno_id")})
     private List<Aluno> alunosPresentes;
 
-    public AulaResponseDto toDto() {
-        return new AulaResponseDto(id, new TurmaResponseDto(turma), data, alunosPresentes.stream().map(a -> new AlunoResponseDto(a)).collect(Collectors.toList()));
-    }
 }

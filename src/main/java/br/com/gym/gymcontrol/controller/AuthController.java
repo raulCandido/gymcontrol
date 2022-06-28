@@ -1,7 +1,7 @@
 package br.com.gym.gymcontrol.controller;
 
+import br.com.gym.gymcontrol.model.dto.request.AuthRequestDto;
 import br.com.gym.gymcontrol.model.dto.request.TokenRequestDto;
-import br.com.gym.gymcontrol.model.dto.request.LoginRequestDto;
 import br.com.gym.gymcontrol.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,22 +20,25 @@ import javax.validation.Valid;
 @RestController
 public class AuthController {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
+
     @PostMapping
-    public ResponseEntity<TokenRequestDto> autenticar(@RequestBody @Valid LoginRequestDto loginRequestDto) {
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(loginRequestDto.email(), loginRequestDto.senha());
+    public ResponseEntity<TokenRequestDto> auth(@RequestBody @Valid AuthRequestDto authRequestDto) {
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authRequestDto.email(), authRequestDto.senha());
 
         try {
             Authentication authenticate = authenticationManager.authenticate(auth);
-
             String token = tokenService.gerarToken(authenticate);
-
             return ResponseEntity.ok(new TokenRequestDto(token, "Bearer"));
+
         } catch (AuthenticationException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

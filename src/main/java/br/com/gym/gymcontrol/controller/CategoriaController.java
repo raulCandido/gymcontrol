@@ -2,8 +2,9 @@ package br.com.gym.gymcontrol.controller;
 
 import br.com.gym.gymcontrol.model.Aluno;
 import br.com.gym.gymcontrol.model.Categoria;
-import br.com.gym.gymcontrol.model.dto.response.CategoriaResponseDto;
 import br.com.gym.gymcontrol.model.dto.request.CategoriaRequestDto;
+import br.com.gym.gymcontrol.model.dto.response.CategoriaResponseDto;
+import br.com.gym.gymcontrol.model.mapper.CategoriaMapper;
 import br.com.gym.gymcontrol.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +20,28 @@ import java.util.stream.Collectors;
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @Autowired
     private CategoriaService categoriaService;
+
+    private CategoriaMapper categoriaMapper;
+
+    @Autowired
+    public CategoriaController(CategoriaService categoriaService, CategoriaMapper categoriaMapper) {
+        this.categoriaService = categoriaService;
+        this.categoriaMapper = categoriaMapper;
+    }
 
     @GetMapping
     public ResponseEntity<List<CategoriaResponseDto>> getCategorias() {
         List<Categoria> categorias = categoriaService.buscarCategorias();
-        return ResponseEntity.ok(categorias.stream().map(CategoriaResponseDto::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(categorias.stream().map(categoriaMapper::modelToResponseDto).collect(Collectors.toList()));
     }
 
     @PostMapping
     public ResponseEntity<CategoriaResponseDto> cadastrarCategoria(@RequestBody @Valid CategoriaRequestDto categoriaRequestDto,
                                                                    UriComponentsBuilder builder) {
-        Categoria categoria = categoriaService.inserirCategoria(categoriaRequestDto.converterParaCategoria());
+        Categoria categoria = categoriaService.inserirCategoria(categoriaMapper.requestDtoToModel(categoriaRequestDto));
         URI uri = builder.path("/{id}").buildAndExpand(categoria.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoriaResponseDto(categoria));
+        return ResponseEntity.created(uri).body(categoriaMapper.modelToResponseDto(categoria));
     }
 
     @PutMapping

@@ -39,6 +39,6 @@ public class Categoria implements Serializable {
     }
 
     public CategoriaResponseDto toDto() {
-        return new CategoriaResponseDto(this);
+        return new CategoriaResponseDto(this.id, this.nomeCategoria);
     }
 }

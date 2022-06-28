@@ -64,7 +64,7 @@ public class AlunoServiceImpl implements AlunoService {
     @Override
     public List<Aluno> buscarAlunosPorTurma(Long idTurma) {
         List<Aluno> alunos = alunoRepository.buscarAlunosPorTurma(idTurma);
-        if(alunos.isEmpty()){
+        if (alunos.isEmpty()) {
             throw new BusinessException(BusinessError.RESOURCE_NOT_FOUND);
         }
         return alunos;

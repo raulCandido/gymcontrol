@@ -5,7 +5,8 @@ import br.com.gym.gymcontrol.model.dto.response.UserRequestDto;
 
 public interface UserService {
 
-    void findAndCreateUserWithTeacher(UserRequestDto user);
-    void insertUser(Usuario usuario);
+    Usuario verifyAndCreateUser(UserRequestDto userRequestDto);
+    Usuario findUserById(Long id);
+
 
 }

@@ -41,11 +41,11 @@ public class TurmaServiceImpl implements TurmaService {
     @Transactional
     public Turma cadastrarTurma(TurmaRequestDto turmaRequestDto) {
 
-        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.getIdCategoria());
+        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.idCategoria());
 
-        Turma turma = Turma.builder().nome(turmaRequestDto.getNome())
+        Turma turma = Turma.builder().nome(turmaRequestDto.nome())
                 .categoria(categoria)
-                .horarioTurma(turmaRequestDto.getHorarioTurma())
+                .horarioTurma(turmaRequestDto.horarioTurma())
                 .build();
         return turmaRepository.save(turma);
     }
@@ -73,9 +73,9 @@ public class TurmaServiceImpl implements TurmaService {
     public void buscarEditarTurma(Long id, @Valid TurmaRequestDto turmaRequestDto) {
         Turma turma = buscarTurmaPorId(id);
 
-        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.getIdCategoria());
+        Categoria categoria = categoriaService.buscarReferencia(turmaRequestDto.idCategoria());
 
-        turma.setNome(turmaRequestDto.getNome());
+        turma.setNome(turmaRequestDto.nome());
         turma.setCategoria(categoria);
         inserir(turma);
 
@@ -121,6 +121,7 @@ public class TurmaServiceImpl implements TurmaService {
 
         return new TurmaComProfessorVinculadoDto(turma.getIdTurma(), turma.getNome(), professor.getNome());
     }
+
     private boolean verifyTeacherCategory(Professor professor, Turma turma) {
         return professor.getCategorias().contains(turma.getCategoria());
     }
