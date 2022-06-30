@@ -42,7 +42,6 @@ public class AuthController {
         } catch (AuthenticationException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
-
         }
 
     }

@@ -22,13 +22,11 @@ import java.util.stream.Collectors;
 public class AulaController {
 
     private AulaService aulaService;
-    private AlunoService alunoService;
     private AulaMapper aulaMapper;
 
     @Autowired
-    public AulaController(AulaService aulaService, AlunoService alunoService, AulaMapper aulaMapper) {
+    public AulaController(AulaService aulaService, AulaMapper aulaMapper) {
         this.aulaService = aulaService;
-        this.alunoService = alunoService;
         this.aulaMapper = aulaMapper;
     }
 
@@ -45,13 +43,4 @@ public class AulaController {
         return ResponseEntity.ok(aulaMapper.modelToResponseDto(aula));
     }
 
-    @PutMapping({"/{id}"})
-    public ResponseEntity<Void> editarAula(@RequestBody @Valid AlunoRequestDto alunoRequestDto, @PathVariable Long id) {
-        return null;
-    }
-
-    @DeleteMapping
-    public ResponseEntity<Aluno> deletAlunos() {
-        return null;
-    }
 }
