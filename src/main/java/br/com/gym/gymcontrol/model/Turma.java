@@ -1,31 +1,21 @@
 package br.com.gym.gymcontrol.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Data
+@Getter
+@Setter
+@Builder
 public class Turma implements Serializable {
 
     /**
@@ -35,8 +25,8 @@ public class Turma implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idturma")
-    private Long id;
+    @Column(name = "turma_id")
+    private Long idTurma;
 
     private String nome;
 
@@ -45,20 +35,24 @@ public class Turma implements Serializable {
     private Categoria categoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
     private Professor professor;
 
-    @ManyToMany(mappedBy = "turmas", fetch = FetchType.LAZY)
-    private List<Aluno> alunos;
+    @NotNull
+    private LocalTime horarioTurma;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "turma")
     private List<Aula> aulas;
 
     public Turma(String nome, Categoria categoria, Professor professor) {
-	super();
-	this.nome = nome;
-	this.categoria = categoria;
-	this.professor = professor;
+        super();
+        this.nome = nome;
+        this.categoria = categoria;
+        this.professor = professor;
     }
 
+    public Turma(Long idTurma, String nome, Categoria categoria) {
+        this.idTurma = idTurma;
+        this.nome = nome;
+        this.categoria = categoria;
+    }
 }

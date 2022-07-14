@@ -1,28 +1,20 @@
 package br.com.gym.gymcontrol.model;
 
-import java.io.Serializable;
-import java.sql.Time;
-import java.time.LocalDate;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class Aula implements Serializable {
 
     /**
@@ -41,7 +33,10 @@ public class Aula implements Serializable {
     @NotNull(message = "Data da aula obrigatória")
     private LocalDate data;
 
-    @NotNull(message = "Horario da aula obrigatório")
-    private Time horario;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "aula_aluno",
+            joinColumns = {@JoinColumn(name = "idaula")},
+            inverseJoinColumns = {@JoinColumn(name = "aluno_id")})
+    private List<Aluno> alunosPresentes;
 
 }

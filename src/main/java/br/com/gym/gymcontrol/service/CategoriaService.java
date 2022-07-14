@@ -1,8 +1,8 @@
 package br.com.gym.gymcontrol.service;
 
-import java.util.List;
-
 import br.com.gym.gymcontrol.model.Categoria;
+
+import java.util.List;
 
 public interface CategoriaService {
 
@@ -13,7 +13,9 @@ public interface CategoriaService {
     List<Categoria> buscarCategoriaPorIds(List<Long> ids);
 
     Categoria buscarCategoriaPorId(Long id);
-    
+
+    Categoria buscarReferencia(Long id);
+
     void deletarCategoriaPorId(Long id);
 
 }

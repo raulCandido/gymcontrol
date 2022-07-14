@@ -1,10 +1,10 @@
 package br.com.gym.gymcontrol.repository;
 
-import java.util.List;
+import br.com.gym.gymcontrol.model.dto.response.ProfessorReponseDto;
 
-import br.com.gym.gymcontrol.model.dto.ProfessorDto;
+import java.util.List;
 
 public interface ProfessorRepositoryCustom {
 
-    List<ProfessorDto> findProfessoresPorCategorias(Long id);
+    List<ProfessorReponseDto> findProfessoresPorCategorias(Long id);
 }

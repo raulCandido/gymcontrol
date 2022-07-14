@@ -1,22 +1,15 @@
 package br.com.gym.gymcontrol.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import br.com.gym.gymcontrol.model.dto.response.CategoriaResponseDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -42,7 +35,10 @@ public class Categoria implements Serializable {
     private List<Turma> turmas;
 
     public Categoria(String nomeCategoria) {
-	this.nomeCategoria = nomeCategoria;
+        this.nomeCategoria = nomeCategoria;
     }
 
+    public CategoriaResponseDto toDto() {
+        return new CategoriaResponseDto(this.id, this.nomeCategoria);
+    }
 }

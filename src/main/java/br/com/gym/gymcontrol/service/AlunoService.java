@@ -1,12 +1,11 @@
 package br.com.gym.gymcontrol.service;
 
+import br.com.gym.gymcontrol.model.Aluno;
+import br.com.gym.gymcontrol.model.dto.request.AlunoRequestDto;
+
 import java.util.List;
 
-import br.com.gym.gymcontrol.model.Aluno;
-import br.com.gym.gymcontrol.model.form.AlunoForm;
-
 public interface AlunoService {
-    
     List<Aluno> buscarAlunos();
 
     Aluno inserirAluno(Aluno aluno);
@@ -15,10 +14,12 @@ public interface AlunoService {
 
     void deletarAluno(Aluno aluno);
 
-    void buscarEditarAluno(Long id, AlunoForm alunoForm);
+    void buscarEditarAluno(Long id, AlunoRequestDto alunoRequestDto);
 
     void buscarDeletarAluno(Long id);
 
-    Aluno montarAlunoParaPersistir(AlunoForm alunoForm);
+    Aluno montarAlunoParaPersistir(AlunoRequestDto alunoRequestDto);
+
+    List<Aluno> buscarAlunosPorTurma(Long idTurma);
 
 }
