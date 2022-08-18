@@ -40,7 +40,6 @@ public class AuthController {
             return ResponseEntity.ok(new TokenRequestDto(token, "Bearer"));
 
         } catch (AuthenticationException e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
 

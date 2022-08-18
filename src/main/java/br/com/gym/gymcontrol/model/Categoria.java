@@ -2,10 +2,7 @@ package br.com.gym.gymcontrol.model;
 
 import br.com.gym.gymcontrol.model.dto.response.CategoriaResponseDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Data
+@Builder
 public class Categoria implements Serializable {
 
     /**
