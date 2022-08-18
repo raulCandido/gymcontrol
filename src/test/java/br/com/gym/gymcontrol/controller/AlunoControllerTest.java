@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +31,7 @@ class AlunoControllerTest {
 
     private AlunoMapper alunoMapper = Mappers.getMapper(AlunoMapper.class);
 
+    @InjectMocks
     private AlunoController alunoController;
 
     @BeforeEach
@@ -43,8 +46,8 @@ class AlunoControllerTest {
         Mockito.when(alunoService.buscarAlunos()).thenReturn(Arrays.asList(aluno));
         ResponseEntity<List<AlunoResponseDto>> listResponseEntity = alunoController.pegarAlunos();
 
-        Assertions.assertEquals(200, listResponseEntity.getStatusCode().value());
-        Assertions.assertEquals("Raul", listResponseEntity.getBody().get(0).nome());
+        assertEquals(200, listResponseEntity.getStatusCode().value());
+        assertEquals("Raul", listResponseEntity.getBody().get(0).nome());
     }
 
     @Test
@@ -53,8 +56,8 @@ class AlunoControllerTest {
         Mockito.when(alunoService.montarAlunoParaPersistir(any())).thenReturn(aluno);
         ResponseEntity<AlunoResponseDto> alunoResponseDtoResponseEntity = alunoController.cadastrarAlunos(any(), UriComponentsBuilder.newInstance());
 
-        Assertions.assertEquals(201, alunoResponseDtoResponseEntity.getStatusCode().value());
-        Assertions.assertEquals("Raul", alunoResponseDtoResponseEntity.getBody().nome());
+        assertEquals(201, alunoResponseDtoResponseEntity.getStatusCode().value());
+        assertEquals("Raul", alunoResponseDtoResponseEntity.getBody().nome());
 
     }
 
@@ -66,7 +69,7 @@ class AlunoControllerTest {
         ResponseEntity<Void> response = alunoController.editarAlunos(any(), any());
         Mockito.verify(alunoService, Mockito.times(1)).buscarEditarAluno(any(), any());
 
-        Assertions.assertEquals(204, response.getStatusCode().value());
+        assertEquals(204, response.getStatusCode().value());
     }
 
     @Test
@@ -74,6 +77,6 @@ class AlunoControllerTest {
         Mockito.doNothing().when(alunoService).buscarDeletarAluno(any());
         ResponseEntity<Void> response = alunoController.deletarAlunos(any());
         Mockito.verify(alunoService, Mockito.times(1)).buscarDeletarAluno(any());
-        Assertions.assertEquals(204, response.getStatusCode().value());
+        assertEquals(204, response.getStatusCode().value());
     }
 }
